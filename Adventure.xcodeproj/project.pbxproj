@@ -1,0 +1,813 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1C1EE8EE1CD1BC400034B1A4 /* KUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1EE8ED1CD1BC400034B1A4 /* KUser.swift */; };
+		1C55EE9B1CD3B5020014D471 /* KEquipment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C55EE9A1CD3B5020014D471 /* KEquipment.swift */; };
+		1C55EE9D1CD3C71B0014D471 /* KWeapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C55EE9C1CD3C71B0014D471 /* KWeapon.swift */; };
+		1C55EE9F1CD3D2260014D471 /* KArmor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C55EE9E1CD3D2260014D471 /* KArmor.swift */; };
+		1C55EEA11CD445000014D471 /* KHuman.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C55EEA01CD445000014D471 /* KHuman.swift */; };
+		1C55EEA31CD45B540014D471 /* KPoisonCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C55EEA21CD45B540014D471 /* KPoisonCondition.swift */; };
+		1C55EEA51CD460900014D471 /* TheCombatEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C55EEA41CD460900014D471 /* TheCombatEngine.swift */; };
+		1C55EEA71CD47FE70014D471 /* KSalesMan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C55EEA61CD47FE70014D471 /* KSalesMan.swift */; };
+		1C55EEAF1CD4869C0014D471 /* KCorpse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C55EEAE1CD4869C0014D471 /* KCorpse.swift */; };
+		1C5ECDDB1CCE503E005839EF /* KSkillAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5ECDDA1CCE503E005839EF /* KSkillAction.swift */; };
+		1C5ECDDF1CCED4D5005839EF /* DamageEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5ECDDE1CCED4D5005839EF /* DamageEnums.swift */; };
+		1C5ECDE11CCEF631005839EF /* 日志.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1C5ECDE01CCEF631005839EF /* 日志.txt */; };
+		1C5ECDE31CCEF830005839EF /* KCombatInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5ECDE21CCEF830005839EF /* KCombatInfo.swift */; };
+		1C5ECDE51CCF0C75005839EF /* KCreature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5ECDE41CCF0C75005839EF /* KCreature.swift */; };
+		1C5ECDE71CCF0D4F005839EF /* MiscEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5ECDE61CCF0D4F005839EF /* MiscEnums.swift */; };
+		1C5ECDE91CCF0FCD005839EF /* KSkill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5ECDE81CCF0FCD005839EF /* KSkill.swift */; };
+		1C5ECDEB1CCF39F4005839EF /* KCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5ECDEA1CCF39F4005839EF /* KCondition.swift */; };
+		1C5ECDEF1CD01F58005839EF /* LinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5ECDEE1CD01F58005839EF /* LinkedList.swift */; };
+		1C5ECDF11CD0BA94005839EF /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5ECDF01CD0BA94005839EF /* GlobalFunctions.swift */; };
+		1C5ECDF41CD0BE49005839EF /* KBusyCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5ECDF31CD0BE49005839EF /* KBusyCondition.swift */; };
+		1C5ECDF61CD0DF45005839EF /* TheRoomEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5ECDF51CD0DF45005839EF /* TheRoomEngine.swift */; };
+		1C5ECDF81CD0DFA6005839EF /* KRoomDescribe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5ECDF71CD0DFA6005839EF /* KRoomDescribe.swift */; };
+		1C5ECDFA1CD0F49C005839EF /* KRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5ECDF91CD0F49C005839EF /* KRoom.swift */; };
+		1C5ECDFC1CD0F515005839EF /* KNPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5ECDFB1CD0F515005839EF /* KNPC.swift */; };
+		1C5ECDFE1CD0F540005839EF /* KItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5ECDFD1CD0F540005839EF /* KItem.swift */; };
+		1C5F3E541CCC3AC600FFBB70 /* TheWorld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5F3E531CCC3AC600FFBB70 /* TheWorld.swift */; };
+		1C5F3E581CCC402300FFBB70 /* KObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5F3E571CCC402300FFBB70 /* KObject.swift */; };
+		1C5F3E601CCC7A0700FFBB70 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5F3E5F1CCC7A0700FFBB70 /* Protocols.swift */; };
+		1C5F3E651CCD0C2100FFBB70 /* KColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5F3E641CCD0C2100FFBB70 /* KColors.swift */; };
+		1C5F3E671CCD0E8B00FFBB70 /* KEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5F3E661CCD0E8B00FFBB70 /* KEntity.swift */; };
+		1C71C0EA1CD99FC70009C97C /* KCui_Death.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C71C0E91CD99FC70009C97C /* KCui_Death.swift */; };
+		1C71C0EC1CD9A1020009C97C /* KSSword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C71C0EB1CD9A1020009C97C /* KSSword.swift */; };
+		1C71C0EF1CD9A1E90009C97C /* KDeathRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C71C0EE1CD9A1E90009C97C /* KDeathRoom.swift */; };
+		1C8E679D1CE5650200F6F6DB /* WorldMessageBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E679C1CE5650200F6F6DB /* WorldMessageBoardView.swift */; };
+		1C8E67C81CE57F8D00F6F6DB /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E679F1CE57F8D00F6F6DB /* ArrayExtensions.swift */; };
+		1C8E67C91CE57F8D00F6F6DB /* BlockButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67A01CE57F8D00F6F6DB /* BlockButton.swift */; };
+		1C8E67CA1CE57F8D00F6F6DB /* BlockLongPress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67A11CE57F8D00F6F6DB /* BlockLongPress.swift */; };
+		1C8E67CB1CE57F8D00F6F6DB /* BlockPan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67A21CE57F8D00F6F6DB /* BlockPan.swift */; };
+		1C8E67CC1CE57F8D00F6F6DB /* BlockPinch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67A31CE57F8D00F6F6DB /* BlockPinch.swift */; };
+		1C8E67CD1CE57F8D00F6F6DB /* BlockSwipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67A41CE57F8D00F6F6DB /* BlockSwipe.swift */; };
+		1C8E67CE1CE57F8D00F6F6DB /* BlockTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67A51CE57F8D00F6F6DB /* BlockTap.swift */; };
+		1C8E67CF1CE57F8D00F6F6DB /* BlockWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67A61CE57F8D00F6F6DB /* BlockWebView.swift */; };
+		1C8E67D01CE57F8D00F6F6DB /* BoolExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67A71CE57F8D00F6F6DB /* BoolExtensions.swift */; };
+		1C8E67D11CE57F8D00F6F6DB /* CGFloatExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67A81CE57F8D00F6F6DB /* CGFloatExtensions.swift */; };
+		1C8E67D21CE57F8D00F6F6DB /* CGRectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67A91CE57F8D00F6F6DB /* CGRectExtensions.swift */; };
+		1C8E67D31CE57F8D00F6F6DB /* CharacterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67AA1CE57F8D00F6F6DB /* CharacterExtensions.swift */; };
+		1C8E67D41CE57F8D00F6F6DB /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67AB1CE57F8D00F6F6DB /* DictionaryExtensions.swift */; };
+		1C8E67D51CE57F8D00F6F6DB /* DoubleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67AC1CE57F8D00F6F6DB /* DoubleExtensions.swift */; };
+		1C8E67D61CE57F8D00F6F6DB /* ErrorTypeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67AD1CE57F8D00F6F6DB /* ErrorTypeExtensions.swift */; };
+		1C8E67D71CE57F8D00F6F6DB /* EZSwiftFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67AE1CE57F8D00F6F6DB /* EZSwiftFunctions.swift */; };
+		1C8E67D81CE57F8D00F6F6DB /* IntExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67AF1CE57F8D00F6F6DB /* IntExtensions.swift */; };
+		1C8E67D91CE57F8D00F6F6DB /* NSAttributedStringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67B01CE57F8D00F6F6DB /* NSAttributedStringExtensions.swift */; };
+		1C8E67DA1CE57F8D00F6F6DB /* NSBundleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67B11CE57F8D00F6F6DB /* NSBundleExtensions.swift */; };
+		1C8E67DB1CE57F8D00F6F6DB /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67B21CE57F8D00F6F6DB /* NSDateExtensions.swift */; };
+		1C8E67DC1CE57F8D00F6F6DB /* NSObjectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67B31CE57F8D00F6F6DB /* NSObjectExtensions.swift */; };
+		1C8E67DD1CE57F8D00F6F6DB /* NSTimerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67B41CE57F8D00F6F6DB /* NSTimerExtensions.swift */; };
+		1C8E67DE1CE57F8D00F6F6DB /* NSURLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67B51CE57F8D00F6F6DB /* NSURLExtensions.swift */; };
+		1C8E67DF1CE57F8D00F6F6DB /* NSUserDefaultsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67B61CE57F8D00F6F6DB /* NSUserDefaultsExtension.swift */; };
+		1C8E67E01CE57F8D00F6F6DB /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67B71CE57F8D00F6F6DB /* StringExtensions.swift */; };
+		1C8E67E11CE57F8D00F6F6DB /* UIAlertControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67B81CE57F8D00F6F6DB /* UIAlertControllerExtensions.swift */; };
+		1C8E67E21CE57F8D00F6F6DB /* UIButtonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67B91CE57F8D00F6F6DB /* UIButtonExtensions.swift */; };
+		1C8E67E31CE57F8D00F6F6DB /* UIColoredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67BA1CE57F8D00F6F6DB /* UIColoredView.swift */; };
+		1C8E67E41CE57F8D00F6F6DB /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67BB1CE57F8D00F6F6DB /* UIColorExtensions.swift */; };
+		1C8E67E51CE57F8D00F6F6DB /* UIDeviceExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67BC1CE57F8D00F6F6DB /* UIDeviceExtensions.swift */; };
+		1C8E67E61CE57F8D00F6F6DB /* UIFontExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67BD1CE57F8D00F6F6DB /* UIFontExtensions.swift */; };
+		1C8E67E71CE57F8D00F6F6DB /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67BE1CE57F8D00F6F6DB /* UIImageExtensions.swift */; };
+		1C8E67E81CE57F8D00F6F6DB /* UIImageViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67BF1CE57F8D00F6F6DB /* UIImageViewExtensions.swift */; };
+		1C8E67E91CE57F8D00F6F6DB /* UILabelExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67C01CE57F8D00F6F6DB /* UILabelExtensions.swift */; };
+		1C8E67EA1CE57F8D00F6F6DB /* UISliderExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67C11CE57F8D00F6F6DB /* UISliderExtensions.swift */; };
+		1C8E67EB1CE57F8D00F6F6DB /* UISwitchExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67C21CE57F8D00F6F6DB /* UISwitchExtensions.swift */; };
+		1C8E67EC1CE57F8D00F6F6DB /* UITextViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67C31CE57F8D00F6F6DB /* UITextViewExtensions.swift */; };
+		1C8E67ED1CE57F8D00F6F6DB /* UIUserInterfaceSizeClassExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67C41CE57F8D00F6F6DB /* UIUserInterfaceSizeClassExtensions.swift */; };
+		1C8E67EE1CE57F8D00F6F6DB /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67C51CE57F8D00F6F6DB /* UIViewControllerExtensions.swift */; };
+		1C8E67EF1CE57F8D00F6F6DB /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67C61CE57F8D00F6F6DB /* UIViewExtensions.swift */; };
+		1C8E67F01CE57F8D00F6F6DB /* UIWindowExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67C71CE57F8D00F6F6DB /* UIWindowExtensions.swift */; };
+		1C8E67F21CE5888B00F6F6DB /* DynamicTextStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67F11CE5888B00F6F6DB /* DynamicTextStorage.swift */; };
+		1CB4AECD1CD5BFF1007002D4 /* KChouPao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB4AECC1CD5BFF1007002D4 /* KChouPao.swift */; };
+		1CB4AECF1CD5C1E0007002D4 /* KCloth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB4AECE1CD5C1E0007002D4 /* KCloth.swift */; };
+		1CB4AED11CD5C28C007002D4 /* KPinkCloth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB4AED01CD5C28C007002D4 /* KPinkCloth.swift */; };
+		1CB4AED31CD5C45C007002D4 /* KPanguanBi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB4AED21CD5C45C007002D4 /* KPanguanBi.swift */; };
+		1CB4AED51CD5C47A007002D4 /* KSword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB4AED41CD5C47A007002D4 /* KSword.swift */; };
+		1CB4AED71CD5C681007002D4 /* KLongStick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB4AED61CD5C681007002D4 /* KLongStick.swift */; };
+		1CB4AEDB1CD5C849007002D4 /* KQiMeiGun.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB4AEDA1CD5C849007002D4 /* KQiMeiGun.swift */; };
+		1CB4AEDD1CD5C8CC007002D4 /* KSteelSword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB4AEDC1CD5C8CC007002D4 /* KSteelSword.swift */; };
+		1CB4AEE01CD5C9C7007002D4 /* KBookSeller_City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB4AEDF1CD5C9C7007002D4 /* KBookSeller_City.swift */; };
+		1CB4AEE21CD5CB17007002D4 /* KJiaoTou_City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB4AEE11CD5CB17007002D4 /* KJiaoTou_City.swift */; };
+		1CB4AEE41CD5CB8F007002D4 /* KSDodge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB4AEE31CD5CB8F007002D4 /* KSDodge.swift */; };
+		1CB4AEE61CD5CE5D007002D4 /* KSUnarmed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB4AEE51CD5CE5D007002D4 /* KSUnarmed.swift */; };
+		1CB4AEE81CD5CF05007002D4 /* KSFengshanSword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB4AEE71CD5CF05007002D4 /* KSFengshanSword.swift */; };
+		1CB4AEEA1CD5D0E4007002D4 /* KSMoonDance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB4AEE91CD5D0E4007002D4 /* KSMoonDance.swift */; };
+		1CB4AEEC1CD5D423007002D4 /* KSParry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB4AEEB1CD5D423007002D4 /* KSParry.swift */; };
+		1CB4AEEE1CD5D64B007002D4 /* KSPutiZhi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB4AEED1CD5D64B007002D4 /* KSPutiZhi.swift */; };
+		1CB4AEF01CD5D83A007002D4 /* KSQianJunBang.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB4AEEF1CD5D83A007002D4 /* KSQianJunBang.swift */; };
+		1CCDA26C1CD2DE83001BE986 /* MoneyExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCDA26B1CD2DE83001BE986 /* MoneyExtension.swift */; };
+		1CE91FF91CD6E91500419791 /* KLiBai_City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE91FF81CD6E91500419791 /* KLiBai_City.swift */; };
+		1CE91FFB1CD6EBF500419791 /* KXiaoXiao_City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE91FFA1CD6EBF500419791 /* KXiaoXiao_City.swift */; };
+		1CE91FFD1CD6F16900419791 /* KOrdinaryPerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE91FFC1CD6F16900419791 /* KOrdinaryPerson.swift */; };
+		1CFC79B31CCB3CE80032B71D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC79B21CCB3CE80032B71D /* AppDelegate.swift */; };
+		1CFC79B51CCB3CE80032B71D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC79B41CCB3CE80032B71D /* ViewController.swift */; };
+		1CFC79B81CCB3CE80032B71D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CFC79B61CCB3CE80032B71D /* Main.storyboard */; };
+		1CFC79BA1CCB3CE80032B71D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CFC79B91CCB3CE80032B71D /* Assets.xcassets */; };
+		1CFC79BD1CCB3CE80032B71D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CFC79BB1CCB3CE80032B71D /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1C1EE8ED1CD1BC400034B1A4 /* KUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KUser.swift; sourceTree = "<group>"; };
+		1C55EE9A1CD3B5020014D471 /* KEquipment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KEquipment.swift; sourceTree = "<group>"; };
+		1C55EE9C1CD3C71B0014D471 /* KWeapon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KWeapon.swift; sourceTree = "<group>"; };
+		1C55EE9E1CD3D2260014D471 /* KArmor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KArmor.swift; sourceTree = "<group>"; };
+		1C55EEA01CD445000014D471 /* KHuman.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KHuman.swift; sourceTree = "<group>"; };
+		1C55EEA21CD45B540014D471 /* KPoisonCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KPoisonCondition.swift; sourceTree = "<group>"; };
+		1C55EEA41CD460900014D471 /* TheCombatEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheCombatEngine.swift; sourceTree = "<group>"; };
+		1C55EEA61CD47FE70014D471 /* KSalesMan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KSalesMan.swift; sourceTree = "<group>"; };
+		1C55EEAE1CD4869C0014D471 /* KCorpse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KCorpse.swift; sourceTree = "<group>"; };
+		1C5ECDDA1CCE503E005839EF /* KSkillAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KSkillAction.swift; sourceTree = "<group>"; };
+		1C5ECDDE1CCED4D5005839EF /* DamageEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DamageEnums.swift; sourceTree = "<group>"; };
+		1C5ECDE01CCEF631005839EF /* 日志.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "日志.txt"; sourceTree = "<group>"; };
+		1C5ECDE21CCEF830005839EF /* KCombatInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KCombatInfo.swift; sourceTree = "<group>"; };
+		1C5ECDE41CCF0C75005839EF /* KCreature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KCreature.swift; sourceTree = "<group>"; };
+		1C5ECDE61CCF0D4F005839EF /* MiscEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiscEnums.swift; sourceTree = "<group>"; };
+		1C5ECDE81CCF0FCD005839EF /* KSkill.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KSkill.swift; sourceTree = "<group>"; };
+		1C5ECDEA1CCF39F4005839EF /* KCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KCondition.swift; sourceTree = "<group>"; };
+		1C5ECDEE1CD01F58005839EF /* LinkedList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedList.swift; sourceTree = "<group>"; };
+		1C5ECDF01CD0BA94005839EF /* GlobalFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
+		1C5ECDF31CD0BE49005839EF /* KBusyCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KBusyCondition.swift; sourceTree = "<group>"; };
+		1C5ECDF51CD0DF45005839EF /* TheRoomEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheRoomEngine.swift; sourceTree = "<group>"; };
+		1C5ECDF71CD0DFA6005839EF /* KRoomDescribe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KRoomDescribe.swift; sourceTree = "<group>"; };
+		1C5ECDF91CD0F49C005839EF /* KRoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KRoom.swift; sourceTree = "<group>"; };
+		1C5ECDFB1CD0F515005839EF /* KNPC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KNPC.swift; sourceTree = "<group>"; };
+		1C5ECDFD1CD0F540005839EF /* KItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KItem.swift; sourceTree = "<group>"; };
+		1C5F3E531CCC3AC600FFBB70 /* TheWorld.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheWorld.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		1C5F3E571CCC402300FFBB70 /* KObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KObject.swift; sourceTree = "<group>"; };
+		1C5F3E5C1CCC45A300FFBB70 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
+		1C5F3E5F1CCC7A0700FFBB70 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		1C5F3E641CCD0C2100FFBB70 /* KColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KColors.swift; sourceTree = "<group>"; };
+		1C5F3E661CCD0E8B00FFBB70 /* KEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KEntity.swift; sourceTree = "<group>"; };
+		1C71C0E91CD99FC70009C97C /* KCui_Death.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KCui_Death.swift; sourceTree = "<group>"; };
+		1C71C0EB1CD9A1020009C97C /* KSSword.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KSSword.swift; sourceTree = "<group>"; };
+		1C71C0EE1CD9A1E90009C97C /* KDeathRoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KDeathRoom.swift; sourceTree = "<group>"; };
+		1C8E679C1CE5650200F6F6DB /* WorldMessageBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorldMessageBoardView.swift; sourceTree = "<group>"; };
+		1C8E679F1CE57F8D00F6F6DB /* ArrayExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
+		1C8E67A01CE57F8D00F6F6DB /* BlockButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockButton.swift; sourceTree = "<group>"; };
+		1C8E67A11CE57F8D00F6F6DB /* BlockLongPress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockLongPress.swift; sourceTree = "<group>"; };
+		1C8E67A21CE57F8D00F6F6DB /* BlockPan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockPan.swift; sourceTree = "<group>"; };
+		1C8E67A31CE57F8D00F6F6DB /* BlockPinch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockPinch.swift; sourceTree = "<group>"; };
+		1C8E67A41CE57F8D00F6F6DB /* BlockSwipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockSwipe.swift; sourceTree = "<group>"; };
+		1C8E67A51CE57F8D00F6F6DB /* BlockTap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockTap.swift; sourceTree = "<group>"; };
+		1C8E67A61CE57F8D00F6F6DB /* BlockWebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockWebView.swift; sourceTree = "<group>"; };
+		1C8E67A71CE57F8D00F6F6DB /* BoolExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoolExtensions.swift; sourceTree = "<group>"; };
+		1C8E67A81CE57F8D00F6F6DB /* CGFloatExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGFloatExtensions.swift; sourceTree = "<group>"; };
+		1C8E67A91CE57F8D00F6F6DB /* CGRectExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRectExtensions.swift; sourceTree = "<group>"; };
+		1C8E67AA1CE57F8D00F6F6DB /* CharacterExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterExtensions.swift; sourceTree = "<group>"; };
+		1C8E67AB1CE57F8D00F6F6DB /* DictionaryExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryExtensions.swift; sourceTree = "<group>"; };
+		1C8E67AC1CE57F8D00F6F6DB /* DoubleExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleExtensions.swift; sourceTree = "<group>"; };
+		1C8E67AD1CE57F8D00F6F6DB /* ErrorTypeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorTypeExtensions.swift; sourceTree = "<group>"; };
+		1C8E67AE1CE57F8D00F6F6DB /* EZSwiftFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EZSwiftFunctions.swift; sourceTree = "<group>"; };
+		1C8E67AF1CE57F8D00F6F6DB /* IntExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntExtensions.swift; sourceTree = "<group>"; };
+		1C8E67B01CE57F8D00F6F6DB /* NSAttributedStringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSAttributedStringExtensions.swift; sourceTree = "<group>"; };
+		1C8E67B11CE57F8D00F6F6DB /* NSBundleExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSBundleExtensions.swift; sourceTree = "<group>"; };
+		1C8E67B21CE57F8D00F6F6DB /* NSDateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensions.swift; sourceTree = "<group>"; };
+		1C8E67B31CE57F8D00F6F6DB /* NSObjectExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSObjectExtensions.swift; sourceTree = "<group>"; };
+		1C8E67B41CE57F8D00F6F6DB /* NSTimerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSTimerExtensions.swift; sourceTree = "<group>"; };
+		1C8E67B51CE57F8D00F6F6DB /* NSURLExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURLExtensions.swift; sourceTree = "<group>"; };
+		1C8E67B61CE57F8D00F6F6DB /* NSUserDefaultsExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSUserDefaultsExtension.swift; sourceTree = "<group>"; };
+		1C8E67B71CE57F8D00F6F6DB /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
+		1C8E67B81CE57F8D00F6F6DB /* UIAlertControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAlertControllerExtensions.swift; sourceTree = "<group>"; };
+		1C8E67B91CE57F8D00F6F6DB /* UIButtonExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButtonExtensions.swift; sourceTree = "<group>"; };
+		1C8E67BA1CE57F8D00F6F6DB /* UIColoredView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColoredView.swift; sourceTree = "<group>"; };
+		1C8E67BB1CE57F8D00F6F6DB /* UIColorExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
+		1C8E67BC1CE57F8D00F6F6DB /* UIDeviceExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIDeviceExtensions.swift; sourceTree = "<group>"; };
+		1C8E67BD1CE57F8D00F6F6DB /* UIFontExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFontExtensions.swift; sourceTree = "<group>"; };
+		1C8E67BE1CE57F8D00F6F6DB /* UIImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
+		1C8E67BF1CE57F8D00F6F6DB /* UIImageViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewExtensions.swift; sourceTree = "<group>"; };
+		1C8E67C01CE57F8D00F6F6DB /* UILabelExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabelExtensions.swift; sourceTree = "<group>"; };
+		1C8E67C11CE57F8D00F6F6DB /* UISliderExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISliderExtensions.swift; sourceTree = "<group>"; };
+		1C8E67C21CE57F8D00F6F6DB /* UISwitchExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISwitchExtensions.swift; sourceTree = "<group>"; };
+		1C8E67C31CE57F8D00F6F6DB /* UITextViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextViewExtensions.swift; sourceTree = "<group>"; };
+		1C8E67C41CE57F8D00F6F6DB /* UIUserInterfaceSizeClassExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIUserInterfaceSizeClassExtensions.swift; sourceTree = "<group>"; };
+		1C8E67C51CE57F8D00F6F6DB /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
+		1C8E67C61CE57F8D00F6F6DB /* UIViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
+		1C8E67C71CE57F8D00F6F6DB /* UIWindowExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIWindowExtensions.swift; sourceTree = "<group>"; };
+		1C8E67F11CE5888B00F6F6DB /* DynamicTextStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicTextStorage.swift; sourceTree = "<group>"; };
+		1CB4AECC1CD5BFF1007002D4 /* KChouPao.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KChouPao.swift; sourceTree = "<group>"; };
+		1CB4AECE1CD5C1E0007002D4 /* KCloth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KCloth.swift; sourceTree = "<group>"; };
+		1CB4AED01CD5C28C007002D4 /* KPinkCloth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KPinkCloth.swift; sourceTree = "<group>"; };
+		1CB4AED21CD5C45C007002D4 /* KPanguanBi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KPanguanBi.swift; sourceTree = "<group>"; };
+		1CB4AED41CD5C47A007002D4 /* KSword.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KSword.swift; sourceTree = "<group>"; };
+		1CB4AED61CD5C681007002D4 /* KLongStick.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KLongStick.swift; sourceTree = "<group>"; };
+		1CB4AEDA1CD5C849007002D4 /* KQiMeiGun.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KQiMeiGun.swift; sourceTree = "<group>"; };
+		1CB4AEDC1CD5C8CC007002D4 /* KSteelSword.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KSteelSword.swift; sourceTree = "<group>"; };
+		1CB4AEDF1CD5C9C7007002D4 /* KBookSeller_City.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KBookSeller_City.swift; sourceTree = "<group>"; };
+		1CB4AEE11CD5CB17007002D4 /* KJiaoTou_City.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KJiaoTou_City.swift; sourceTree = "<group>"; };
+		1CB4AEE31CD5CB8F007002D4 /* KSDodge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KSDodge.swift; sourceTree = "<group>"; };
+		1CB4AEE51CD5CE5D007002D4 /* KSUnarmed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KSUnarmed.swift; sourceTree = "<group>"; };
+		1CB4AEE71CD5CF05007002D4 /* KSFengshanSword.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KSFengshanSword.swift; sourceTree = "<group>"; };
+		1CB4AEE91CD5D0E4007002D4 /* KSMoonDance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KSMoonDance.swift; sourceTree = "<group>"; };
+		1CB4AEEB1CD5D423007002D4 /* KSParry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KSParry.swift; sourceTree = "<group>"; };
+		1CB4AEED1CD5D64B007002D4 /* KSPutiZhi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KSPutiZhi.swift; sourceTree = "<group>"; };
+		1CB4AEEF1CD5D83A007002D4 /* KSQianJunBang.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KSQianJunBang.swift; sourceTree = "<group>"; };
+		1CCDA26B1CD2DE83001BE986 /* MoneyExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyExtension.swift; sourceTree = "<group>"; };
+		1CE91FF81CD6E91500419791 /* KLiBai_City.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KLiBai_City.swift; sourceTree = "<group>"; };
+		1CE91FFA1CD6EBF500419791 /* KXiaoXiao_City.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KXiaoXiao_City.swift; sourceTree = "<group>"; };
+		1CE91FFC1CD6F16900419791 /* KOrdinaryPerson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KOrdinaryPerson.swift; sourceTree = "<group>"; };
+		1CFC79AF1CCB3CE80032B71D /* Adventure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Adventure.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1CFC79B21CCB3CE80032B71D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		1CFC79B41CCB3CE80032B71D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1CFC79B71CCB3CE80032B71D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1CFC79B91CCB3CE80032B71D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1CFC79BC1CCB3CE80032B71D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		1CFC79BE1CCB3CE80032B71D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1CFC79AC1CCB3CE80032B71D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1C55EEA81CD486650014D471 /* Items */ = {
+			isa = PBXGroup;
+			children = (
+				1C55EEAB1CD486770014D471 /* Armor */,
+				1C55EEAA1CD486710014D471 /* Weapon */,
+				1C55EEA91CD4866C0014D471 /* Misc */,
+			);
+			name = Items;
+			sourceTree = "<group>";
+		};
+		1C55EEA91CD4866C0014D471 /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				1C55EEAE1CD4869C0014D471 /* KCorpse.swift */,
+			);
+			name = Misc;
+			sourceTree = "<group>";
+		};
+		1C55EEAA1CD486710014D471 /* Weapon */ = {
+			isa = PBXGroup;
+			children = (
+				1CB4AED91CD5C7CA007002D4 /* Sticks */,
+				1CB4AED81CD5C75B007002D4 /* Swords */,
+				1CB4AED41CD5C47A007002D4 /* KSword.swift */,
+				1CB4AED61CD5C681007002D4 /* KLongStick.swift */,
+			);
+			name = Weapon;
+			sourceTree = "<group>";
+		};
+		1C55EEAB1CD486770014D471 /* Armor */ = {
+			isa = PBXGroup;
+			children = (
+				1CB4AECC1CD5BFF1007002D4 /* KChouPao.swift */,
+				1CB4AECE1CD5C1E0007002D4 /* KCloth.swift */,
+				1CB4AED01CD5C28C007002D4 /* KPinkCloth.swift */,
+			);
+			name = Armor;
+			sourceTree = "<group>";
+		};
+		1C55EEAC1CD4867E0014D471 /* Skills */ = {
+			isa = PBXGroup;
+			children = (
+				1CB4AEE31CD5CB8F007002D4 /* KSDodge.swift */,
+				1CB4AEE51CD5CE5D007002D4 /* KSUnarmed.swift */,
+				1CB4AEE71CD5CF05007002D4 /* KSFengshanSword.swift */,
+				1CB4AEE91CD5D0E4007002D4 /* KSMoonDance.swift */,
+				1CB4AEEB1CD5D423007002D4 /* KSParry.swift */,
+				1CB4AEED1CD5D64B007002D4 /* KSPutiZhi.swift */,
+				1CB4AEEF1CD5D83A007002D4 /* KSQianJunBang.swift */,
+				1C71C0EB1CD9A1020009C97C /* KSSword.swift */,
+			);
+			name = Skills;
+			sourceTree = "<group>";
+		};
+		1C55EEAD1CD486870014D471 /* NPCs */ = {
+			isa = PBXGroup;
+			children = (
+				1C71C0E81CD99FB90009C97C /* Death */,
+				1CB4AEDE1CD5C9B7007002D4 /* City */,
+				1CE91FFC1CD6F16900419791 /* KOrdinaryPerson.swift */,
+			);
+			name = NPCs;
+			sourceTree = "<group>";
+		};
+		1C5ECDF21CD0BE28005839EF /* Conditions */ = {
+			isa = PBXGroup;
+			children = (
+				1C5ECDF31CD0BE49005839EF /* KBusyCondition.swift */,
+				1C55EEA21CD45B540014D471 /* KPoisonCondition.swift */,
+			);
+			name = Conditions;
+			sourceTree = "<group>";
+		};
+		1C5F3E521CCC3AA100FFBB70 /* Inherits */ = {
+			isa = PBXGroup;
+			children = (
+				1C5F3E571CCC402300FFBB70 /* KObject.swift */,
+				1C5F3E661CCD0E8B00FFBB70 /* KEntity.swift */,
+				1C5ECDDA1CCE503E005839EF /* KSkillAction.swift */,
+				1C5ECDE41CCF0C75005839EF /* KCreature.swift */,
+				1C5ECDE81CCF0FCD005839EF /* KSkill.swift */,
+				1C5ECDEA1CCF39F4005839EF /* KCondition.swift */,
+				1C5ECDF91CD0F49C005839EF /* KRoom.swift */,
+				1C5ECDFB1CD0F515005839EF /* KNPC.swift */,
+				1C5ECDFD1CD0F540005839EF /* KItem.swift */,
+				1C55EE9A1CD3B5020014D471 /* KEquipment.swift */,
+				1C55EE9C1CD3C71B0014D471 /* KWeapon.swift */,
+				1C55EE9E1CD3D2260014D471 /* KArmor.swift */,
+				1C55EEA01CD445000014D471 /* KHuman.swift */,
+				1C55EEA61CD47FE70014D471 /* KSalesMan.swift */,
+			);
+			name = Inherits;
+			sourceTree = "<group>";
+		};
+		1C5F3E591CCC40D400FFBB70 /* Structs */ = {
+			isa = PBXGroup;
+			children = (
+				1C5ECDE21CCEF830005839EF /* KCombatInfo.swift */,
+				1C5F3E641CCD0C2100FFBB70 /* KColors.swift */,
+				1C5ECDDE1CCED4D5005839EF /* DamageEnums.swift */,
+				1C5ECDE61CCF0D4F005839EF /* MiscEnums.swift */,
+				1C5ECDEE1CD01F58005839EF /* LinkedList.swift */,
+				1CCDA26B1CD2DE83001BE986 /* MoneyExtension.swift */,
+			);
+			name = Structs;
+			sourceTree = "<group>";
+		};
+		1C5F3E631CCC809100FFBB70 /* GameObjects */ = {
+			isa = PBXGroup;
+			children = (
+				1C71C0ED1CD9A1CF0009C97C /* Rooms */,
+				1C55EEAD1CD486870014D471 /* NPCs */,
+				1C55EEAC1CD4867E0014D471 /* Skills */,
+				1C55EEA81CD486650014D471 /* Items */,
+				1C1EE8ED1CD1BC400034B1A4 /* KUser.swift */,
+				1C5ECDF21CD0BE28005839EF /* Conditions */,
+				1C5F3E591CCC40D400FFBB70 /* Structs */,
+				1C5F3E521CCC3AA100FFBB70 /* Inherits */,
+				1C5F3E5F1CCC7A0700FFBB70 /* Protocols.swift */,
+				1C5ECDF71CD0DFA6005839EF /* KRoomDescribe.swift */,
+				1C5F3E531CCC3AC600FFBB70 /* TheWorld.swift */,
+				1C5ECDF01CD0BA94005839EF /* GlobalFunctions.swift */,
+				1C5ECDF51CD0DF45005839EF /* TheRoomEngine.swift */,
+				1C55EEA41CD460900014D471 /* TheCombatEngine.swift */,
+			);
+			name = GameObjects;
+			sourceTree = "<group>";
+		};
+		1C71C0E81CD99FB90009C97C /* Death */ = {
+			isa = PBXGroup;
+			children = (
+				1C71C0E91CD99FC70009C97C /* KCui_Death.swift */,
+			);
+			name = Death;
+			sourceTree = "<group>";
+		};
+		1C71C0ED1CD9A1CF0009C97C /* Rooms */ = {
+			isa = PBXGroup;
+			children = (
+				1C71C0EE1CD9A1E90009C97C /* KDeathRoom.swift */,
+			);
+			name = Rooms;
+			sourceTree = "<group>";
+		};
+		1C8E679E1CE57F5800F6F6DB /* EZSwiftExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				1C8E679F1CE57F8D00F6F6DB /* ArrayExtensions.swift */,
+				1C8E67A01CE57F8D00F6F6DB /* BlockButton.swift */,
+				1C8E67A11CE57F8D00F6F6DB /* BlockLongPress.swift */,
+				1C8E67A21CE57F8D00F6F6DB /* BlockPan.swift */,
+				1C8E67A31CE57F8D00F6F6DB /* BlockPinch.swift */,
+				1C8E67A41CE57F8D00F6F6DB /* BlockSwipe.swift */,
+				1C8E67A51CE57F8D00F6F6DB /* BlockTap.swift */,
+				1C8E67A61CE57F8D00F6F6DB /* BlockWebView.swift */,
+				1C8E67A71CE57F8D00F6F6DB /* BoolExtensions.swift */,
+				1C8E67A81CE57F8D00F6F6DB /* CGFloatExtensions.swift */,
+				1C8E67A91CE57F8D00F6F6DB /* CGRectExtensions.swift */,
+				1C8E67AA1CE57F8D00F6F6DB /* CharacterExtensions.swift */,
+				1C8E67AB1CE57F8D00F6F6DB /* DictionaryExtensions.swift */,
+				1C8E67AC1CE57F8D00F6F6DB /* DoubleExtensions.swift */,
+				1C8E67AD1CE57F8D00F6F6DB /* ErrorTypeExtensions.swift */,
+				1C8E67AE1CE57F8D00F6F6DB /* EZSwiftFunctions.swift */,
+				1C8E67AF1CE57F8D00F6F6DB /* IntExtensions.swift */,
+				1C8E67B01CE57F8D00F6F6DB /* NSAttributedStringExtensions.swift */,
+				1C8E67B11CE57F8D00F6F6DB /* NSBundleExtensions.swift */,
+				1C8E67B21CE57F8D00F6F6DB /* NSDateExtensions.swift */,
+				1C8E67B31CE57F8D00F6F6DB /* NSObjectExtensions.swift */,
+				1C8E67B41CE57F8D00F6F6DB /* NSTimerExtensions.swift */,
+				1C8E67B51CE57F8D00F6F6DB /* NSURLExtensions.swift */,
+				1C8E67B61CE57F8D00F6F6DB /* NSUserDefaultsExtension.swift */,
+				1C8E67B71CE57F8D00F6F6DB /* StringExtensions.swift */,
+				1C8E67B81CE57F8D00F6F6DB /* UIAlertControllerExtensions.swift */,
+				1C8E67B91CE57F8D00F6F6DB /* UIButtonExtensions.swift */,
+				1C8E67BA1CE57F8D00F6F6DB /* UIColoredView.swift */,
+				1C8E67BB1CE57F8D00F6F6DB /* UIColorExtensions.swift */,
+				1C8E67BC1CE57F8D00F6F6DB /* UIDeviceExtensions.swift */,
+				1C8E67BD1CE57F8D00F6F6DB /* UIFontExtensions.swift */,
+				1C8E67BE1CE57F8D00F6F6DB /* UIImageExtensions.swift */,
+				1C8E67BF1CE57F8D00F6F6DB /* UIImageViewExtensions.swift */,
+				1C8E67C01CE57F8D00F6F6DB /* UILabelExtensions.swift */,
+				1C8E67C11CE57F8D00F6F6DB /* UISliderExtensions.swift */,
+				1C8E67C21CE57F8D00F6F6DB /* UISwitchExtensions.swift */,
+				1C8E67C31CE57F8D00F6F6DB /* UITextViewExtensions.swift */,
+				1C8E67C41CE57F8D00F6F6DB /* UIUserInterfaceSizeClassExtensions.swift */,
+				1C8E67C51CE57F8D00F6F6DB /* UIViewControllerExtensions.swift */,
+				1C8E67C61CE57F8D00F6F6DB /* UIViewExtensions.swift */,
+				1C8E67C71CE57F8D00F6F6DB /* UIWindowExtensions.swift */,
+			);
+			name = EZSwiftExtensions;
+			sourceTree = "<group>";
+		};
+		1CB4AED81CD5C75B007002D4 /* Swords */ = {
+			isa = PBXGroup;
+			children = (
+				1CB4AED21CD5C45C007002D4 /* KPanguanBi.swift */,
+				1CB4AEDC1CD5C8CC007002D4 /* KSteelSword.swift */,
+			);
+			name = Swords;
+			sourceTree = "<group>";
+		};
+		1CB4AED91CD5C7CA007002D4 /* Sticks */ = {
+			isa = PBXGroup;
+			children = (
+				1CB4AEDA1CD5C849007002D4 /* KQiMeiGun.swift */,
+			);
+			name = Sticks;
+			sourceTree = "<group>";
+		};
+		1CB4AEDE1CD5C9B7007002D4 /* City */ = {
+			isa = PBXGroup;
+			children = (
+				1CB4AEDF1CD5C9C7007002D4 /* KBookSeller_City.swift */,
+				1CB4AEE11CD5CB17007002D4 /* KJiaoTou_City.swift */,
+				1CE91FF81CD6E91500419791 /* KLiBai_City.swift */,
+				1CE91FFA1CD6EBF500419791 /* KXiaoXiao_City.swift */,
+			);
+			name = City;
+			sourceTree = "<group>";
+		};
+		1CFC79A61CCB3CE80032B71D = {
+			isa = PBXGroup;
+			children = (
+				1C5ECDE01CCEF631005839EF /* 日志.txt */,
+				1CFC79B11CCB3CE80032B71D /* Adventure */,
+				1CFC79B01CCB3CE80032B71D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1CFC79B01CCB3CE80032B71D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1CFC79AF1CCB3CE80032B71D /* Adventure.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1CFC79B11CCB3CE80032B71D /* Adventure */ = {
+			isa = PBXGroup;
+			children = (
+				1C8E679E1CE57F5800F6F6DB /* EZSwiftExtensions */,
+				1C5F3E631CCC809100FFBB70 /* GameObjects */,
+				1CFC79B21CCB3CE80032B71D /* AppDelegate.swift */,
+				1CFC79B41CCB3CE80032B71D /* ViewController.swift */,
+				1CFC79B61CCB3CE80032B71D /* Main.storyboard */,
+				1CFC79B91CCB3CE80032B71D /* Assets.xcassets */,
+				1CFC79BB1CCB3CE80032B71D /* LaunchScreen.storyboard */,
+				1CFC79BE1CCB3CE80032B71D /* Info.plist */,
+				1C5F3E5C1CCC45A300FFBB70 /* MyPlayground.playground */,
+				1C8E679C1CE5650200F6F6DB /* WorldMessageBoardView.swift */,
+				1C8E67F11CE5888B00F6F6DB /* DynamicTextStorage.swift */,
+			);
+			path = Adventure;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1CFC79AE1CCB3CE80032B71D /* Adventure */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1CFC79C11CCB3CE80032B71D /* Build configuration list for PBXNativeTarget "Adventure" */;
+			buildPhases = (
+				1CFC79AB1CCB3CE80032B71D /* Sources */,
+				1CFC79AC1CCB3CE80032B71D /* Frameworks */,
+				1CFC79AD1CCB3CE80032B71D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Adventure;
+			productName = Adventure;
+			productReference = 1CFC79AF1CCB3CE80032B71D /* Adventure.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1CFC79A71CCB3CE80032B71D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = Eric;
+				TargetAttributes = {
+					1CFC79AE1CCB3CE80032B71D = {
+						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = RNAH8X5WQP;
+					};
+				};
+			};
+			buildConfigurationList = 1CFC79AA1CCB3CE80032B71D /* Build configuration list for PBXProject "Adventure" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1CFC79A61CCB3CE80032B71D;
+			productRefGroup = 1CFC79B01CCB3CE80032B71D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1CFC79AE1CCB3CE80032B71D /* Adventure */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1CFC79AD1CCB3CE80032B71D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1C5ECDE11CCEF631005839EF /* 日志.txt in Resources */,
+				1CFC79BD1CCB3CE80032B71D /* LaunchScreen.storyboard in Resources */,
+				1CFC79BA1CCB3CE80032B71D /* Assets.xcassets in Resources */,
+				1CFC79B81CCB3CE80032B71D /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1CFC79AB1CCB3CE80032B71D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1C1EE8EE1CD1BC400034B1A4 /* KUser.swift in Sources */,
+				1C55EEA31CD45B540014D471 /* KPoisonCondition.swift in Sources */,
+				1C8E67D41CE57F8D00F6F6DB /* DictionaryExtensions.swift in Sources */,
+				1C5F3E671CCD0E8B00FFBB70 /* KEntity.swift in Sources */,
+				1C5ECDE91CCF0FCD005839EF /* KSkill.swift in Sources */,
+				1C55EEA71CD47FE70014D471 /* KSalesMan.swift in Sources */,
+				1C8E67DD1CE57F8D00F6F6DB /* NSTimerExtensions.swift in Sources */,
+				1C8E67EE1CE57F8D00F6F6DB /* UIViewControllerExtensions.swift in Sources */,
+				1C71C0EA1CD99FC70009C97C /* KCui_Death.swift in Sources */,
+				1C8E67E61CE57F8D00F6F6DB /* UIFontExtensions.swift in Sources */,
+				1C8E67D81CE57F8D00F6F6DB /* IntExtensions.swift in Sources */,
+				1CB4AEEE1CD5D64B007002D4 /* KSPutiZhi.swift in Sources */,
+				1C5ECDFA1CD0F49C005839EF /* KRoom.swift in Sources */,
+				1C8E67E51CE57F8D00F6F6DB /* UIDeviceExtensions.swift in Sources */,
+				1CFC79B51CCB3CE80032B71D /* ViewController.swift in Sources */,
+				1CB4AED31CD5C45C007002D4 /* KPanguanBi.swift in Sources */,
+				1CB4AEF01CD5D83A007002D4 /* KSQianJunBang.swift in Sources */,
+				1C8E67D91CE57F8D00F6F6DB /* NSAttributedStringExtensions.swift in Sources */,
+				1CB4AED11CD5C28C007002D4 /* KPinkCloth.swift in Sources */,
+				1C5ECDE31CCEF830005839EF /* KCombatInfo.swift in Sources */,
+				1C5ECDFC1CD0F515005839EF /* KNPC.swift in Sources */,
+				1C8E67CE1CE57F8D00F6F6DB /* BlockTap.swift in Sources */,
+				1CB4AEDD1CD5C8CC007002D4 /* KSteelSword.swift in Sources */,
+				1C8E67D21CE57F8D00F6F6DB /* CGRectExtensions.swift in Sources */,
+				1CE91FFD1CD6F16900419791 /* KOrdinaryPerson.swift in Sources */,
+				1C8E67CF1CE57F8D00F6F6DB /* BlockWebView.swift in Sources */,
+				1CB4AEE61CD5CE5D007002D4 /* KSUnarmed.swift in Sources */,
+				1C55EEA11CD445000014D471 /* KHuman.swift in Sources */,
+				1C8E67F21CE5888B00F6F6DB /* DynamicTextStorage.swift in Sources */,
+				1C8E67D11CE57F8D00F6F6DB /* CGFloatExtensions.swift in Sources */,
+				1CFC79B31CCB3CE80032B71D /* AppDelegate.swift in Sources */,
+				1C8E67E31CE57F8D00F6F6DB /* UIColoredView.swift in Sources */,
+				1C5ECDE51CCF0C75005839EF /* KCreature.swift in Sources */,
+				1C55EE9B1CD3B5020014D471 /* KEquipment.swift in Sources */,
+				1C8E67E91CE57F8D00F6F6DB /* UILabelExtensions.swift in Sources */,
+				1C8E67DF1CE57F8D00F6F6DB /* NSUserDefaultsExtension.swift in Sources */,
+				1C71C0EF1CD9A1E90009C97C /* KDeathRoom.swift in Sources */,
+				1C5ECDE71CCF0D4F005839EF /* MiscEnums.swift in Sources */,
+				1C8E67E81CE57F8D00F6F6DB /* UIImageViewExtensions.swift in Sources */,
+				1C8E67CA1CE57F8D00F6F6DB /* BlockLongPress.swift in Sources */,
+				1C55EE9D1CD3C71B0014D471 /* KWeapon.swift in Sources */,
+				1C8E67D71CE57F8D00F6F6DB /* EZSwiftFunctions.swift in Sources */,
+				1C8E67E21CE57F8D00F6F6DB /* UIButtonExtensions.swift in Sources */,
+				1C8E67D01CE57F8D00F6F6DB /* BoolExtensions.swift in Sources */,
+				1CE91FFB1CD6EBF500419791 /* KXiaoXiao_City.swift in Sources */,
+				1C8E67D51CE57F8D00F6F6DB /* DoubleExtensions.swift in Sources */,
+				1CB4AED51CD5C47A007002D4 /* KSword.swift in Sources */,
+				1CE91FF91CD6E91500419791 /* KLiBai_City.swift in Sources */,
+				1CB4AEEC1CD5D423007002D4 /* KSParry.swift in Sources */,
+				1C5ECDF81CD0DFA6005839EF /* KRoomDescribe.swift in Sources */,
+				1C8E67CD1CE57F8D00F6F6DB /* BlockSwipe.swift in Sources */,
+				1C8E67C91CE57F8D00F6F6DB /* BlockButton.swift in Sources */,
+				1C8E67DE1CE57F8D00F6F6DB /* NSURLExtensions.swift in Sources */,
+				1CB4AEE41CD5CB8F007002D4 /* KSDodge.swift in Sources */,
+				1C55EEA51CD460900014D471 /* TheCombatEngine.swift in Sources */,
+				1C8E67F01CE57F8D00F6F6DB /* UIWindowExtensions.swift in Sources */,
+				1CCDA26C1CD2DE83001BE986 /* MoneyExtension.swift in Sources */,
+				1C8E67E01CE57F8D00F6F6DB /* StringExtensions.swift in Sources */,
+				1C8E67EB1CE57F8D00F6F6DB /* UISwitchExtensions.swift in Sources */,
+				1C5F3E651CCD0C2100FFBB70 /* KColors.swift in Sources */,
+				1C8E67EF1CE57F8D00F6F6DB /* UIViewExtensions.swift in Sources */,
+				1C8E67DC1CE57F8D00F6F6DB /* NSObjectExtensions.swift in Sources */,
+				1C5ECDF61CD0DF45005839EF /* TheRoomEngine.swift in Sources */,
+				1C5ECDFE1CD0F540005839EF /* KItem.swift in Sources */,
+				1C8E67DB1CE57F8D00F6F6DB /* NSDateExtensions.swift in Sources */,
+				1C5ECDF41CD0BE49005839EF /* KBusyCondition.swift in Sources */,
+				1C5ECDEB1CCF39F4005839EF /* KCondition.swift in Sources */,
+				1C8E67EA1CE57F8D00F6F6DB /* UISliderExtensions.swift in Sources */,
+				1C8E67D31CE57F8D00F6F6DB /* CharacterExtensions.swift in Sources */,
+				1C8E67E41CE57F8D00F6F6DB /* UIColorExtensions.swift in Sources */,
+				1C8E67ED1CE57F8D00F6F6DB /* UIUserInterfaceSizeClassExtensions.swift in Sources */,
+				1CB4AEDB1CD5C849007002D4 /* KQiMeiGun.swift in Sources */,
+				1C8E67E11CE57F8D00F6F6DB /* UIAlertControllerExtensions.swift in Sources */,
+				1C8E679D1CE5650200F6F6DB /* WorldMessageBoardView.swift in Sources */,
+				1CB4AED71CD5C681007002D4 /* KLongStick.swift in Sources */,
+				1C8E67C81CE57F8D00F6F6DB /* ArrayExtensions.swift in Sources */,
+				1C8E67E71CE57F8D00F6F6DB /* UIImageExtensions.swift in Sources */,
+				1C5ECDDB1CCE503E005839EF /* KSkillAction.swift in Sources */,
+				1C55EE9F1CD3D2260014D471 /* KArmor.swift in Sources */,
+				1CB4AEE21CD5CB17007002D4 /* KJiaoTou_City.swift in Sources */,
+				1CB4AEEA1CD5D0E4007002D4 /* KSMoonDance.swift in Sources */,
+				1C8E67D61CE57F8D00F6F6DB /* ErrorTypeExtensions.swift in Sources */,
+				1C8E67EC1CE57F8D00F6F6DB /* UITextViewExtensions.swift in Sources */,
+				1C5ECDF11CD0BA94005839EF /* GlobalFunctions.swift in Sources */,
+				1CB4AEE01CD5C9C7007002D4 /* KBookSeller_City.swift in Sources */,
+				1CB4AECD1CD5BFF1007002D4 /* KChouPao.swift in Sources */,
+				1C71C0EC1CD9A1020009C97C /* KSSword.swift in Sources */,
+				1C5F3E601CCC7A0700FFBB70 /* Protocols.swift in Sources */,
+				1C8E67CC1CE57F8D00F6F6DB /* BlockPinch.swift in Sources */,
+				1CB4AEE81CD5CF05007002D4 /* KSFengshanSword.swift in Sources */,
+				1CB4AECF1CD5C1E0007002D4 /* KCloth.swift in Sources */,
+				1C5ECDDF1CCED4D5005839EF /* DamageEnums.swift in Sources */,
+				1C8E67CB1CE57F8D00F6F6DB /* BlockPan.swift in Sources */,
+				1C5ECDEF1CD01F58005839EF /* LinkedList.swift in Sources */,
+				1C5F3E541CCC3AC600FFBB70 /* TheWorld.swift in Sources */,
+				1C5F3E581CCC402300FFBB70 /* KObject.swift in Sources */,
+				1C8E67DA1CE57F8D00F6F6DB /* NSBundleExtensions.swift in Sources */,
+				1C55EEAF1CD4869C0014D471 /* KCorpse.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		1CFC79B61CCB3CE80032B71D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1CFC79B71CCB3CE80032B71D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		1CFC79BB1CCB3CE80032B71D /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1CFC79BC1CCB3CE80032B71D /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1CFC79BF1CCB3CE80032B71D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		1CFC79C01CCB3CE80032B71D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1CFC79C21CCB3CE80032B71D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Adventure/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Eric.Yuan.Adventure;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		1CFC79C31CCB3CE80032B71D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Adventure/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Eric.Yuan.Adventure;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1CFC79AA1CCB3CE80032B71D /* Build configuration list for PBXProject "Adventure" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1CFC79BF1CCB3CE80032B71D /* Debug */,
+				1CFC79C01CCB3CE80032B71D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1CFC79C11CCB3CE80032B71D /* Build configuration list for PBXNativeTarget "Adventure" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1CFC79C21CCB3CE80032B71D /* Debug */,
+				1CFC79C31CCB3CE80032B71D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1CFC79A71CCB3CE80032B71D /* Project object */;
+}
