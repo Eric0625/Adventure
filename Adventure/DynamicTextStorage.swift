@@ -20,7 +20,7 @@ class DynamicTextStorage: NSTextStorage {
     }
 
     override func replaceCharactersInRange(range: NSRange, withString str: String) {
-        print("replaceCharactersInRange:\(range) withString:\(str)")
+        //print("replaceCharactersInRange:\(range) withString:\(str)")
         
         beginEditing()
         backingStore.replaceCharactersInRange(range, withString:str)
@@ -29,7 +29,7 @@ class DynamicTextStorage: NSTextStorage {
     }
     
     override func setAttributes(attrs: [String : AnyObject]?, range: NSRange) {
-        print("setAttributes:\(attrs) range:\(range)")
+        //print("setAttributes:\(attrs) range:\(range)")
         
         beginEditing()
         backingStore.setAttributes(attrs, range: range)

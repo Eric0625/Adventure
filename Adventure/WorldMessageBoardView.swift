@@ -19,7 +19,7 @@ class WorldMessageBoardView: UITextView {
     */
     override init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
-        textColor = UIColor.greenColor()
+        backgroundColor = UIColor.blackColor()
     }
     
     required init?(coder aDecoder: NSCoder) {
