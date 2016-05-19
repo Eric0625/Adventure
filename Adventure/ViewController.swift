@@ -72,13 +72,18 @@ class ViewController: UIViewController, DisplayMessageDelegate, UITextViewDelega
     }
     
     func displayMessage(message:String){
-        allMsg.appendAttributedString(NSAttributedString(string: message, attributes: [NSForegroundColorAttributeName: UIColor(r: 0, g: 119, b: 4)]))
+        //处理颜色代码
+        let m = NSMutableAttributedString(attributedString: KColors.green(message))
+        let pattern = "<color "
+        NSRegularExpression
+         m.setAttributes([NSForegroundColorAttributeName: UIColor.blueColor()], range: NSMakeRange(2, 7))
+       m.setAttributes([NSForegroundColorAttributeName: UIColor.redColor()], range: NSMakeRange(0, 15))
+        allMsg.appendAttributedString(m)
         txtView.attributedText = allMsg
     }
     
     func clearAllMessage(){
         allMsg = NSMutableAttributedString(string: "")
-    
         txtView.attributedText = allMsg
    }
     

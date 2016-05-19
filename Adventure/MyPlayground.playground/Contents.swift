@@ -1,58 +1,24 @@
 import Foundation
 
-class MyClass {
-    var member = 10
-    
-    required init(v: Int) {
-        member = v
-        print("init")
+private func check(str: String) {
+    // 使用正则表达式一定要加try语句
+    do {
+        // - 1、创建规则
+        //let pattern = "[1-9][0-9]{4,14}"
+        let pattern = "<color (\\w+)>"
+        // - 2、创建正则表达式对象
+        let regex = try NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.CaseInsensitive)
+        // - 3、开始匹配
+        let res = regex.matchesInString(str, options: NSMatchingOptions(rawValue: 0), range: NSMakeRange(0, str.characters.count))
+        // 输出结果
+        for checkingRes in res {
+            debugPrint(checkingRes)
+            print((str as NSString).substringWithRange(checkingRes.range))
+        }
     }
-    
-    func xprint(){
-        print(member)
-    }
-    
-    func Clone()-> MyClass{
-        let object = MyClass(v: member)
-        return object
-    }
-}
-
-class SecondClass: MyClass{
-    override func xprint() {
-        print(member2)
-    }
-    var member2 = 100
-    required init(v: Int) {
-        print("init second")
-        super.init(v: v)
-        member2 = v
-    }
-    
-    override func Clone() -> MyClass {
-        let object = SecondClass(v: member)
-        object.member2 = member2 + 1
-        return object
+    catch {
+        print(error)
     }
 }
-
-//
-//let v = NSStringFromClass(SecondClass)
-//let s = "__lldb_expr_17.SecondClass"
-//let q = NSClassFromString(v) as! MyClass.Type
-//let object = q!.init(v: 17)
-//let o2 = object.Clone()
-////q?.self.xprint()
-//o2.xprint()
-//print(o2.member)
-let x = SecondClass(v: 19)
-let m = Mirror(reflecting: x)
-let s = (m.subjectType as! MyClass.Type)
-let u = s.init(v: 5)
-let g = s.init(v: 89)
-u.xprint()
-print (u.member)
-g.xprint()
-var message = "<span class=hig>$D脸现痛苦之色，显然是毒药发作了！<br></span>"
-message = message.stringByReplacingOccurrencesOfString("$D", withString: "李白")
-print(message)
+check("<color red>df33434<color grre>34343ds343434343f</color>")
+//print(message)

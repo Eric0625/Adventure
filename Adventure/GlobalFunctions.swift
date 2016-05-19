@@ -177,6 +177,7 @@ private let _perLevelMale =
         KColors.HIP + "神清气爽，骨格清奇，宛若仙人。" + KColors.NOR,
         KColors.HIP + "一派神人气度，仙风道骨，举止出尘。" + KColors.NOR,
 ]
+
 private let _perLevelFemale = [
     KColors.BLU +  "丑如无盐，状如夜叉。" + KColors.NOR,
     KColors.BLU +  "歪鼻斜眼，脸色灰败，直如鬼怪一般。" + KColors.NOR,
