@@ -32,11 +32,12 @@ private func check(str: String) {
             print("color is \(color)")
             let content = str[checkingRes.rangeAtIndex(2).toRange()!]
             print("content is \(content)")
+            check(content)
         }
     }
     catch {
         print(error)
     }
 }
-check("<color red>df33434<color grre>34343ds343434343f</color>")
+check("<color red>df33434<color grre>34343ds3</color>43434343f</color>")
 //print(message)
