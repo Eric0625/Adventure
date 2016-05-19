@@ -5,7 +5,7 @@ private func check(str: String) {
     do {
         // - 1、创建规则
         //let pattern = "[1-9][0-9]{4,14}"
-        let pattern = "<color (\\w+)>"
+        let pattern = "<color (\\w+)>(.*)</color>"
         // - 2、创建正则表达式对象
         let regex = try NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.CaseInsensitive)
         // - 3、开始匹配
