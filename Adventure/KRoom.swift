@@ -77,7 +77,8 @@ class KRoom: KEntity, WithHeartBeat{
     
     //MARK:functions
     func addLinkedRoom(direction:Directions, roomID:Int){
-        let link = "<a href=d:\(direction)>" + KColors.HIW +  direction.chineseString + KColors.NOR + "</a>"
+        //let link = "<a href=d:\(direction)>" + KColors.HIW +  direction.chineseString + KColors.NOR + "</a>"
+        let link = KColors.HIW +  direction.chineseString + KColors.NOR
         exitsInString.append(link)
         exits.append(direction)
         linkedRooms[direction] = roomID
@@ -164,12 +165,12 @@ class KRoom: KEntity, WithHeartBeat{
     
     private func getLongDescribe() -> String {
         var msg = KColors.HIR + "〖" + KColors.NOR + name +
-            KColors.HIR + "〗" + KColors.NOR + "<br><br>" + describe;
+            KColors.HIR + "〗" + KColors.NOR + "\n\n" + describe;
         if exits.count != 0 {
             if exits.count == 1 {
-                msg += "<br>&nbsp;&nbsp;&nbsp;&nbsp;这里唯一的出口是："+exitsInString[0]
+                msg += "\n    这里唯一的出口是："+exitsInString[0]
             } else {
-                msg += "<br>&nbsp;&nbsp;&nbsp;&nbsp;这里明显的出口是："
+                msg += "\n    这里明显的出口是："
                 msg += exitsInString[0..<exitsInString.count-1].joinWithSeparator("、")
                 msg += "和" + exitsInString.last!
             }
@@ -186,11 +187,13 @@ class KRoom: KEntity, WithHeartBeat{
                         if npc.visible {
                             var link = npc.longName + (npc.isInFighting ? KColors.HIR + "<战斗中>" + KColors.NOR : "")
                             link += npc.isGhost ? "<鬼魂>" : ""
-                            link = "<a href=n:\(npc.guid)>" + KColors.HIW + link + KColors.NOR + "</a><br>"
+                            //link = "<a href=n:\(npc.guid)>" + KColors.HIW + link + KColors.NOR + "</a><br>"
+                            link = KColors.HIW + link + KColors.NOR + "\n"
                             TheWorld.broadcast(link)
                         }
                     } else if item is KItem {
-                        TheWorld.broadcast("<a href=i:\(item.guid)>" + KColors.HIW + item.name + KColors.NOR + "</a><br>")
+                        //TheWorld.broadcast("<a href=i:\(item.guid)>" + KColors.HIW + item.name + KColors.NOR + "</a><br>")
+                        TheWorld.broadcast(KColors.HIW + item.name + KColors.NOR + "\n")
                     }
                 }
             }

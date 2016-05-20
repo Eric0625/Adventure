@@ -73,11 +73,25 @@ class ViewController: UIViewController, DisplayMessageDelegate, UITextViewDelega
     
     func displayMessage(message:String){
         //处理颜色代码
-        let m = NSMutableAttributedString(attributedString: KColors.green(message))
-        let pattern = "<color "
-        NSRegularExpression
-         m.setAttributes([NSForegroundColorAttributeName: UIColor.blueColor()], range: NSMakeRange(2, 7))
-       m.setAttributes([NSForegroundColorAttributeName: UIColor.redColor()], range: NSMakeRange(0, 15))
+        var colorInfo = ColorParser()
+        let m = NSMutableAttributedString(attributedString: message.color(KColors.colorDictionary["green"]!))
+        colorInfo.parseColor(message, from: 0)
+        for x in colorInfo.attributes {
+            m.setAttributes([NSForegroundColorAttributeName: x.color], range: x.range)
+        }
+        //删除代码
+        repeat{
+            let range = m.string.regMatch("^.*?(</color>)", range: NSMakeRange(0, m.string.length))
+            if range.isEmpty {break}
+            m.replaceCharactersInRange(range[0].rangeAtIndex(1), withString: "")
+        }while(true)
+        repeat{
+            let range = m.string.regMatch("^.*?(<color \\w+>)", range: NSMakeRange(0, m.string.length))
+            if range.isEmpty {break}
+            m.replaceCharactersInRange(range[0].rangeAtIndex(1), withString: "")
+        }while(true)
+         //m.setAttributes([NSForegroundColorAttributeName: UIColor.blueColor()], range: NSMakeRange(2, 7))
+       //m.setAttributes([NSForegroundColorAttributeName: UIColor.redColor()], range: NSMakeRange(0, 15))
         allMsg.appendAttributedString(m)
         txtView.attributedText = allMsg
     }

@@ -70,3 +70,5 @@ Clone方法则不存在这个问题，因为KLiBai_city的Clone方法知道该�
 房间物品刷新时，也利用NSClassFromString生成KItem.Type，并调用Init函数，此时，物品的Init函数能正确被调用
 2016.05.13
 改变command的枚举为符合optionsettype的结构
+2016.05.20
+解决了颜色代码的解析问题

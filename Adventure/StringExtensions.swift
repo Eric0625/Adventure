@@ -8,6 +8,18 @@
 import UIKit
 
 extension String {
+    ///Eric: regular expression under default options
+    public func regMatch(patter:String, range: NSRange) -> [NSTextCheckingResult] {
+        do{
+            let regex = try NSRegularExpression(pattern: patter, options: .DotMatchesLineSeparators)
+            return regex.matchesInString(self, options: .ReportCompletion, range: range)
+        }
+        catch{
+            print(error)
+        }
+        fatalError()
+    }
+
     /// EZSE: Cut string from integerIndex to the end
     public subscript(integerIndex: Int) -> Character {
         let index = startIndex.advancedBy(integerIndex)

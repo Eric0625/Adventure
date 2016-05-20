@@ -45,73 +45,73 @@ struct KColors {
         "hiPurple": UIColor(r: 255, g: 0, b: 254),
         "pink": UIColor(r: 255, g: 182, b: 196)
     ]
-    
-    static func red(str: String) -> NSAttributedString {
-        return str.color(colorDictionary["red"]!)
-    }
-    
-    static func green(str: String) -> NSAttributedString {
-        return str.color(UIColor(r: 0, g: 119, b: 4))
-    }
-    
-    static func hiGreen(str: String) -> NSAttributedString {
-        return str.color(UIColor(r: 3, g: 202, b: 46))
-    }
-    
-    static func cyan(str: String) -> NSAttributedString {
-        return str.color(UIColor(r: 0, g: 255, b: 255))
-    }
-    
-    static func normal(str: String) -> NSAttributedString {
-        return KColors.green(str)
-    }
-    
-    static func hiYellow(str: String) -> NSAttributedString {
-        return str.color(UIColor(r: 255, g: 255, b: 20))
-    }
- 
-    static func hiRed(str: String) -> NSAttributedString {
-        return str.color(UIColor(r: 255, g: 0, b: 8))
-    }
-    
-    static func hiWhite(str: String) -> NSAttributedString {
-        return str.color(UIColor(r: 255, g: 255, b: 255))
-    }
-    
-    static func white(str: String) -> NSAttributedString {
-        return str.color(UIColor(r: 243, g: 243, b: 243))
-    }
-    
-    static func purple(str: String) -> NSAttributedString {
-        return str.color(UIColor(r: 120, g: 0, b: 116))
-    }
-    
-    static func chatColor(str: String) -> NSAttributedString {
-        return str.color(UIColor(r: 106, g: 125, b: 142))
-    }
-    
-    static func hiCyan(str: String) -> NSAttributedString {
-        return str.color(UIColor(r: 0, g: 171, b: 160))
-    }
-    
-    static func blue(str: String) -> NSAttributedString {
-        return str.color(UIColor(r: 0, g: 0, b: 198))
-    }
-    
-    static func hiBlue(str: String) -> NSAttributedString {
-        return str.color(UIColor(r: 0, g: 0, b: 239))
-    }
-    
-    static func yellow(str: String) -> NSAttributedString {
-        return str.color(UIColor(r: 117, g: 117, b: 6))
-    }
-    
-    static func hiPurple(str: String) -> NSAttributedString {
-        return str.color(UIColor(r: 255, g: 0, b: 254))
-    }
-    
-    static func pink(str: String) -> NSAttributedString {
-        return str.color(UIColor(r: 255, g: 182, b: 196))
-    }
+//    
+//    static func red(str: String) -> NSAttributedString {
+//        return str.color(colorDictionary["red"]!)
+//    }
+//    
+//    static func green(str: String) -> NSAttributedString {
+//        return str.color(UIColor(r: 0, g: 119, b: 4))
+//    }
+//    
+//    static func hiGreen(str: String) -> NSAttributedString {
+//        return str.color(UIColor(r: 3, g: 202, b: 46))
+//    }
+//    
+//    static func cyan(str: String) -> NSAttributedString {
+//        return str.color(UIColor(r: 0, g: 255, b: 255))
+//    }
+//    
+//    static func normal(str: String) -> NSAttributedString {
+//        return KColors.green(str)
+//    }
+//    
+//    static func hiYellow(str: String) -> NSAttributedString {
+//        return str.color(UIColor(r: 255, g: 255, b: 20))
+//    }
+// 
+//    static func hiRed(str: String) -> NSAttributedString {
+//        return str.color(UIColor(r: 255, g: 0, b: 8))
+//    }
+//    
+//    static func hiWhite(str: String) -> NSAttributedString {
+//        return str.color(UIColor(r: 255, g: 255, b: 255))
+//    }
+//    
+//    static func white(str: String) -> NSAttributedString {
+//        return str.color(UIColor(r: 243, g: 243, b: 243))
+//    }
+//    
+//    static func purple(str: String) -> NSAttributedString {
+//        return str.color(UIColor(r: 120, g: 0, b: 116))
+//    }
+//    
+//    static func chatColor(str: String) -> NSAttributedString {
+//        return str.color(UIColor(r: 106, g: 125, b: 142))
+//    }
+//    
+//    static func hiCyan(str: String) -> NSAttributedString {
+//        return str.color(UIColor(r: 0, g: 171, b: 160))
+//    }
+//    
+//    static func blue(str: String) -> NSAttributedString {
+//        return str.color(UIColor(r: 0, g: 0, b: 198))
+//    }
+//    
+//    static func hiBlue(str: String) -> NSAttributedString {
+//        return str.color(UIColor(r: 0, g: 0, b: 239))
+//    }
+//    
+//    static func yellow(str: String) -> NSAttributedString {
+//        return str.color(UIColor(r: 117, g: 117, b: 6))
+//    }
+//    
+//    static func hiPurple(str: String) -> NSAttributedString {
+//        return str.color(UIColor(r: 255, g: 0, b: 254))
+//    }
+//    
+//    static func pink(str: String) -> NSAttributedString {
+//        return str.color(UIColor(r: 255, g: 182, b: 196))
+//    }
     
 }

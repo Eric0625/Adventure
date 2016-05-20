@@ -114,16 +114,18 @@ class TheWorld {
     
     static func broadcast(msg: String) {
         if msg.isEmpty { return }
+        if msg == "\n" { return }
         let timeStamp = formatDate(NSDate())
         //add carriage return
         var displayMsg = timeStamp + " " + msg.stringByReplacingOccurrencesOfString("<br>", withString: "\n")
-        displayMsg = displayMsg.stringByReplacingOccurrencesOfString("'", withString: "&quot;")
-        var test = displayMsg
-        while test.hasSuffix("</span>") {
-            let ind = test.endIndex.advancedBy(-7)
-            test = test.substringToIndex(ind)
-        }
-        if test.hasSuffix("\n") == false {
+        displayMsg = displayMsg.stringByReplacingOccurrencesOfString("\r", withString: "")
+//        displayMsg = displayMsg.stringByReplacingOccurrencesOfString("'", withString: "&quot;")
+//        var test = displayMsg
+//        while test.hasSuffix("</span>") {
+//            let ind = test.endIndex.advancedBy(-7)
+//            test = test.substringToIndex(ind)
+//        }
+        if displayMsg.hasSuffix("\n") == false {
             displayMsg += "\n"
         }
         for delegate in instance.displayMessageHandler {

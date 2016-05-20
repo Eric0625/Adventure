@@ -40,6 +40,7 @@
 		1C71C0EA1CD99FC70009C97C /* KCui_Death.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C71C0E91CD99FC70009C97C /* KCui_Death.swift */; };
 		1C71C0EC1CD9A1020009C97C /* KSSword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C71C0EB1CD9A1020009C97C /* KSSword.swift */; };
 		1C71C0EF1CD9A1E90009C97C /* KDeathRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C71C0EE1CD9A1E90009C97C /* KDeathRoom.swift */; };
+		1C8133B71CEF430C007090F1 /* ColorParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8133B61CEF430C007090F1 /* ColorParser.swift */; };
 		1C8E679D1CE5650200F6F6DB /* WorldMessageBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E679C1CE5650200F6F6DB /* WorldMessageBoardView.swift */; };
 		1C8E67C81CE57F8D00F6F6DB /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E679F1CE57F8D00F6F6DB /* ArrayExtensions.swift */; };
 		1C8E67C91CE57F8D00F6F6DB /* BlockButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67A01CE57F8D00F6F6DB /* BlockButton.swift */; };
@@ -146,6 +147,7 @@
 		1C71C0E91CD99FC70009C97C /* KCui_Death.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KCui_Death.swift; sourceTree = "<group>"; };
 		1C71C0EB1CD9A1020009C97C /* KSSword.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KSSword.swift; sourceTree = "<group>"; };
 		1C71C0EE1CD9A1E90009C97C /* KDeathRoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KDeathRoom.swift; sourceTree = "<group>"; };
+		1C8133B61CEF430C007090F1 /* ColorParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorParser.swift; sourceTree = "<group>"; };
 		1C8E679C1CE5650200F6F6DB /* WorldMessageBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorldMessageBoardView.swift; sourceTree = "<group>"; };
 		1C8E679F1CE57F8D00F6F6DB /* ArrayExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		1C8E67A01CE57F8D00F6F6DB /* BlockButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockButton.swift; sourceTree = "<group>"; };
@@ -481,6 +483,7 @@
 				1C5F3E5C1CCC45A300FFBB70 /* MyPlayground.playground */,
 				1C8E679C1CE5650200F6F6DB /* WorldMessageBoardView.swift */,
 				1C8E67F11CE5888B00F6F6DB /* DynamicTextStorage.swift */,
+				1C8133B61CEF430C007090F1 /* ColorParser.swift */,
 			);
 			path = Adventure;
 			sourceTree = "<group>";
@@ -574,6 +577,7 @@
 				1C8E67E51CE57F8D00F6F6DB /* UIDeviceExtensions.swift in Sources */,
 				1CFC79B51CCB3CE80032B71D /* ViewController.swift in Sources */,
 				1CB4AED31CD5C45C007002D4 /* KPanguanBi.swift in Sources */,
+				1C8133B71CEF430C007090F1 /* ColorParser.swift in Sources */,
 				1CB4AEF01CD5D83A007002D4 /* KSQianJunBang.swift in Sources */,
 				1C8E67D91CE57F8D00F6F6DB /* NSAttributedStringExtensions.swift in Sources */,
 				1CB4AED11CD5C28C007002D4 /* KPinkCloth.swift in Sources */,
