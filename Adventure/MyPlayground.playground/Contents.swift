@@ -75,15 +75,14 @@ private func check(str: String, from: Int) {
         let checkResult = res[0]
         let color = str[checkResult.rangeAtIndex(1).toRange()!]
         //print("color is \(color)")
-        var start = checkResult.range.location + checkResult.range.length
-        let newRange = NSMakeRange(start, str.length - start)
+        let start = checkResult.range.location + checkResult.range.length
         //寻找<color>或</color>
         var startPos = start
         var endPos = start
         repeat{
             let newStartPos = findStartPos(str, startFindPos: startPos)
             endPos = findEndPos(str, startFindPos: startPos)
-            print(newStartPos, endPos)
+            //print(newStartPos, endPos)
             if newStartPos < endPos {
                 colorStart += 1
             } else { colorStart -= 1 }
@@ -94,8 +93,8 @@ private func check(str: String, from: Int) {
         check(str, from: start)
     }
 }
-let s = "vvv<color yure>yuecolor</color>normal color<color red>red color<color rtty>rtt color</color>red <color blue>a blue color</color>end of red</color>ff<color white>white color</color>endf"
-let p = "fdfs<color red>fd</color>dsfs"
+let s = "vvv<color yure>yuecolor</color>normal color<color red>red color<color rtty>rtt<color green>a green color</color> color</color>red <color blue>a blue color</color>end of red</color>ff<color white>white color</color>endf"
+let p = "fdfs<color red>fd</color>dsfsvvv<color yure>yuecolor</color>"
 let test = s
 check(test, from: 0)
 for r in attributes {
