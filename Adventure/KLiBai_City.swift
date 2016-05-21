@@ -53,7 +53,7 @@ class KLiBai_City: KHuman {
     func readyEquips(){
         var k:KEquipment = KPanguanBi()
         k.moveTo(self)
-        equip(k)
+        //equip(k)
         k = KCloth()
         k.moveTo(self)
         equip(k)

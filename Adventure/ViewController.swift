@@ -40,8 +40,23 @@ class ViewController: UIViewController, DisplayMessageDelegate, UITextViewDelega
         // 4. Create a UITextView
         txtView = WorldMessageBoardView(frame: newTextViewRect, textContainer: container)
         txtView.delegate = self
+        txtView.editable = false
+        txtView.selectable = false
         view.addSubview(txtView)
         txtView.textColor = UIColor.greenColor()
+    }
+    
+    func createMenu(){
+        let button = CircleMenu(
+            frame: CGRect(x: 200, y: 200, width: 50, height: 50),
+            normalIcon:"icon_menu",
+            selectedIcon:"icon_close",
+            buttonsCount: 4,
+            duration: 4,
+            distance: 120)
+        button.delegate = self
+        button.layer.cornerRadius = button.frame.size.width / 2.0
+        txtView.addSubview(button)
     }
     
     override func viewDidLayoutSubviews() {
@@ -51,6 +66,7 @@ class ViewController: UIViewController, DisplayMessageDelegate, UITextViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         createTextView()
+        createMenu()
         TheWorld.instance.displayMessageHandler.append(self)
         timer = NSTimer.scheduledTimerWithTimeInterval(1,
                                                        target:self,selector:#selector(ViewController.tickDown(_:)),

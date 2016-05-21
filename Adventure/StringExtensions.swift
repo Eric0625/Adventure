@@ -33,6 +33,11 @@ extension String {
         let range = start..<end
         return self[range]
     }
+    
+    public func cutLeft(cutLen: Int) -> String{
+        let end = length - cutLen
+        return self[0..<end]
+    }
 
     /// EZSE: Character count
     public var length: Int {

@@ -41,6 +41,9 @@
 		1C71C0EC1CD9A1020009C97C /* KSSword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C71C0EB1CD9A1020009C97C /* KSSword.swift */; };
 		1C71C0EF1CD9A1E90009C97C /* KDeathRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C71C0EE1CD9A1E90009C97C /* KDeathRoom.swift */; };
 		1C8133B71CEF430C007090F1 /* ColorParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8133B61CEF430C007090F1 /* ColorParser.swift */; };
+		1C8134271CF007AD007090F1 /* CircleMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8134221CF007AD007090F1 /* CircleMenu.swift */; };
+		1C8134281CF007AD007090F1 /* CircleMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8134241CF007AD007090F1 /* CircleMenuButton.swift */; };
+		1C8134291CF007AD007090F1 /* CircleMenuLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8134261CF007AD007090F1 /* CircleMenuLoader.swift */; };
 		1C8E679D1CE5650200F6F6DB /* WorldMessageBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E679C1CE5650200F6F6DB /* WorldMessageBoardView.swift */; };
 		1C8E67C81CE57F8D00F6F6DB /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E679F1CE57F8D00F6F6DB /* ArrayExtensions.swift */; };
 		1C8E67C91CE57F8D00F6F6DB /* BlockButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67A01CE57F8D00F6F6DB /* BlockButton.swift */; };
@@ -148,6 +151,9 @@
 		1C71C0EB1CD9A1020009C97C /* KSSword.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KSSword.swift; sourceTree = "<group>"; };
 		1C71C0EE1CD9A1E90009C97C /* KDeathRoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KDeathRoom.swift; sourceTree = "<group>"; };
 		1C8133B61CEF430C007090F1 /* ColorParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorParser.swift; sourceTree = "<group>"; };
+		1C8134221CF007AD007090F1 /* CircleMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleMenu.swift; sourceTree = "<group>"; };
+		1C8134241CF007AD007090F1 /* CircleMenuButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleMenuButton.swift; sourceTree = "<group>"; };
+		1C8134261CF007AD007090F1 /* CircleMenuLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleMenuLoader.swift; sourceTree = "<group>"; };
 		1C8E679C1CE5650200F6F6DB /* WorldMessageBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorldMessageBoardView.swift; sourceTree = "<group>"; };
 		1C8E679F1CE57F8D00F6F6DB /* ArrayExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		1C8E67A01CE57F8D00F6F6DB /* BlockButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockButton.swift; sourceTree = "<group>"; };
@@ -376,6 +382,32 @@
 			name = Rooms;
 			sourceTree = "<group>";
 		};
+		1C8134211CF007AD007090F1 /* CircleMenuLib */ = {
+			isa = PBXGroup;
+			children = (
+				1C8134221CF007AD007090F1 /* CircleMenu.swift */,
+				1C8134231CF007AD007090F1 /* CircleMenuButton */,
+				1C8134251CF007AD007090F1 /* CircleMenuLoader */,
+			);
+			path = CircleMenuLib;
+			sourceTree = "<group>";
+		};
+		1C8134231CF007AD007090F1 /* CircleMenuButton */ = {
+			isa = PBXGroup;
+			children = (
+				1C8134241CF007AD007090F1 /* CircleMenuButton.swift */,
+			);
+			path = CircleMenuButton;
+			sourceTree = "<group>";
+		};
+		1C8134251CF007AD007090F1 /* CircleMenuLoader */ = {
+			isa = PBXGroup;
+			children = (
+				1C8134261CF007AD007090F1 /* CircleMenuLoader.swift */,
+			);
+			path = CircleMenuLoader;
+			sourceTree = "<group>";
+		};
 		1C8E679E1CE57F5800F6F6DB /* EZSwiftExtensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -472,6 +504,7 @@
 		1CFC79B11CCB3CE80032B71D /* Adventure */ = {
 			isa = PBXGroup;
 			children = (
+				1C8134211CF007AD007090F1 /* CircleMenuLib */,
 				1C8E679E1CE57F5800F6F6DB /* EZSwiftExtensions */,
 				1C5F3E631CCC809100FFBB70 /* GameObjects */,
 				1CFC79B21CCB3CE80032B71D /* AppDelegate.swift */,
@@ -596,6 +629,7 @@
 				1C8E67E31CE57F8D00F6F6DB /* UIColoredView.swift in Sources */,
 				1C5ECDE51CCF0C75005839EF /* KCreature.swift in Sources */,
 				1C55EE9B1CD3B5020014D471 /* KEquipment.swift in Sources */,
+				1C8134291CF007AD007090F1 /* CircleMenuLoader.swift in Sources */,
 				1C8E67E91CE57F8D00F6F6DB /* UILabelExtensions.swift in Sources */,
 				1C8E67DF1CE57F8D00F6F6DB /* NSUserDefaultsExtension.swift in Sources */,
 				1C71C0EF1CD9A1E90009C97C /* KDeathRoom.swift in Sources */,
@@ -615,6 +649,7 @@
 				1C8E67CD1CE57F8D00F6F6DB /* BlockSwipe.swift in Sources */,
 				1C8E67C91CE57F8D00F6F6DB /* BlockButton.swift in Sources */,
 				1C8E67DE1CE57F8D00F6F6DB /* NSURLExtensions.swift in Sources */,
+				1C8134271CF007AD007090F1 /* CircleMenu.swift in Sources */,
 				1CB4AEE41CD5CB8F007002D4 /* KSDodge.swift in Sources */,
 				1C55EEA51CD460900014D471 /* TheCombatEngine.swift in Sources */,
 				1C8E67F01CE57F8D00F6F6DB /* UIWindowExtensions.swift in Sources */,
@@ -636,6 +671,7 @@
 				1CB4AEDB1CD5C849007002D4 /* KQiMeiGun.swift in Sources */,
 				1C8E67E11CE57F8D00F6F6DB /* UIAlertControllerExtensions.swift in Sources */,
 				1C8E679D1CE5650200F6F6DB /* WorldMessageBoardView.swift in Sources */,
+				1C8134281CF007AD007090F1 /* CircleMenuButton.swift in Sources */,
 				1CB4AED71CD5C681007002D4 /* KLongStick.swift in Sources */,
 				1C8E67C81CE57F8D00F6F6DB /* ArrayExtensions.swift in Sources */,
 				1C8E67E71CE57F8D00F6F6DB /* UIImageExtensions.swift in Sources */,

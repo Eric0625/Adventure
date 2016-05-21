@@ -88,7 +88,7 @@ class KUser: KCreature {
     
     override func startFighting(op: KCreature) {
         super.startFighting(op)
-        tellPlayer(KColors.HIR + "看起来" + op.name + "想杀死你！", usr: self)
+        tellPlayer(KColors.HIR + "看起来" + op.name + "想杀死你！" + KColors.NOR, usr: self)
     }
     
     override func makeOneHeartBeat() {

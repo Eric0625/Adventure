@@ -25,5 +25,14 @@ class WorldMessageBoardView: UITextView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    
+    override var attributedText: NSAttributedString!{
+        get{
+            return super.attributedText
+        }
+        set{
+            super.attributedText = newValue
+        }
+    }
 
 }
