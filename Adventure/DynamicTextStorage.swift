@@ -37,6 +37,12 @@ class DynamicTextStorage: NSTextStorage {
         endEditing()
     }
     
+    func appendAttribute(str:NSAttributedString) {
+        beginEditing()
+        backingStore.appendAttributedString(str)
+        endEditing()
+    }
+    
 //    func applyStylesToRange(searchRange: NSRange) {
 //        // 1. create some fonts
 //        let fontDescriptor = UIFontDescriptor.preferredFontDescriptorWithTextStyle(UIFontTextStyleBody)

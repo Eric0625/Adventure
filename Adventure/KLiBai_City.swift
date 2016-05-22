@@ -31,7 +31,7 @@ class KLiBai_City: KHuman {
         let p = KPoisonCondition(amount: 10, duration: 50)
         applyCondition(p)
         readyEquips()
-        attitude = .Aggressive
+        //attitude = .Aggressive
     }
     
     required init(k: KObject) {
@@ -53,7 +53,7 @@ class KLiBai_City: KHuman {
     func readyEquips(){
         var k:KEquipment = KPanguanBi()
         k.moveTo(self)
-        //equip(k)
+        equip(k)
         k = KCloth()
         k.moveTo(self)
         equip(k)

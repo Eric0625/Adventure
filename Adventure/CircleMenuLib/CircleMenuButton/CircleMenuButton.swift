@@ -29,6 +29,8 @@ public class CircleMenuButton: UIButton {
 
     public weak var container: UIView?
 
+    var gameObject: KObject?
+    var gameDirection:Directions?
     // MARK: life cycle
 
     init(size: CGSize, circleMenu: CircleMenu, distance: Float, angle: Float = 0) {

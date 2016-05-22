@@ -115,7 +115,7 @@ class TheWorld {
     static func broadcast(msg: String) {
         if msg.isEmpty { return }
         if msg.isOnlyEmptySpacesAndNewLineCharacters() { return }
-        let timeStamp = formatDate(NSDate())
+        //let timeStamp = formatDate(NSDate())
         //add carriage return
         var displayMsg = msg.stringByReplacingOccurrencesOfString("<br>", withString: "\n")
         displayMsg = displayMsg.stringByReplacingOccurrencesOfString("\r", withString: "")
