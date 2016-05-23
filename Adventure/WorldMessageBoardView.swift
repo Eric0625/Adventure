@@ -38,6 +38,7 @@ class WorldMessageBoardView: UITextView, CircleMenuDelegate {
             distance: 80)
         super.init(frame: frame, textContainer: textContainer)
         backgroundColor = UIColor.blackColor()
+        font = UIFont.Font(.Avenir, type: .Regular, size: 20)
         createMenu()
     }
     
@@ -79,7 +80,7 @@ class WorldMessageBoardView: UITextView, CircleMenuDelegate {
                 guard let inv = room._entities else {
                     return
                 }
-                if inventoryIndex < inv.count {
+                while (inventoryIndex < inv.count) {
                     var addable = true
                     if inv[inventoryIndex] is KUser { addable = false }
                     else if let npc = inv[inventoryIndex] as? KNPC {
@@ -90,6 +91,8 @@ class WorldMessageBoardView: UITextView, CircleMenuDelegate {
                         button.hidden = false
                         button.gameObject = inv[inventoryIndex]
                         button.gameDirection = nil
+                        inventoryIndex += 1
+                        break
                     }
                     inventoryIndex += 1
                 }
