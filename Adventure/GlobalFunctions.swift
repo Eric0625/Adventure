@@ -46,7 +46,7 @@ func tellPlayer(msg: String, usr: KEntity){
 
 func notifyFail(msg: String, to chr: KEntity) -> Bool {
     if chr is KUser {
-        TheWorld.broadcast(msg)
+        TheWorld.broadcast(KColors.ChatMsg + msg + KColors.NOR)
     }
     return false
 }

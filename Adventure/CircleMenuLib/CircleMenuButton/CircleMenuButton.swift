@@ -62,6 +62,13 @@ public class CircleMenuButton: UIButton {
 
     // MARK: configure
 
+    public override func setTitle(title: String?, forState state: UIControlState) {
+        if let t = title where t.length > 2{
+            titleLabel?.font = titleLabel?.font.fontWithSize(12)
+        }
+        super.setTitle(title, forState: state)
+    }
+    
     public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if touches.count == 1 {
             touchPoint = touches.first

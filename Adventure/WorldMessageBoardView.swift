@@ -65,6 +65,10 @@ class WorldMessageBoardView: UITextView, CircleMenuDelegate {
             let point = t.locationInView(self)
             circleMain.frame = CGRectMake(point.x - 20, point.y - 20, 40, 40)
             circleMain.onTap()
+            if circleSecond.buttonsIsShown() {
+                circleSecond.hidden = true
+                circleSecond.hideButtons(0)
+            }
         }
         super.touchesEnded(touches, withEvent: event)
     }
@@ -83,7 +87,7 @@ class WorldMessageBoardView: UITextView, CircleMenuDelegate {
     }
 
     var inventoryIndex:Int = 0
-    func circleMainButton(button: CircleMenuButton, atIndex: Int){
+    func circleMainInit(button: CircleMenuButton, atIndex: Int){
         if atIndex == 0 {inventoryIndex = 0}
         button.backgroundColor = items[atIndex].color
         button.hidden = true
@@ -107,9 +111,6 @@ class WorldMessageBoardView: UITextView, CircleMenuDelegate {
                     }
                     if addable {
                         button.setTitle(inv[inventoryIndex].name, forState: .Normal)
-                        if inv[inventoryIndex].name.length > 2 {
-                            button.titleLabel?.font = button.titleLabel?.font.fontWithSize(12)
-                        }
                         button.hidden = false
                         button.gameObject = inv[inventoryIndex]
                         button.gameDirection = nil
@@ -124,9 +125,16 @@ class WorldMessageBoardView: UITextView, CircleMenuDelegate {
         }
     }
     
+    func circleSecondInit(button: CircleMenuButton, atIndex: Int){
+        
+    }
+    
     func circleMenu(circleMenu: CircleMenu, willDisplay button: CircleMenuButton, atIndex: Int) {
         if circleMenu === circleMain {
-            circleMainButton(button, atIndex: atIndex)
+            circleMainInit(button, atIndex: atIndex)
+        }
+        if circleMenu === circleSecond  {
+            circleSecondInit(button, atIndex: atIndex)
         }
     }
     
@@ -145,17 +153,29 @@ class WorldMessageBoardView: UITextView, CircleMenuDelegate {
         } else if let object = button.gameObject {
             if let npc = object as? KNPC {
                 //点击了npc菜单
+                if npc.environment !== TheWorld.ME.environment {
+                    notifyFail("\(npc.name)已经不在这里了。", to: TheWorld.ME)
+                    return
+                }
                 if let touch = button.touchPoint {
                     let point = touch.locationInView(self)
                     circleSecond.frame = CGRectMake(point.x - 20, point.y - 20, 40, 40)
+                    circleSecond.setTitle(npc.name, forState: .Normal)
                     circleSecond.onTap()
+                    circleSecond.gameObject = npc
                 }
             }
         }
     }
     
+    func circleSecondButtonSelected(button: CircleMenuButton, atIndex: Int){
+        if let npc = circleSecond.gameObject as? KNPC {
+            npc.availableCommands
+        }
+    }
+    
     func circleMenu(circleMenu: CircleMenu, buttonDidSelected button: CircleMenuButton, atIndex: Int) {
         if circleMenu === circleMain { circleMainButtonSeleted(button, atIndex: atIndex) }
-        
+        if circleMenu === circleSecond { circleSecondButtonSelected(button, atIndex: atIndex) }
     }
 }

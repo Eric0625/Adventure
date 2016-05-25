@@ -64,6 +64,7 @@ public class CircleMenu: UIButton {
     private var customNormalIconView: UIImageView!
     private var customSelectedIconView: UIImageView!
     
+    var gameObject: KObject?
     // MARK: life cycle
     public init(frame: CGRect, normalIcon: String?, selectedIcon: String?, buttonsCount: Int = 3, duration: Double = 2,
                 distance: Float = 100) {
@@ -117,6 +118,12 @@ public class CircleMenu: UIButton {
         tapRotatedAnimation(0.3, isSelected: false)
     }
     
+    public override func setTitle(title: String?, forState state: UIControlState) {
+        if let t = title where t.length > 2 {
+            self.titleLabel?.font = titleLabel?.font.fontWithSize(12)
+        }
+        super.setTitle(title, forState: state)
+    }
     
     // MARK: create
     
