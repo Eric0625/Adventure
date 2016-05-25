@@ -29,6 +29,7 @@ public class CircleMenuButton: UIButton {
 
     public weak var container: UIView?
 
+    var touchPoint: UITouch?
     var gameObject: KObject?
     var gameDirection:Directions?
     // MARK: life cycle
@@ -61,6 +62,13 @@ public class CircleMenuButton: UIButton {
 
     // MARK: configure
 
+    public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        if touches.count == 1 {
+            touchPoint = touches.first
+        }
+        super.touchesEnded(touches, withEvent: event)
+    }
+    
     private func createContainer(size: CGSize, circleMenu: CircleMenu) -> UIView {
 
         guard let circleMenuSuperView = circleMenu.superview else {

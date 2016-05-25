@@ -100,8 +100,7 @@ public class CircleMenu: UIButton {
         }
 //        setImage(UIImage(), forState: .Normal)
 //        setImage(UIImage(), forState: .Selected)
-        setTitle("自己", forState: .Normal)
-        
+                
         backgroundColor = UIColor(r: 1, g: 0, b: 0, a: 1)
     }
     
