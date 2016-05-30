@@ -44,13 +44,13 @@ class WorldMessageBoardView: UITextView, CircleMenuDelegate {
             frame: CGRectMake(0, 0, 40, 40),
             normalIcon:"icon_menu",
             selectedIcon:"icon_close",
-            buttonsCount: 8,
+            buttonsCount: 10,
             duration: 4,
-            distance: 80)
+            distance: 100)
         super.init(frame: frame, textContainer: textContainer)
         backgroundColor = UIColor.blackColor()
         font = UIFont.Font(.Avenir, type: .Regular, size: 20)
-        createMenu()
+        //createMenu()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -62,7 +62,7 @@ class WorldMessageBoardView: UITextView, CircleMenuDelegate {
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if touches.count == 1 {
             let t = touches.first!
-            let point = t.locationInView(self)
+            let point = t.locationInView(circleMain.superview!)
             circleMain.frame = CGRectMake(point.x - 20, point.y - 20, 40, 40)
             circleMain.onTap()
             if circleSecond.buttonsIsShown() {
@@ -73,16 +73,16 @@ class WorldMessageBoardView: UITextView, CircleMenuDelegate {
         super.touchesEnded(touches, withEvent: event)
     }
     
-    func createMenu(){
+    func createMenu(view:UIView){
         circleMain.delegate = self
         circleMain.layer.cornerRadius = circleMain.frame.size.width / 2.0
-        self.addSubview(circleMain)
+        view.addSubview(circleMain)
         circleMain.hidden = true
         circleMain.setTitle("自己", forState: .Normal)
         
         circleSecond.delegate = self
         circleSecond.layer.cornerRadius = circleMain.frame.size.width / 2.0
-        self.addSubview(circleSecond)
+        view.addSubview(circleSecond)
         circleSecond.hidden = true
     }
 
@@ -126,7 +126,12 @@ class WorldMessageBoardView: UITextView, CircleMenuDelegate {
     }
     
     func circleSecondInit(button: CircleMenuButton, atIndex: Int){
-        
+        if atIndex >= circleSecond.commands.count {
+            button.hidden = true
+        } else {
+            button.setTitle(circleSecond.commands[atIndex], forState: .Normal)
+            button.hidden = false
+        }
     }
     
     func circleMenu(circleMenu: CircleMenu, willDisplay button: CircleMenuButton, atIndex: Int) {
@@ -151,31 +156,60 @@ class WorldMessageBoardView: UITextView, CircleMenuDelegate {
                 TheRoomEngine.instance.moveFrom(room, through: direct, ob: user)
             }
         } else if let object = button.gameObject {
+            if let touch = button.touchPoint {
+                let point = touch.locationInView(circleMain.superview!)
+                circleSecond.frame = CGRectMake(point.x - 20, point.y - 20, 40, 40)
+            }
             if let npc = object as? KNPC {
                 //点击了npc菜单
                 if npc.environment !== TheWorld.ME.environment {
                     notifyFail("\(npc.name)已经不在这里了。", to: TheWorld.ME)
                     return
                 }
-                if let touch = button.touchPoint {
-                    let point = touch.locationInView(self)
-                    circleSecond.frame = CGRectMake(point.x - 20, point.y - 20, 40, 40)
-                    circleSecond.setTitle(npc.name, forState: .Normal)
-                    circleSecond.onTap()
-                    circleSecond.gameObject = npc
+                circleSecond.setTitle(npc.name, forState: .Normal)
+                circleSecond.gameObject = npc
+                circleSecond.commands = npc.availableCommands.chineseStrings
+            } else if let item = object as? KItem {
+                //点击了物品
+                if item.environment !== TheWorld.ME.environment {
+                    notifyFail("\(item.name)已经不在这里了。", to: TheWorld.ME)
+                    return
                 }
+                circleSecond.setTitle(item.name, forState: .Normal)
+                circleSecond.gameObject = item
+                circleSecond.commands = item.availableCommands.chineseStrings
             }
+            circleSecond.onTap()
         }
     }
     
     func circleSecondButtonSelected(button: CircleMenuButton, atIndex: Int){
+        if let ent = circleSecond.gameObject as? KEntity where ent.environment !== TheWorld.ME.environment {
+            notifyFail("\(ent.name)已经不在这里了。", to: TheWorld.ME)
+            return
+        }
         if let npc = circleSecond.gameObject as? KNPC {
-            npc.availableCommands
+            npc.processUserCommand(NPCCommands(string: button.currentTitle!))
+        } else if let item = circleSecond.gameObject as? KItem {
+            item.processCommand(ItemCommands(string: button.currentTitle!))
+        } else if let user = circleSecond.gameObject as? KUser {
+            //TheWorld.ME.processCommand(
         }
     }
     
     func circleMenu(circleMenu: CircleMenu, buttonDidSelected button: CircleMenuButton, atIndex: Int) {
         if circleMenu === circleMain { circleMainButtonSeleted(button, atIndex: atIndex) }
         if circleMenu === circleSecond { circleSecondButtonSelected(button, atIndex: atIndex) }
+    }
+    
+    func circleMenu(hitCenter circleMenu: CircleMenu) {
+        if circleMenu === circleMain {
+            //点击的是“自己"
+            circleSecond.setTitle(TheWorld.ME.name, forState: .Normal)
+            circleSecond.frame = circleMain.frame
+            circleSecond.gameObject = TheWorld.ME
+            circleSecond.commands = TheWorld.ME.availableCommands.chineseStrings
+            circleSecond.onTap()
+        }
     }
 }

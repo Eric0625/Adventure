@@ -86,8 +86,8 @@ class TheCombatEngine {
                 dp *= attackerAction.dodgePower
                 if defenser.isBusy { dp /= 3 }
                 checker = ap + dp
-                let xx = dp / checker
-                DEBUG("ap:\(ap)  dp:\(dp) possiblity:\(xx)")
+                let xx = String(format: "%.4f", dp / checker)
+                DEBUG("attacker:\(attacker.name), defenser:\(defenser.name),ap:\(ap)  dp:\(dp), dodge possiblity:\(xx)")
                 mod = dp
                 if checker < 100000{
                     mod *= 100

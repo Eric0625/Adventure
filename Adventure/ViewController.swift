@@ -14,8 +14,13 @@ class ViewController: UIViewController, DisplayMessageDelegate, UITextViewDelega
 
     var txtView:WorldMessageBoardView!
     var txtStorage: DynamicTextStorage!
-    var allMsg:NSMutableAttributedString = NSMutableAttributedString(string: "")
+    var buttonGroupView: UIView = UIView()
+    var statusButton: UIButton = UIButton()
+    var inventoryButton: BTNavigationDropdownMenu!
+    var observeButton:UIButton = UIButton()
+   // var allMsg:NSMutableAttributedString = NSMutableAttributedString(string: "")
     var timer:NSTimer!
+    let containerView : UIView = UIView()
     
     func createTextView() {
         // 1. Create the text storage that backs the editor
@@ -40,16 +45,47 @@ class ViewController: UIViewController, DisplayMessageDelegate, UITextViewDelega
         txtView.editable = false
         txtView.selectable = false
         txtView.layoutManager.allowsNonContiguousLayout = false
-        view.addSubview(txtView)
+        containerView.addSubview(txtView)
+        txtView.createMenu(containerView)
+    }
+    
+    func createButtons(){
+        containerView.addSubview(buttonGroupView)
+        statusButton.setTitle("状  态", forState: .Normal)
+        statusButton.backgroundColor = UIColor.brownColor()
+        buttonGroupView.addSubview(statusButton)
+        //inventoryButton.setTitle("物  品", forState: .Normal)
+        let menus = ["Most Popular", "Latest", "Trending", "Nearest", "Top Picks"]
+        inventoryButton = BTNavigationDropdownMenu(navigationController: nil, title: "test", items: menus)
+        inventoryButton.backgroundColor = UIColor.purpleColor()
+        buttonGroupView.addSubview(inventoryButton)
+        observeButton.setTitle("观  察", forState: .Normal)
+        observeButton.backgroundColor = UIColor.grayColor()
+        buttonGroupView.addSubview(observeButton)
     }
     
     override func viewDidLayoutSubviews() {
-        txtView.frame = view.bounds
+        //containerView.frame = view.bounds
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        containerView.fillSuperview()
+        let txtHeight = view.frame.height * 0.97
+        buttonGroupView.anchorAndFillEdge(.Bottom, xPad: 0, yPad: 0, otherSize: view.frame.height - txtHeight)
+        buttonGroupView.groupAndFill(group: .Horizontal, views: [statusButton, inventoryButton, observeButton], padding: 0)
+        //statusButton.anchorInCorner(.BottomLeft, xPad: 0, yPad: 0, width: view.frame.width / 2, height: view.frame.height - txtHeight)
+        //inventoryButton.alignAndFillWidth(align: .ToTheRightMatchingTop, relativeTo: statusButton, padding: 0, height: view.frame.height - txtHeight)
+        txtView.alignAndFillWidth(align: .AboveCentered, relativeTo: buttonGroupView, padding: 0, height: txtHeight)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        containerView.clipsToBounds = true
+        containerView.backgroundColor = UIColor(red: 61/255.0, green: 61/255.0, blue: 61/255.0, alpha: 1.0)
+        view.addSubview(containerView)
         createTextView()
+        createButtons()
         TheWorld.instance.displayMessageHandler.append(self)
         timer = NSTimer.scheduledTimerWithTimeInterval(1,
                                                        target:self,selector:#selector(ViewController.tickDown(_:)),
@@ -89,7 +125,7 @@ class ViewController: UIViewController, DisplayMessageDelegate, UITextViewDelega
             if range.isEmpty {break}
             m.replaceCharactersInRange(range[0].rangeAtIndex(1), withString: "")
         }while(true)
-        allMsg.appendAttributedString(m)
+        //allMsg.appendAttributedString(m)
         let store = txtView.textStorage as! DynamicTextStorage
         store.appendAttributedString(m)
         //txtView.attributedText = allMsg
@@ -97,8 +133,7 @@ class ViewController: UIViewController, DisplayMessageDelegate, UITextViewDelega
     }
     
     func clearAllMessage(){
-        allMsg = NSMutableAttributedString(string: "")
-        txtView.attributedText = allMsg
+        txtView.attributedText = NSMutableAttributedString(string: "")
     }
     
     

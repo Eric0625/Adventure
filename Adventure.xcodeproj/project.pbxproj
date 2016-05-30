@@ -7,7 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C180C251CFA92F100131A83 /* Neon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C180C201CFA92F100131A83 /* Neon.swift */; };
+		1C180C261CFA92F100131A83 /* NeonAlignable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C180C211CFA92F100131A83 /* NeonAlignable.swift */; };
+		1C180C271CFA92F100131A83 /* NeonAnchorable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C180C221CFA92F100131A83 /* NeonAnchorable.swift */; };
+		1C180C281CFA92F100131A83 /* NeonFrameable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C180C231CFA92F100131A83 /* NeonFrameable.swift */; };
+		1C180C291CFA92F100131A83 /* NeonGroupable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C180C241CFA92F100131A83 /* NeonGroupable.swift */; };
 		1C1EE8EE1CD1BC400034B1A4 /* KUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1EE8ED1CD1BC400034B1A4 /* KUser.swift */; };
+		1C4AF1CA1CFC47D10071879C /* BTNavigationDropdownMenu.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1C4AF1C81CFC47D10071879C /* BTNavigationDropdownMenu.bundle */; };
+		1C4AF1CB1CFC47D10071879C /* BTNavigationDropdownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4AF1C91CFC47D10071879C /* BTNavigationDropdownMenu.swift */; };
 		1C55EE9B1CD3B5020014D471 /* KEquipment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C55EE9A1CD3B5020014D471 /* KEquipment.swift */; };
 		1C55EE9D1CD3C71B0014D471 /* KWeapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C55EE9C1CD3C71B0014D471 /* KWeapon.swift */; };
 		1C55EE9F1CD3D2260014D471 /* KArmor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C55EE9E1CD3D2260014D471 /* KArmor.swift */; };
@@ -116,7 +123,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C180C1F1CFA92F100131A83 /* Neon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Neon.h; sourceTree = "<group>"; };
+		1C180C201CFA92F100131A83 /* Neon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Neon.swift; sourceTree = "<group>"; };
+		1C180C211CFA92F100131A83 /* NeonAlignable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeonAlignable.swift; sourceTree = "<group>"; };
+		1C180C221CFA92F100131A83 /* NeonAnchorable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeonAnchorable.swift; sourceTree = "<group>"; };
+		1C180C231CFA92F100131A83 /* NeonFrameable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeonFrameable.swift; sourceTree = "<group>"; };
+		1C180C241CFA92F100131A83 /* NeonGroupable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeonGroupable.swift; sourceTree = "<group>"; };
 		1C1EE8ED1CD1BC400034B1A4 /* KUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KUser.swift; sourceTree = "<group>"; };
+		1C4AF1C81CFC47D10071879C /* BTNavigationDropdownMenu.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BTNavigationDropdownMenu.bundle; sourceTree = "<group>"; };
+		1C4AF1C91CFC47D10071879C /* BTNavigationDropdownMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTNavigationDropdownMenu.swift; sourceTree = "<group>"; };
 		1C55EE9A1CD3B5020014D471 /* KEquipment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KEquipment.swift; sourceTree = "<group>"; };
 		1C55EE9C1CD3C71B0014D471 /* KWeapon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KWeapon.swift; sourceTree = "<group>"; };
 		1C55EE9E1CD3D2260014D471 /* KArmor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KArmor.swift; sourceTree = "<group>"; };
@@ -238,6 +253,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C180C1E1CFA92D900131A83 /* Neon */ = {
+			isa = PBXGroup;
+			children = (
+				1C180C1F1CFA92F100131A83 /* Neon.h */,
+				1C180C201CFA92F100131A83 /* Neon.swift */,
+				1C180C211CFA92F100131A83 /* NeonAlignable.swift */,
+				1C180C221CFA92F100131A83 /* NeonAnchorable.swift */,
+				1C180C231CFA92F100131A83 /* NeonFrameable.swift */,
+				1C180C241CFA92F100131A83 /* NeonGroupable.swift */,
+			);
+			name = Neon;
+			sourceTree = "<group>";
+		};
+		1C4AF1C71CFC47A90071879C /* DropDownMenu */ = {
+			isa = PBXGroup;
+			children = (
+				1C4AF1C81CFC47D10071879C /* BTNavigationDropdownMenu.bundle */,
+				1C4AF1C91CFC47D10071879C /* BTNavigationDropdownMenu.swift */,
+			);
+			name = DropDownMenu;
+			sourceTree = "<group>";
+		};
 		1C55EEA81CD486650014D471 /* Items */ = {
 			isa = PBXGroup;
 			children = (
@@ -504,6 +541,8 @@
 		1CFC79B11CCB3CE80032B71D /* Adventure */ = {
 			isa = PBXGroup;
 			children = (
+				1C4AF1C71CFC47A90071879C /* DropDownMenu */,
+				1C180C1E1CFA92D900131A83 /* Neon */,
 				1C8134211CF007AD007090F1 /* CircleMenuLib */,
 				1C8E679E1CE57F5800F6F6DB /* EZSwiftExtensions */,
 				1C5F3E631CCC809100FFBB70 /* GameObjects */,
@@ -581,6 +620,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C5ECDE11CCEF631005839EF /* 日志.txt in Resources */,
+				1C4AF1CA1CFC47D10071879C /* BTNavigationDropdownMenu.bundle in Resources */,
 				1CFC79BD1CCB3CE80032B71D /* LaunchScreen.storyboard in Resources */,
 				1CFC79BA1CCB3CE80032B71D /* Assets.xcassets in Resources */,
 				1CFC79B81CCB3CE80032B71D /* Main.storyboard in Resources */,
@@ -606,6 +646,7 @@
 				1C8E67E61CE57F8D00F6F6DB /* UIFontExtensions.swift in Sources */,
 				1C8E67D81CE57F8D00F6F6DB /* IntExtensions.swift in Sources */,
 				1CB4AEEE1CD5D64B007002D4 /* KSPutiZhi.swift in Sources */,
+				1C180C251CFA92F100131A83 /* Neon.swift in Sources */,
 				1C5ECDFA1CD0F49C005839EF /* KRoom.swift in Sources */,
 				1C8E67E51CE57F8D00F6F6DB /* UIDeviceExtensions.swift in Sources */,
 				1CFC79B51CCB3CE80032B71D /* ViewController.swift in Sources */,
@@ -614,6 +655,8 @@
 				1CB4AEF01CD5D83A007002D4 /* KSQianJunBang.swift in Sources */,
 				1C8E67D91CE57F8D00F6F6DB /* NSAttributedStringExtensions.swift in Sources */,
 				1CB4AED11CD5C28C007002D4 /* KPinkCloth.swift in Sources */,
+				1C180C261CFA92F100131A83 /* NeonAlignable.swift in Sources */,
+				1C180C291CFA92F100131A83 /* NeonGroupable.swift in Sources */,
 				1C5ECDE31CCEF830005839EF /* KCombatInfo.swift in Sources */,
 				1C5ECDFC1CD0F515005839EF /* KNPC.swift in Sources */,
 				1C8E67CE1CE57F8D00F6F6DB /* BlockTap.swift in Sources */,
@@ -628,6 +671,7 @@
 				1CFC79B31CCB3CE80032B71D /* AppDelegate.swift in Sources */,
 				1C8E67E31CE57F8D00F6F6DB /* UIColoredView.swift in Sources */,
 				1C5ECDE51CCF0C75005839EF /* KCreature.swift in Sources */,
+				1C4AF1CB1CFC47D10071879C /* BTNavigationDropdownMenu.swift in Sources */,
 				1C55EE9B1CD3B5020014D471 /* KEquipment.swift in Sources */,
 				1C8134291CF007AD007090F1 /* CircleMenuLoader.swift in Sources */,
 				1C8E67E91CE57F8D00F6F6DB /* UILabelExtensions.swift in Sources */,
@@ -669,12 +713,14 @@
 				1C8E67E41CE57F8D00F6F6DB /* UIColorExtensions.swift in Sources */,
 				1C8E67ED1CE57F8D00F6F6DB /* UIUserInterfaceSizeClassExtensions.swift in Sources */,
 				1CB4AEDB1CD5C849007002D4 /* KQiMeiGun.swift in Sources */,
+				1C180C281CFA92F100131A83 /* NeonFrameable.swift in Sources */,
 				1C8E67E11CE57F8D00F6F6DB /* UIAlertControllerExtensions.swift in Sources */,
 				1C8E679D1CE5650200F6F6DB /* WorldMessageBoardView.swift in Sources */,
 				1C8134281CF007AD007090F1 /* CircleMenuButton.swift in Sources */,
 				1CB4AED71CD5C681007002D4 /* KLongStick.swift in Sources */,
 				1C8E67C81CE57F8D00F6F6DB /* ArrayExtensions.swift in Sources */,
 				1C8E67E71CE57F8D00F6F6DB /* UIImageExtensions.swift in Sources */,
+				1C180C271CFA92F100131A83 /* NeonAnchorable.swift in Sources */,
 				1C5ECDDB1CCE503E005839EF /* KSkillAction.swift in Sources */,
 				1C55EE9F1CD3D2260014D471 /* KArmor.swift in Sources */,
 				1CB4AEE21CD5CB17007002D4 /* KJiaoTou_City.swift in Sources */,

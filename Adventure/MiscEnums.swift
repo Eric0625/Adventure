@@ -8,26 +8,73 @@
 
 import Foundation
 
+struct UserCommands: OptionSetType {
+    var rawValue: UInt
+    static let None = UserCommands(rawValue: 0)
+    static let Inventory = UserCommands(rawValue: 1<<0)
+    static let ShowStatus = UserCommands(rawValue: 1<<1)
+    static let All: UserCommands = [.Inventory, .ShowStatus]
+    
+    var chineseStrings: [String] {
+        switch self {
+        case UserCommands.None:
+            return []
+        case UserCommands.Inventory:
+            return ["物品"]
+        case UserCommands.ShowStatus:
+            return ["状态"]
+        default:
+            var returnValue:[String] = []
+            if self.contains(.Inventory) { returnValue += UserCommands.Inventory.chineseStrings }
+            if self.contains(.ShowStatus) { returnValue += UserCommands.ShowStatus.chineseStrings }
+            return returnValue
+        }
+    }
+    
+    init(rawValue: UInt){
+        self.rawValue = rawValue
+    }
+    
+    init(string:String){
+        switch string {
+        case "物品":
+            rawValue = UserCommands.Inventory.rawValue
+        case "状态":
+            rawValue = UserCommands.ShowStatus.rawValue
+        default:
+            rawValue = ItemCommands.None.rawValue
+        }
+    }
+}
+
 struct ItemCommands: OptionSetType {
     var rawValue: UInt
     static let None = ItemCommands(rawValue: 0)
     static let Observe = ItemCommands(rawValue: 1<<0)
     static let Get = ItemCommands(rawValue: 1<<1)
     static let Stole = ItemCommands(rawValue: 1<<2)
+    static let Harving = ItemCommands(rawValue: 1<<3)
     static let Normal:ItemCommands = [.Observe, .Get]
     
-    var chineseString: String {
+    var chineseStrings: [String] {
         switch self {
         case ItemCommands.None:
-            return ""
+            return [""]
         case ItemCommands.Observe:
-            return "观察"
+            return ["观察"]
         case ItemCommands.Get:
-            return "拾取"
+            return ["拾取"]
         case ItemCommands.Stole:
-            return "偷窃"
+            return ["偷窃"]
+        case ItemCommands.Harving:
+            return ["采集"]
         default:
-            return "未知物品命令"
+            var returnValue:[String] = []
+            if self.contains(.Observe) { returnValue += ItemCommands.Observe.chineseStrings }
+            if self.contains(.Get) { returnValue += ItemCommands.Get.chineseStrings }
+            if self.contains(.Stole) { returnValue += ItemCommands.Stole.chineseStrings }
+            if contains(.Harving) { returnValue += ItemCommands.Harving.chineseStrings }
+            return returnValue
         }
     }
     
@@ -64,30 +111,41 @@ struct NPCCommands: OptionSetType {
     static let Trade = NPCCommands(rawValue: 1<<8)
     static let Normal: NPCCommands = [.Target, .Observe, .Tame, .Stole, .Kill, .Ask, .Give]
     
-    var chineseString: String {
+    var chineseStrings: [String] {
         switch self {
         case NPCCommands.Observe:
-            return "观察"
+            return ["观察"]
         case NPCCommands.Apprentice:
-            return "拜师"
+            return ["拜师"]
         case NPCCommands.Ask:
-            return "打听"
+            return ["打听"]
         case NPCCommands.Give:
-            return "给"
+            return ["给"]
         case NPCCommands.Kill:
-            return "击杀"
+            return ["击杀"]
         case NPCCommands.None:
-            return ""
+            return []
         case NPCCommands.Stole:
-            return "偷窃"
+            return ["偷窃"]
         case NPCCommands.Tame:
-            return "驯服"
+            return ["驯服"]
         case NPCCommands.Target:
-            return "选取"
+            return ["选取"]
         case NPCCommands.Trade:
-            return "交易"
+            return ["交易"]
         default:
-            return "未知NPC命令"
+            //可能有多个命令组合而成
+            var returnValue:[String] = []
+            if self.contains(.Observe) { returnValue += NPCCommands.Observe.chineseStrings }
+            if self.contains(.Apprentice) { returnValue += NPCCommands.Apprentice.chineseStrings }
+            if self.contains(.Ask) { returnValue += NPCCommands.Ask.chineseStrings }
+            if self.contains(.Give) { returnValue += NPCCommands.Give.chineseStrings }
+            if self.contains(.Kill) { returnValue += NPCCommands.Kill.chineseStrings }
+            if self.contains(.Stole) { returnValue += NPCCommands.Stole.chineseStrings }
+            if self.contains(.Tame) { returnValue += NPCCommands.Tame.chineseStrings }
+            if self.contains(.Target) { returnValue += NPCCommands.Target.chineseStrings }
+            if self.contains(.Trade) { returnValue += NPCCommands.Trade.chineseStrings }
+            return returnValue
         }
     }
     
@@ -119,6 +177,8 @@ struct NPCCommands: OptionSetType {
             rawValue = ItemCommands.None.rawValue
         }
     }
+    
+    
 }
 
 enum Gender

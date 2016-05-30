@@ -44,6 +44,9 @@ public func Init<Type>(value: Type, @noescape block: (object: Type) -> Void) -> 
     
     // call after animation
     optional func circleMenu(circleMenu: CircleMenu, buttonDidSelected button: CircleMenuButton, atIndex: Int)
+    
+    //call after hit center
+    optional func circleMenu(hitCenter circleMenu: CircleMenu)
 }
 
 // MARK: CircleMenu
@@ -65,6 +68,7 @@ public class CircleMenu: UIButton {
     private var customSelectedIconView: UIImageView!
     
     var gameObject: KObject?
+    var commands:[String] = []
     // MARK: life cycle
     public init(frame: CGRect, normalIcon: String?, selectedIcon: String?, buttonsCount: Int = 3, duration: Double = 2,
                 distance: Float = 100) {
@@ -195,6 +199,11 @@ public class CircleMenu: UIButton {
     }
     
     // MARK: actions
+    
+    public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        delegate?.circleMenu?(hitCenter: self)
+        super.touchesEnded(touches, withEvent: event)
+    }
     
     func onTap() {
         if buttonsIsShown() == false {

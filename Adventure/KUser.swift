@@ -48,6 +48,7 @@ class KUser: KCreature {
     private var _mudAge:NSTimeInterval = 0
     private var _lastSetTime: NSDate
     var money = 0
+    let availableCommands = UserCommands.All
     
     override var combatExp: Int {
         willSet{ TheWorld.willUpdateUserInfo() }
@@ -198,6 +199,15 @@ class KUser: KCreature {
         var value = Int(Double(item.value) / sellRatio)
         if value < item.value { value = item.value }
         return value
+    }
+    
+    func processCommand(cmd: UserCommands) {
+        switch cmd {
+        case UserCommands.Inventory:
+            print("dd")
+        default:
+            TheWorld.broadcast("什么？")
+        }
     }
 }
 
