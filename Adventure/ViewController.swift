@@ -16,7 +16,7 @@ class ViewController: UIViewController, DisplayMessageDelegate, UITextViewDelega
     var txtStorage: DynamicTextStorage!
     var buttonGroupView: UIView = UIView()
     var statusButton: UIButton = UIButton()
-    var inventoryButton: BTNavigationDropdownMenu!
+    var inventoryButton: PopupMenuView = PopupMenuView()
     var observeButton:UIButton = UIButton()
    // var allMsg:NSMutableAttributedString = NSMutableAttributedString(string: "")
     var timer:NSTimer!
@@ -54,9 +54,8 @@ class ViewController: UIViewController, DisplayMessageDelegate, UITextViewDelega
         statusButton.setTitle("状  态", forState: .Normal)
         statusButton.backgroundColor = UIColor.brownColor()
         buttonGroupView.addSubview(statusButton)
-        //inventoryButton.setTitle("物  品", forState: .Normal)
+        //inventoryButton.("物  品", forState: .Normal)
         let menus = ["Most Popular", "Latest", "Trending", "Nearest", "Top Picks"]
-        inventoryButton = BTNavigationDropdownMenu(navigationController: nil, title: "test", items: menus)
         inventoryButton.backgroundColor = UIColor.purpleColor()
         buttonGroupView.addSubview(inventoryButton)
         observeButton.setTitle("观  察", forState: .Normal)

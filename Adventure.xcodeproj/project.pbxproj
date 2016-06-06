@@ -15,6 +15,7 @@
 		1C1EE8EE1CD1BC400034B1A4 /* KUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1EE8ED1CD1BC400034B1A4 /* KUser.swift */; };
 		1C4AF1CA1CFC47D10071879C /* BTNavigationDropdownMenu.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1C4AF1C81CFC47D10071879C /* BTNavigationDropdownMenu.bundle */; };
 		1C4AF1CB1CFC47D10071879C /* BTNavigationDropdownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4AF1C91CFC47D10071879C /* BTNavigationDropdownMenu.swift */; };
+		1C4AF1CD1CFE51380071879C /* PopupMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4AF1CC1CFE51380071879C /* PopupMenuView.swift */; };
 		1C55EE9B1CD3B5020014D471 /* KEquipment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C55EE9A1CD3B5020014D471 /* KEquipment.swift */; };
 		1C55EE9D1CD3C71B0014D471 /* KWeapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C55EE9C1CD3C71B0014D471 /* KWeapon.swift */; };
 		1C55EE9F1CD3D2260014D471 /* KArmor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C55EE9E1CD3D2260014D471 /* KArmor.swift */; };
@@ -132,6 +133,7 @@
 		1C1EE8ED1CD1BC400034B1A4 /* KUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KUser.swift; sourceTree = "<group>"; };
 		1C4AF1C81CFC47D10071879C /* BTNavigationDropdownMenu.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BTNavigationDropdownMenu.bundle; sourceTree = "<group>"; };
 		1C4AF1C91CFC47D10071879C /* BTNavigationDropdownMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTNavigationDropdownMenu.swift; sourceTree = "<group>"; };
+		1C4AF1CC1CFE51380071879C /* PopupMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupMenuView.swift; sourceTree = "<group>"; };
 		1C55EE9A1CD3B5020014D471 /* KEquipment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KEquipment.swift; sourceTree = "<group>"; };
 		1C55EE9C1CD3C71B0014D471 /* KWeapon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KWeapon.swift; sourceTree = "<group>"; };
 		1C55EE9E1CD3D2260014D471 /* KArmor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KArmor.swift; sourceTree = "<group>"; };
@@ -556,6 +558,7 @@
 				1C8E679C1CE5650200F6F6DB /* WorldMessageBoardView.swift */,
 				1C8E67F11CE5888B00F6F6DB /* DynamicTextStorage.swift */,
 				1C8133B61CEF430C007090F1 /* ColorParser.swift */,
+				1C4AF1CC1CFE51380071879C /* PopupMenuView.swift */,
 			);
 			path = Adventure;
 			sourceTree = "<group>";
@@ -642,6 +645,7 @@
 				1C55EEA71CD47FE70014D471 /* KSalesMan.swift in Sources */,
 				1C8E67DD1CE57F8D00F6F6DB /* NSTimerExtensions.swift in Sources */,
 				1C8E67EE1CE57F8D00F6F6DB /* UIViewControllerExtensions.swift in Sources */,
+				1C4AF1CD1CFE51380071879C /* PopupMenuView.swift in Sources */,
 				1C71C0EA1CD99FC70009C97C /* KCui_Death.swift in Sources */,
 				1C8E67E61CE57F8D00F6F6DB /* UIFontExtensions.swift in Sources */,
 				1C8E67D81CE57F8D00F6F6DB /* IntExtensions.swift in Sources */,
