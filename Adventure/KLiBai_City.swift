@@ -22,7 +22,7 @@ class KLiBai_City: KHuman {
                     "李白低声长吟：红颜弃轩冕，白首卧松云。\n",
                     "李白醉态毕露，朗声长吟：醉看风落帽，舞爱月流人。\n",
                     "李白长吟道：音尘绝，西风残照，汉家陵阙。\n"]
-        chatChance = 10
+        chatChance = 2
         title = "诗仙"
         mapSkill(KSPutiZhi(level: 10), inType: .Unarmed)
         age = 35

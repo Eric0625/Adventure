@@ -18,6 +18,11 @@ class ViewController: UIViewController, DisplayMessageDelegate, UITextViewDelega
     var statusButton: UIButton = UIButton()
     var inventoryButton: PopupMenuView = PopupMenuView()
     var observeButton:UIButton = UIButton()
+    var roomView:UILabel = UILabel()
+    var roomDescribeView:UITextView = UITextView()
+    var roomInventoryView:UILabel = UILabel()
+    var statusView:UILabel = UILabel()
+    
    // var allMsg:NSMutableAttributedString = NSMutableAttributedString(string: "")
     var timer:NSTimer!
     let containerView : UIView = UIView()
@@ -49,9 +54,35 @@ class ViewController: UIViewController, DisplayMessageDelegate, UITextViewDelega
         txtView.createMenu(containerView)
     }
     
+    //创建基本界面框架
+    func createFramework(){
+        //容器框架
+        containerView.clipsToBounds = true
+        containerView.backgroundColor = UIColor(red: 61/255.0, green: 61/255.0, blue: 61/255.0, alpha: 1.0)
+        view.addSubview(containerView)
+        createTextView()
+        createButtons()
+        //顶部房间名称区块，暂时用UILabel
+        containerView.addSubview(roomView)
+        roomView.text = "房间名"
+        roomView.textAlignment = .Center
+        roomView.backgroundColor = UIColor(red: 78/255.0, green: 102/255.0, blue: 131/255.0, alpha: 1.0)
+    
+        containerView.addSubview(roomDescribeView)
+        roomDescribeView.text = "隐约北方现出一座黑色城楼，光线太暗，看不大清楚。许多亡魂正\n哭哭啼啼地列队前进，因为一进鬼门关就无法再回阳间了。周围尺\n高的野草随风摇摆，草中发出呼呼的风声。\n"
+    
+        containerView.addSubview(roomInventoryView)
+        roomInventoryView.text = "房间内可互动物体"
+        
+        containerView.addSubview(statusView)
+        statusView.text = TheWorld.ME.name
+
+    }
+    
+    //创建界面上按钮
     func createButtons(){
         containerView.addSubview(buttonGroupView)
-        statusButton.setTitle("状  态", forState: .Normal)
+        statusButton.setTitle("菜  单", forState: .Normal)
         statusButton.backgroundColor = UIColor.brownColor()
         buttonGroupView.addSubview(statusButton)
         //inventoryButton.("物  品", forState: .Normal)
@@ -67,24 +98,32 @@ class ViewController: UIViewController, DisplayMessageDelegate, UITextViewDelega
         //containerView.frame = view.bounds
     }
     
+    //界面排序代码，顺序是自下而上排列
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         containerView.fillSuperview()
-        let txtHeight = view.frame.height * 0.97
-        buttonGroupView.anchorAndFillEdge(.Bottom, xPad: 0, yPad: 0, otherSize: view.frame.height - txtHeight)
+        let buttonHeight = view.frame.height * 0.03
+        let roomDescHeight = view.frame.height * 0.1
+        let roomInventoryHeight = view.frame.height * 0.05
+        let statusHeight = view.frame.height * 0.1
+        buttonGroupView.anchorAndFillEdge(.Bottom, xPad: 0, yPad: 0, otherSize: buttonHeight)//底部按钮
         buttonGroupView.groupAndFill(group: .Horizontal, views: [statusButton, inventoryButton, observeButton], padding: 0)
-        //statusButton.anchorInCorner(.BottomLeft, xPad: 0, yPad: 0, width: view.frame.width / 2, height: view.frame.height - txtHeight)
-        //inventoryButton.alignAndFillWidth(align: .ToTheRightMatchingTop, relativeTo: statusButton, padding: 0, height: view.frame.height - txtHeight)
-        txtView.alignAndFillWidth(align: .AboveCentered, relativeTo: buttonGroupView, padding: 0, height: txtHeight)
+        statusView.alignAndFillWidth(align: .AboveCentered, relativeTo: buttonGroupView, padding: 0, height: statusHeight)
+        roomView.anchorAndFillEdge(.Top, xPad: 0, yPad: 0, otherSize: buttonHeight)
+        roomDescribeView.alignAndFillWidth(align: .UnderCentered, relativeTo: roomView, padding: 0, height: roomDescHeight)
+        roomInventoryView.alignAndFillWidth(align: .UnderCentered, relativeTo: roomDescribeView, padding: 0, height: roomInventoryHeight)
+        txtView.alignBetweenVertical(align: Align.UnderCentered, primaryView: roomInventoryView, secondaryView: statusView, padding: 0, width: view.frame.width)
+//            //statusButton.anchorInCorner(.BottomLeft, xPad: 0, yPad: 0, width: view.frame.width / 2, height: view.frame.height - txtHeight)
+//            //inventoryButton.alignAndFillWidth(align: .ToTheRightMatchingTop, relativeTo: statusButton, padding: 0, height: view.frame.height - txtHeight)
+        //txtView.alignAndFillWidth(align: .AboveCentered, relativeTo: buttonGroupView, padding: 0, height: txtHeight)//滚动区域
+        //roomDescribeView.alignAndFillWidth(align: .AboveCentered, relativeTo: txtView, padding: 0, height: roomDescHeight)//房间描述
+        //roomView.alignAndFillHeight(align: .AboveCentered, relativeTo: roomDescribeView, padding: 0, width: view.frame.width)//房间名
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        containerView.clipsToBounds = true
-        containerView.backgroundColor = UIColor(red: 61/255.0, green: 61/255.0, blue: 61/255.0, alpha: 1.0)
-        view.addSubview(containerView)
-        createTextView()
-        createButtons()
+        createFramework()
         TheWorld.instance.displayMessageHandler.append(self)
         timer = NSTimer.scheduledTimerWithTimeInterval(1,
                                                        target:self,selector:#selector(ViewController.tickDown(_:)),
