@@ -129,6 +129,7 @@ class KRoom: KEntity, WithHeartBeat{
         if let chr = ent as? KCreature {
             if !(chr is KUser) && !chr.isGhost {
                 tellRoom(chr.name + "走了过来", room: self) //todo:加上坐骑和战斗信息
+                TheWorld.didUpdateRoomInfo(self, ent: chr, type: .NewEntity)
             }
             if let user = chr as? KUser {
                 givePlayerBrief()
@@ -146,6 +147,7 @@ class KRoom: KEntity, WithHeartBeat{
             } else {
                 interruptItemRestore(item.guid)
             }
+            TheWorld.didUpdateRoomInfo(self, ent: item, type: .NewEntity)
         }
         return true
     }
@@ -159,13 +161,16 @@ class KRoom: KEntity, WithHeartBeat{
             } else {
                 interruptItemDestroy(item.guid)
             }
+
         }
+        TheWorld.didUpdateRoomInfo(self, ent: ent, type: .RemoveEntity)
         return true
     }
     
-    private func getLongDescribe() -> String {
-        var msg = KColors.HIR + "〖" + KColors.NOR + name +
-            KColors.HIR + "〗" + KColors.NOR + "\n\n" + describe;
+    func getLongDescribe() -> String {
+//        var msg = KColors.HIR + "〖" + KColors.NOR + name +
+//            KColors.HIR + "〗" + KColors.NOR + "\n\n" + describe;
+        var msg = describe
         if exits.count != 0 {
             if exits.count == 1 {
                 msg += "\n    这里唯一的出口是："+exitsInString[0]
@@ -179,25 +184,27 @@ class KRoom: KEntity, WithHeartBeat{
     }
     
     override func givePlayerBrief() {
-        TheWorld.broadcast(getLongDescribe())
-        if let inventroy = _entities {
-            for item in inventroy {
-                if item != TheWorld.ME {
-                    if let npc = item as? KNPC {
-                        if npc.visible {
-                            var link = npc.longName + (npc.isInFighting ? KColors.HIR + "<战斗中>" + KColors.NOR : "")
-                            link += npc.isGhost ? "<鬼魂>" : ""
-                            //link = "<a href=n:\(npc.guid)>" + KColors.HIW + link + KColors.NOR + "</a><br>"
-                            link = KColors.HIW + link + KColors.NOR + "\n"
-                            TheWorld.broadcast(link)
-                        }
-                    } else if item is KItem {
-                        //TheWorld.broadcast("<a href=i:\(item.guid)>" + KColors.HIW + item.name + KColors.NOR + "</a><br>")
-                        TheWorld.broadcast(KColors.HIW + item.name + KColors.NOR + "\n")
-                    }
-                }
-            }
-        }
+        //TheWorld.broadcast(getLongDescribe())
+        tellPlayer("你来到了\(name)", usr: TheWorld.ME)
+        TheWorld.didUpdateRoomInfo(self)
+//        if let inventroy = _entities {
+//            for item in inventroy {
+//                if item != TheWorld.ME {
+//                    if let npc = item as? KNPC {
+//                        if npc.visible {
+//                            var link = npc.longName + (npc.isInFighting ? KColors.HIR + "<战斗中>" + KColors.NOR : "")
+//                            link += npc.isGhost ? "<鬼魂>" : ""
+//                            //link = "<a href=n:\(npc.guid)>" + KColors.HIW + link + KColors.NOR + "</a><br>"
+//                            link = KColors.HIW + link + KColors.NOR + "\n"
+//                            TheWorld.broadcast(link)
+//                        }
+//                    } else if item is KItem {
+//                        //TheWorld.broadcast("<a href=i:\(item.guid)>" + KColors.HIW + item.name + KColors.NOR + "</a><br>")
+//                        TheWorld.broadcast(KColors.HIW + item.name + KColors.NOR + "\n")
+//                    }
+//                }
+//            }
+//        }
     }
     
     func makeOneHeartBeat() {

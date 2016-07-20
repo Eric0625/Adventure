@@ -131,6 +131,14 @@ class KNPC: KCreature {
             }
         }
         if lastDamager == TheWorld.ME { rewardUser() }
+        if let room = env as? KRoom {
+            if visible {
+                TheWorld.didUpdateRoomInfo(room, ent: self, type: .UpdateEntity)
+            } else {
+                TheWorld.didUpdateRoomInfo(room, ent: self, type: .RemoveEntity)
+            }
+        }
+
     }
     
     /// 玩家杀死NPC后的奖励

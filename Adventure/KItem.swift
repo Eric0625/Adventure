@@ -53,6 +53,7 @@ class KItem: KEntity {
         if isPickable() == false {return notifyFail("这件物品已经不在这里了。", to: TheWorld.ME) }
         switch cmd {
         case ItemCommands.Observe:
+            givePlayerBrief()
             break
         case ItemCommands.Get:
             if TheWorld.ME.isBusy { return notifyFail("你正忙着呢。", to: TheWorld.ME) }
@@ -78,7 +79,7 @@ class KItem: KEntity {
                 str += "里面有：\n"
             }
             for item in inventroy {
-                str += "<a href='i\(item.guid)'>" + KColors.White + item.name + KColors.NOR + "</a><br>"
+                str += KColors.White + item.name + KColors.NOR
             }
         
         }

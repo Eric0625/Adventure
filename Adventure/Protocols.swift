@@ -28,3 +28,14 @@ protocol CombatEntity{
 protocol WithHeartBeat {
     func makeOneHeartBeat()
 }
+
+enum RoomInfoUpdateType {
+    case NewRoom
+    case NewEntity
+    case RemoveEntity
+    case UpdateEntity
+}
+//所有需要处理房间更新信息的类都应声明此协议
+protocol RoomInfoUpdateDelegate {
+    func processRoomInfo(room: KRoom, entity:KEntity?, type:RoomInfoUpdateType)
+}

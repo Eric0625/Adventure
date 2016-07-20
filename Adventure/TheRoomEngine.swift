@@ -107,6 +107,7 @@ class TheRoomEngine {
         if move(ob, toRoomWithRoomID: id) {
             if ob is KCreature {
                 tellRoom("\(ob.name)往\(direction.chineseString)离开。", room: origin)
+                //TheWorld.didUpdateRoomInfo(origin, ent: ob, type: .RemoveEntity)
             }
             return true
         }

@@ -41,7 +41,7 @@ class TheWorld {
     
     var displayMessageHandler = [DisplayMessageDelegate]()
     var userStatusUpdateHandler = [UserStatusUpdateDelegate]()
-    
+    var roomInfoHandler = [RoomInfoUpdateDelegate]()
     
 
     
@@ -129,6 +129,12 @@ class TheWorld {
         }
         for delegate in instance.displayMessageHandler {
             delegate.displayMessage(displayMsg)
+        }
+    }
+    
+    static func didUpdateRoomInfo(room:KRoom, ent:KEntity? = nil, type:RoomInfoUpdateType = .NewRoom){
+        for delegate in instance.roomInfoHandler {
+            delegate.processRoomInfo(room, entity: ent, type: type)
         }
     }
        

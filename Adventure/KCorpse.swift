@@ -10,6 +10,10 @@ import Foundation
 
 class KCorpse: KItem, WithHeartBeat {
     
+    let corpseToDecay = 60
+    let decayToSkeleton = 60
+    let skeletonToVoid = 30
+    
     init(creature: KCreature){
         gender = creature.gender
         var age = creature.age / 10
@@ -58,7 +62,7 @@ class KCorpse: KItem, WithHeartBeat {
         _tick += 1
         switch decayPhase {
         case 0:
-            if _tick >= 60 {
+            if _tick >= corpseToDecay {
                 decayPhase = 1
                 _tick = 0
                 tellRoom("\(name)开始腐烂了， 发出一股难闻的恶臭。", room: env)
@@ -71,17 +75,23 @@ class KCorpse: KItem, WithHeartBeat {
                     name = "腐烂的女尸"
                 }
                 describe = "这具尸体显然已经躺在这里有一段时间了，正散发着一股腐尸的味道。"
+                if let r = env as? KRoom {
+                    TheWorld.didUpdateRoomInfo(r, ent: self, type: .UpdateEntity)
+                }
             }
         case 1:
-            if _tick >= 60 {
+            if _tick >= decayToSkeleton {
                 decayPhase = 2
                 _tick = 0
                 tellRoom("\(name)被风吹干了，变成了一具骸骨。", room: env)
                 name = "一具枯干的骸骨"
                 describe = "这副骸骨已经躺在这里很久了。"
+                if let r = env as? KRoom {
+                    TheWorld.didUpdateRoomInfo(r, ent: self, type: .UpdateEntity)
+                }
             }
         case 2:
-            if _tick >= 30 {
+            if _tick >= skeletonToVoid {
                 tellRoom("一阵风吹过，把\(name)化成骨灰吹散了。\n", room: env)
                 moveAllInventoryItemTo(destEnv: env)
                 env.remove(self)
