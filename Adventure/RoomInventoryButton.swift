@@ -9,8 +9,8 @@
 
 import UIKit
 
-class RoomInventoryButton: UIButton {
-    var entity: KEntity
+class RoomInventoryButton: UIButton, StatusUpdateDelegate {
+    unowned var entity: KEntity
     let dropDown = DropDown()
     init(ent: KEntity, rect: CGRect){
         entity = ent
@@ -32,6 +32,11 @@ class RoomInventoryButton: UIButton {
             dropDown.dataSource = item.availableCommands.chineseStrings
         }
         dropDown.selectionAction = itemSeleted
+        TheWorld.instance.statusUpdateHandler.append(self)
+    }
+    
+    deinit{
+        print("button \(entity.name) destroied")
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -40,7 +45,13 @@ class RoomInventoryButton: UIButton {
     }
     
     func update(){
-        setTitle(entity.name, forState: .Normal)
+        if let creature = entity as? KCreature {
+            if creature.isInFighting {
+                setTitle(entity.name + "<战斗中>", forState: .Normal)
+            } else {
+                setTitle(entity.name, forState: .Normal)
+            }
+        }
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -50,15 +61,15 @@ class RoomInventoryButton: UIButton {
     }
     
     func itemSeleted(index: Int, item:String){
-        if entity.environment !== TheWorld.ME.environment {
-            notifyFail("\(entity.name)已经不在这里了。", to: TheWorld.ME)
-            return
-        }
         if let npc = entity as? KNPC {
             npc.processUserCommand(NPCCommands(string: item))
         } else if let it = entity as? KItem {
             it.processCommand(ItemCommands(string: item))
         }
+    }
+    
+    func statusDidUpdate(creature: KCreature, type: UserStatusUpdateType, oldValue: AnyObject?) {
+        
     }
 }
 

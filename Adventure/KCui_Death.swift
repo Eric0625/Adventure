@@ -13,9 +13,9 @@ class KCui_Death: KHuman {
         super.init(name: "崔判官")
         title = KColors.HIW + "朱笔判官" + KColors.NOR
         describe = "崔判官原是阳世为官，因广积阴德，死后被封为阴间判官。"
-        lifePropertyMax[.Kee] = 600
+        setLifePropertyMax(.Kee, amount: 600)
         receiveHeal(DamageType.Kee, healAmount: maxKee)
-        lifePropertyMax[.Sen] = 600
+        setLifePropertyMax(.Sen, amount: 600)
         receiveHeal(DamageType.Sen, healAmount: maxSen)
         combatExp = 100000;
         setSkill(inType: .Unarmed, toLevel: 50)

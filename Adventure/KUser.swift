@@ -11,27 +11,30 @@ import Foundation
 class KUser: KCreature {
     
         required init(){
-        _lastSetTime = NSDate()
-        super.init(name: "王老五")
-        limbs = ["头部","颈部","胸口","后心", "左肩","右肩",   "左臂",
-            "右臂",   "左手",   "右手",   "腰间",   "小腹",   "左腿",   "右腿",
-            "左脚",   "右脚"]
-        guardMessage = [KColors.CYN + "$A注视着$D的行动，企图寻找机会出手。\n" + KColors.NOR]
-        guardMessage += [KColors.CYN + "$A正盯着$D的一举一动，随时准备发动攻势。\n" + KColors.NOR,
-                         KColors.CYN + "$A缓缓地移动脚步，想要找出$D的破绽。\n" + KColors.NOR]
-        guardMessage += [KColors.CYN + "$A目不转睛地盯着$D的动作，寻找进攻的最佳时机。\n" + KColors.NOR ,
-                         KColors.CYN + "$A慢慢地移动着脚步，伺机出手。\n" + KColors.NOR]
-        defaultActions.removeAll()
-        defaultActions.append(KSkillAction(describe: "$A挥拳攻击$D的$l。\n", actionTypeOfDamage: DamageActionType.Zhang))
-        defaultActions.append(KSkillAction(describe: "$A往$D的$l一抓。\n", actionTypeOfDamage: DamageActionType.Zhua))
-        defaultActions.append(KSkillAction(describe: "$A往$D的$l狠狠地踢了一脚。\n", actionTypeOfDamage: DamageActionType.Zhang))
-        defaultActions.append(KSkillAction(describe: "$A提起拳头往$D的$l捶去。\n", actionTypeOfDamage: DamageActionType.Za))
-        defaultActions.append(KSkillAction(describe: "$A对准$D的$l用力挥出一拳。\n", actionTypeOfDamage: DamageActionType.Za))
-        berserkMessage = []
-        gender = Gender.男性
-        weight = 100.KG
-        selfCapacity = Int.max
-        initGift()
+            _lastSetTime = NSDate()
+            super.init(name: "王老五")
+            limbs = ["头部","颈部","胸口","后心", "左肩","右肩",   "左臂",
+                     "右臂",   "左手",   "右手",   "腰间",   "小腹",   "左腿",   "右腿",
+                     "左脚",   "右脚"]
+            guardMessage = [KColors.CYN + "$A注视着$D的行动，企图寻找机会出手。\n" + KColors.NOR]
+            guardMessage += [KColors.CYN + "$A正盯着$D的一举一动，随时准备发动攻势。\n" + KColors.NOR,
+                             KColors.CYN + "$A缓缓地移动脚步，想要找出$D的破绽。\n" + KColors.NOR]
+            guardMessage += [KColors.CYN + "$A目不转睛地盯着$D的动作，寻找进攻的最佳时机。\n" + KColors.NOR ,
+                             KColors.CYN + "$A慢慢地移动着脚步，伺机出手。\n" + KColors.NOR]
+            defaultActions.removeAll()
+            defaultActions.append(KSkillAction(describe: "$A挥拳攻击$D的$l。\n", actionTypeOfDamage: DamageActionType.Zhang))
+            defaultActions.append(KSkillAction(describe: "$A往$D的$l一抓。\n", actionTypeOfDamage: DamageActionType.Zhua))
+            defaultActions.append(KSkillAction(describe: "$A往$D的$l狠狠地踢了一脚。\n", actionTypeOfDamage: DamageActionType.Zhang))
+            defaultActions.append(KSkillAction(describe: "$A提起拳头往$D的$l捶去。\n", actionTypeOfDamage: DamageActionType.Za))
+            defaultActions.append(KSkillAction(describe: "$A对准$D的$l用力挥出一拳。\n", actionTypeOfDamage: DamageActionType.Za))
+            berserkMessage = []
+            gender = Gender.男性
+            weight = 100.KG
+            selfCapacity = Int.max
+            initGift()
+            mapSkill(KSPutiZhi(level: 26), inType: .Unarmed)
+            mapSkill(KSMoonDance(level: 70), inType: .Dodge)
+            age = 14
     }
     
     required init(k: KObject) {
@@ -51,10 +54,9 @@ class KUser: KCreature {
     let availableCommands = UserCommands.All
     
     override var combatExp: Int {
-        willSet{ TheWorld.willUpdateUserInfo() }
-        didSet{ TheWorld.didUpdateUserInfo() }
+        //willSet{ TheWorld() }
+        didSet{ TheWorld.didUpdateUserInfo(self, type: .CombatExp, oldValue: oldValue) }
     }
-    
     override var isLiving: Bool { return true }
     
     private var sellRatio:Double {
@@ -63,8 +65,8 @@ class KUser: KCreature {
     }
     
     var target: KNPC?{
-        willSet { TheWorld.willUpdateUserInfo() }
-        didSet{  TheWorld.didUpdateUserInfo() }
+        //willSet { TheWorld.willUpdateUserInfo() }
+        didSet{  TheWorld.didUpdateUserInfo(self, type: .Target, oldValue: oldValue) }
     }
     
     func initGift() {
@@ -79,9 +81,9 @@ class KUser: KCreature {
             if n > 100 { kar = 0 }
             else { kar = 100 - n }
         }
-        lifePropertyMax[DamageType.Kee] = 200
+        setLifePropertyMax(.Kee, amount: 200)
         receiveHeal(.Kee, healAmount: 200)
-        lifePropertyMax[DamageType.Sen] = 200
+        setLifePropertyMax(.Sen, amount: 200)
         receiveHeal(.Sen, healAmount: 200)
         resetArmor()
         resetDamage()
@@ -116,23 +118,7 @@ class KUser: KCreature {
         }
     }
     
-    override func accept(ent: KEntity) -> Bool {
-        let result = super.accept(ent)
-        if result { TheWorld.didUpdateUserInfo() }
-        return result
-    }
-    
-    override func receiveHeal(type: DamageType, healAmount: Int, from healer: KCreature? = nil) {
-        TheWorld.didUpdateUserInfo()
-        super.receiveHeal(type, healAmount: healAmount, from: healer)
-    }
-    
-    override func receiveDamage(type: DamageType, damageAmout: Int, from attacker: KCreature? = nil) {
-        TheWorld.didUpdateUserInfo()
-        super.receiveDamage(type, damageAmout: damageAmout, from: attacker)
-    }
-    
-    private func skillLoss(){
+   private func skillLoss(){
         DEBUG("Skill Loss")
         for skill in learnedSkills {
             skill.1.subLevel /= 2
@@ -141,28 +127,19 @@ class KUser: KCreature {
     
     override func die() {
         super.die()
-        TheWorld.willUpdateUserInfo()
         let combatLoss = combatExp / 40
         fury = 0
         if randomInt(100) > kar {
             skillLoss()
         }
         combatExp -= combatLoss
-        TheWorld.didUpdateUserInfo()
         _deathTick = 5
         deathTime += 1
     }
     
-    override func remove(ent: KEntity) -> Bool {
-        let result = super.remove(ent)
-        if result { TheWorld.didUpdateUserInfo() }
-        return result
-    }
- 
     override func equip(eqp: KEquipment) -> Bool {
         let result = super.equip(eqp)
         if result {
-            TheWorld.didUpdateUserInfo()
             if isInFighting { startBusy(20) }
         }
         return result
@@ -171,7 +148,6 @@ class KUser: KCreature {
     override func unequip(eqp: KEquipment) -> Bool {
         let result = super.unequip(eqp)
         if result {
-            TheWorld.didUpdateUserInfo()
             if isInFighting { startBusy(20) }
         }
         return result

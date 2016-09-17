@@ -82,7 +82,17 @@ class KCreature: KEntity, CombatEntity, WithHeartBeat {
     var gender = Gender.中性
     private let MAX_OPPPONENTS = 40
     var limbs = ["上部","中部","下部"]
-    var isInFighting = false
+    var isInFighting = false {
+        didSet{
+            if isInFighting == true {
+                //into fighting
+                TheWorld.didUpdateUserInfo(self, type: .IntoFight, oldValue: oldValue)
+            } else {
+                TheWorld.didUpdateUserInfo(self, type: .OutFight, oldValue: oldValue)
+            }
+        }
+    }
+    
     var rivalList = Set<KCreature>()
     var guardMessage = ["$A伺机而动。\n"]
     var berserkMessage = ["看起来$A想杀死$D！\n"]
@@ -92,15 +102,28 @@ class KCreature: KEntity, CombatEntity, WithHeartBeat {
     private(set) var mappedSkills = [SkillType: KSkill]() //与各类型动作对应的技能，如空手，武器，闪躲，招架等
     var damage = 0
     var armor = 0
-    var combatExp = 0
+    dynamic var combatExp = 0
     weak var lastDamager: KCreature?
     weak var lastHealer: KCreature?
     weak var reviver: KCreature?//复活者
-    var isGhost = false
+    var isGhost = false {
+        didSet{
+            if oldValue == false {
+                TheWorld.didUpdateUserInfo(self, type: .Death, oldValue: oldValue)
+            } else {
+                TheWorld.didUpdateUserInfo(self, type: .Revive, oldValue: oldValue)
+            }
+        }
+    }
+    
     private var conditions = [KCondition]()
     //MARK: - status
     var title = ""
-    var age = 0
+    var age = 0{
+        didSet{
+            TheWorld.didUpdateUserInfo(self, type: .Age, oldValue: oldValue)
+        }
+    }
     
     var str = 20
     var cor = 20
@@ -108,8 +131,34 @@ class KCreature: KEntity, CombatEntity, WithHeartBeat {
     var per = 20
     var kar = 20
     var spe = 20
-    var lifeProperty = [DamageType.Force: 0, DamageType.Kee: 100, DamageType.Sen: 100]
-    var lifePropertyMax = [DamageType.Force: 0, DamageType.Kee: 100, DamageType.Sen: 100]
+    private(set) var lifeProperty = [DamageType.Force: 0, DamageType.Kee: 100, DamageType.Sen: 100]
+    func setLifeProperty(type:DamageType, amount:Int){
+        let oldValue = lifeProperty[type]!
+        lifeProperty[type] = amount
+        switch type {
+        case .Kee:
+            TheWorld.didUpdateUserInfo(self, type: .Kee, oldValue: oldValue)
+        case .Force:
+            TheWorld.didUpdateUserInfo(self, type: .Force, oldValue: oldValue)
+        case .Sen:
+            TheWorld.didUpdateUserInfo(self, type: .Sen, oldValue: oldValue)
+        }
+    }
+    
+    private(set) var lifePropertyMax = [DamageType.Force: 0, DamageType.Kee: 100, DamageType.Sen: 100]
+    func setLifePropertyMax(type:DamageType, amount:Int){
+        let oldValue = lifePropertyMax[type]!
+        lifePropertyMax[type] = amount
+        switch type {
+        case .Kee:
+            TheWorld.didUpdateUserInfo(self, type: .MaxKee, oldValue: oldValue)
+        case .Force:
+            TheWorld.didUpdateUserInfo(self, type: .MaxForce, oldValue: oldValue)
+        case .Sen:
+            TheWorld.didUpdateUserInfo(self, type: .MaxSen, oldValue: oldValue)
+        }
+    }
+    
     var kee: Int { return lifeProperty[DamageType.Kee]! }
     var sen: Int { return lifeProperty[DamageType.Sen]! }
     var force: Int { return lifeProperty[DamageType.Force]! }
@@ -377,14 +426,17 @@ class KCreature: KEntity, CombatEntity, WithHeartBeat {
     
     func receiveHeal(type:DamageType, healAmount: Int, from healer: KCreature? = nil){
         lastHealer = healer
-        lifeProperty[type]! += healAmount
-        if lifeProperty[type]! > lifePropertyMax[type]! { lifeProperty[type] = lifePropertyMax[type] }
+        var result = lifeProperty[type]! + healAmount
+        if result > lifePropertyMax[type] {
+            result = lifePropertyMax[type]!
+        }
+        setLifeProperty(type, amount: result)
     }
     
     func receiveDamage(type:DamageType, damageAmout: Int, from attacker: KCreature? = nil){
         lastDamager = attacker
         if lifeProperty[type]! < 0 { return } //死亡不再受到伤害
-        lifeProperty[type]! -= damageAmout
+        setLifeProperty(type, amount: lifeProperty[type]! - damageAmout)        
     }
     
     func die() {

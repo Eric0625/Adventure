@@ -40,7 +40,7 @@ class TheWorld {
     private var _guidCounter:Guid = 0
     
     var displayMessageHandler = [DisplayMessageDelegate]()
-    var userStatusUpdateHandler = [UserStatusUpdateDelegate]()
+    var statusUpdateHandler = [StatusUpdateDelegate]()
     var roomInfoHandler = [RoomInfoUpdateDelegate]()
     
 
@@ -59,7 +59,7 @@ class TheWorld {
     }
     
         
-    static func regHeartBeat(ikb: WithHeartBeat)
+    class func regHeartBeat(ikb: WithHeartBeat)
     {
         instance.registerHeartbeatObject(ikb)
     }
@@ -82,7 +82,7 @@ class TheWorld {
         }
     }
     
-    static func unregHeartBeat(ikb: WithHeartBeat){
+    class func unregHeartBeat(ikb: WithHeartBeat){
         instance.unregisterHeartBeatObject(ikb)
     }
     
@@ -100,19 +100,19 @@ class TheWorld {
         }
     }
     
-    static func willUpdateUserInfo(){
-        for delegate in instance.userStatusUpdateHandler{
-            delegate.statusWillUpdate?()
+//    class func willUpdateUserInfo(){
+//        for delegate in instance.userStatusUpdateHandler{
+//            delegate.statusWillUpdate?()
+//        }
+//    }
+    
+    class func didUpdateUserInfo(c:KCreature, type:UserStatusUpdateType, oldValue:AnyObject?){
+        for delegate in instance.statusUpdateHandler{
+            delegate.statusDidUpdate(c, type: type, oldValue: oldValue)
         }
     }
     
-    static func didUpdateUserInfo(){
-        for delegate in instance.userStatusUpdateHandler{
-            delegate.statusDidUpdate()
-        }
-    }
-    
-    static func broadcast(msg: String) {
+    class func broadcast(msg: String) {
         if msg.isEmpty { return }
         if msg.isOnlyEmptySpacesAndNewLineCharacters() { return }
         //let timeStamp = formatDate(NSDate())
@@ -132,7 +132,7 @@ class TheWorld {
         }
     }
     
-    static func didUpdateRoomInfo(room:KRoom, ent:KEntity? = nil, type:RoomInfoUpdateType = .NewRoom){
+    class func didUpdateRoomInfo(room:KRoom, ent:KEntity? = nil, type:RoomInfoUpdateType = .NewRoom){
         for delegate in instance.roomInfoHandler {
             delegate.processRoomInfo(room, entity: ent, type: type)
         }

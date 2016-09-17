@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-class ViewController: UIViewController, DisplayMessageDelegate, UITextViewDelegate, RoomInfoUpdateDelegate {
+class ViewController: UIViewController, DisplayMessageDelegate, UITextViewDelegate, RoomInfoUpdateDelegate, StatusUpdateDelegate {
 
 
     var roomDescribeView:WorldMessageBoardView!
@@ -22,7 +22,7 @@ class ViewController: UIViewController, DisplayMessageDelegate, UITextViewDelega
     var scrollView:UITextView = UITextView()
     
     var roomInventoryView:RoomInventoryView = RoomInventoryView()
-    var statusView:UILabel = UILabel()
+    var statusView = PersonalPanel()
     
    // var allMsg:NSMutableAttributedString = NSMutableAttributedString(string: "")
     var timer:NSTimer!
@@ -77,10 +77,12 @@ class ViewController: UIViewController, DisplayMessageDelegate, UITextViewDelega
         containerView.addSubview(roomInventoryView)
         
         containerView.addSubview(statusView)
-        statusView.text = TheWorld.ME.name
 
     }
     
+    func inventoryButtonPressed(){
+        presentViewController(UIGearInventoryViewController(), animated: true, completion: nil)
+    }
     //创建界面上按钮
     func createButtons(){
         containerView.addSubview(buttonGroupView)
@@ -89,6 +91,7 @@ class ViewController: UIViewController, DisplayMessageDelegate, UITextViewDelega
         buttonGroupView.addSubview(statusButton)
         inventoryButton.setTitle("背  包", forState: .Normal)
         inventoryButton.backgroundColor = UIColor.purpleColor()
+        inventoryButton.addTarget(self, action: #selector(ViewController.inventoryButtonPressed), forControlEvents: .TouchUpInside)
         buttonGroupView.addSubview(inventoryButton)
         observeButton.setTitle("地  图", forState: .Normal)
         observeButton.backgroundColor = UIColor.grayColor()
@@ -106,10 +109,11 @@ class ViewController: UIViewController, DisplayMessageDelegate, UITextViewDelega
         let buttonHeight = view.frame.height * 0.03
         let roomDescHeight = view.frame.height * 0.2
         let roomInventoryHeight = view.frame.height * 0.05
-        let statusHeight = view.frame.height * 0.15
+        let statusHeight = view.frame.height * 0.35
         buttonGroupView.anchorAndFillEdge(.Bottom, xPad: 0, yPad: 0, otherSize: buttonHeight)//底部按钮
         buttonGroupView.groupAndFill(group: .Horizontal, views: [statusButton, inventoryButton, observeButton], padding: 0)
         statusView.alignAndFillWidth(align: .AboveCentered, relativeTo: buttonGroupView, padding: 0, height: statusHeight)//人物状态
+        statusView.refresh()
         roomView.anchorAndFillEdge(.Top, xPad: 0, yPad: 0, otherSize: buttonHeight)//房间名
         roomDescribeView.alignAndFillWidth(align: .UnderCentered, relativeTo: roomView, padding: 0, height: roomDescHeight)//房间描述
         roomInventoryView.alignAndFillWidth(align: .UnderCentered, relativeTo: roomDescribeView, padding: 0, height: roomInventoryHeight)//房间内可互动物体
@@ -141,50 +145,8 @@ class ViewController: UIViewController, DisplayMessageDelegate, UITextViewDelega
         print(message.body)
     }
     
-    func processColorfulString(str: String) -> NSAttributedString {
-        var colorInfo = ColorParser()
-        let m = NSMutableAttributedString(attributedString: str.color(KColors.colorDictionary["green"]!))
-        colorInfo.parseColor(str, from: 0)
-        for x in colorInfo.attributes {
-            m.setAttributes([NSForegroundColorAttributeName: x.color], range: x.range)
-        }
-        //删除代码
-        repeat{
-            let range = m.string.regMatch("^.*?(</color>)", range: NSMakeRange(0, m.string.length))
-            if range.isEmpty {break}
-            m.replaceCharactersInRange(range[0].rangeAtIndex(1), withString: "")
-        }while(true)
-        repeat{
-            let range = m.string.regMatch("^.*?(<color \\w+>)", range: NSMakeRange(0, m.string.length))
-            if range.isEmpty {break}
-            m.replaceCharactersInRange(range[0].rangeAtIndex(1), withString: "")
-        }while(true)
-        return m
-    }
-    
     func displayMessage(message:String){
-        //处理颜色代码
-        var colorInfo = ColorParser()
-        let m = NSMutableAttributedString(attributedString: message.color(KColors.colorDictionary["green"]!))
-        colorInfo.parseColor(message, from: 0)
-        for x in colorInfo.attributes {
-            m.setAttributes([NSForegroundColorAttributeName: x.color], range: x.range)
-        }
-        //删除代码
-        repeat{
-            let range = m.string.regMatch("^.*?(</color>)", range: NSMakeRange(0, m.string.length))
-            if range.isEmpty {break}
-            m.replaceCharactersInRange(range[0].rangeAtIndex(1), withString: "")
-        }while(true)
-        repeat{
-            let range = m.string.regMatch("^.*?(<color \\w+>)", range: NSMakeRange(0, m.string.length))
-            if range.isEmpty {break}
-            m.replaceCharactersInRange(range[0].rangeAtIndex(1), withString: "")
-        }while(true)
-        //allMsg.appendAttributedString(m)
-        let store = scrollView.textStorage
-        store.appendAttributedString(m)
-        //txtView.attributedText = allMsg
+        scrollView.textStorage.appendAttributedString(processColorfulString(message))
         scrollView.scrollRectToVisible(CGRectMake(0, scrollView.contentSize.height - 10, scrollView.contentSize.width, 10), animated: false)
     }
     
@@ -218,10 +180,10 @@ class ViewController: UIViewController, DisplayMessageDelegate, UITextViewDelega
                 }
             }
         }
-//        var objects = ""
-//        if let inventroy = room._entities {
-//            //        }
-//        roomInventoryView.text = objects
+    }
+    
+    func statusDidUpdate(creature: KCreature, type: UserStatusUpdateType, oldValue: AnyObject?) {
+        
     }
     
 }

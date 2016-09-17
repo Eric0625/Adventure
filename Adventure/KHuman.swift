@@ -71,9 +71,9 @@ class KHuman: KNPC{
             if n > 100 { kar = 0 }
             else { kar = 100 - n }
         }
-        lifePropertyMax[.Kee] = 200
+        setLifePropertyMax(.Kee, amount: 200)
         receiveHeal(.Kee, healAmount: 200)
-        lifePropertyMax[.Sen] = 200
+        setLifePropertyMax(.Sen, amount: 200)
         receiveHeal(.Sen, healAmount: 200)
         resetArmor()
         resetDamage()

@@ -26,27 +26,13 @@ class RoomInventoryView: UIView {
     func changeRoom(room:KRoom){
         self.room = room
         removeSubviews()
-        buttons = nil
+        buttons?.removeAll()
         if let inv = room._entities {
-            buttons = [RoomInventoryButton]()
+            if buttons == nil {
+                buttons = [RoomInventoryButton]()
+            }
             for ent in inv {
-                   if ent === TheWorld.ME { continue }
-                //                if item != TheWorld.ME {
-                    //                    if let npc = item as? KNPC {
-                    //                        if npc.visible {
-                    //                            var link = npc.longName + (npc.isInFighting ? KColors.HIR + "<战斗中>" + KColors.NOR : "")
-                    //                            link += npc.isGhost ? "<鬼魂>" : ""
-                    //                            //link = "<a href=n:\(npc.guid)>" + KColors.HIW + link + KColors.NOR + "</a><br>"
-                    //                            link = KColors.HIW + link + KColors.NOR + "\n"
-                    //                            objects += link + " "
-                    //                        }
-                    //                    } else if item is KItem {
-                    //                        //TheWorld.broadcast("<a href=i:\(item.guid)>" + KColors.HIW + item.name + KColors.NOR + "</a><br>")
-                    ////                        TheWorld.broadcast(KColors.HIW + item.name + KColors.NOR + "\n")
-                    //                        objects += item.name + " "
-                    //                    }
-                    //                }
-                    //            }
+                if ent === TheWorld.ME { continue }
                 if let npc = ent as? KNPC {
                     if npc.visible  == false {
                         continue
@@ -85,7 +71,7 @@ class RoomInventoryView: UIView {
         for b in buttons! {
             if b.entity == ent {
                 b.removeFromSuperview()
-                buttons?.removeObject(b)
+                buttons!.removeObject(b)
                 break
             }
         }

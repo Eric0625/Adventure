@@ -73,6 +73,8 @@ class KNPC: KCreature {
         _rebornTick = 0
         TheRoomEngine.instance.move(self, toRoomWithRoomID: startRoomID)
         reviveFrom()
+        let room = environment as! KRoom
+        TheWorld.didUpdateRoomInfo(room, ent: self, type: .NewEntity)//因为前面的移动是以鬼魂形式，所以这里需要更新（todo：玩家是鬼魂形式时的额外处理)
     }
     
     override func makeOneHeartBeat() {
@@ -91,6 +93,7 @@ class KNPC: KCreature {
     func acceptObject(ent: KEntity) -> Bool { return true }
     
     func randomMove() -> Bool {
+        if isGhost { return false }
         if isInFighting { return false }
         if isBusy { return false }
         guard let room = environment as? KRoom else { return false }
@@ -180,6 +183,7 @@ class KNPC: KCreature {
         }
         reward = Int(Double(reward) * ratio)
         DEBUG("combat with \(name) gain exp:\(reward)")
+        tellPlayer("你获得了\(reward)点武学。", usr: TheWorld.ME)
         TheWorld.ME.combatExp += reward
     }    
 }

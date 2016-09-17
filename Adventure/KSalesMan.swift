@@ -57,9 +57,7 @@ class KSalesMan: KHuman {
             return notifyFail("商人无法获得这件物品。", to: TheWorld.ME)
         }
         carriedMoney -= value
-        TheWorld.willUpdateUserInfo()
         TheWorld.ME.money += value
-        TheWorld.didUpdateUserInfo()
         goods.insert(item)
         return true
     }
@@ -71,10 +69,8 @@ class KSalesMan: KHuman {
         if TheWorld.ME.money < value { return notifyFail("你的钱不够。", to: TheWorld.ME)}
         if item.moveTo(TheWorld.ME) == false { return notifyFail("你不能获得这件物品。", to: TheWorld.ME)}
         carriedMoney += value
-        TheWorld.willUpdateUserInfo()
         TheWorld.ME.money -= value
         goods.remove(item)
-        TheWorld.didUpdateUserInfo()
         return true
     }
 }

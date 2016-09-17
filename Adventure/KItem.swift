@@ -79,7 +79,7 @@ class KItem: KEntity {
                 str += "里面有：\n"
             }
             for item in inventroy {
-                str += KColors.White + item.name + KColors.NOR
+                str += KColors.White + item.name + KColors.NOR + "\n"
             }
         
         }

@@ -13,9 +13,27 @@ protocol DisplayMessageDelegate {
     func clearAllMessage()
 }
 
-@objc protocol UserStatusUpdateDelegate {
-    optional func statusWillUpdate()
-    func statusDidUpdate()
+enum UserStatusUpdateType {
+    case Kee
+    case MaxKee
+    case Sen
+    case MaxSen
+    case Force
+    case MaxForce
+    case Age
+    case CombatExp
+    case Damage
+    case Defense
+    case Target
+    case Death
+    case Revive
+    case IntoFight
+    case OutFight
+}
+
+protocol StatusUpdateDelegate {
+    //optional func statusWillUpdate()
+    func statusDidUpdate(creature:KCreature, type:UserStatusUpdateType, oldValue:AnyObject?)
 }
 
 protocol CombatEntity{

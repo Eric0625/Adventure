@@ -93,7 +93,8 @@ class TheCombatEngine {
                     mod *= 100
                     checker *= 100
                 }
-                if randomInt(Int(checker)) < Int(mod) {
+                let dodgeCheck = randomInt(Int(checker))
+                if dodgeCheck < Int(mod) {
                     //闪躲，判断是否反击
                     message += defenserAction.describe
                     attacker.combatInfo.dodges += 1

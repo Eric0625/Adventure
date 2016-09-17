@@ -6,7 +6,28 @@
 //  Copyright © 2016年 Eric. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+func processColorfulString(str: String) -> NSAttributedString {
+    var colorInfo = ColorParser()
+    let m = NSMutableAttributedString(attributedString: str.color(KColors.colorDictionary["green"]!))
+    colorInfo.parseColor(str, from: 0)
+    for x in colorInfo.attributes {
+        m.setAttributes([NSForegroundColorAttributeName: x.color], range: x.range)
+    }
+    //删除代码
+    repeat{
+        let range = m.string.regMatch("^.*?(</color>)", range: NSMakeRange(0, m.string.length))
+        if range.isEmpty {break}
+        m.replaceCharactersInRange(range[0].rangeAtIndex(1), withString: "")
+    }while(true)
+    repeat{
+        let range = m.string.regMatch("^.*?(<color \\w+>)", range: NSMakeRange(0, m.string.length))
+        if range.isEmpty {break}
+        m.replaceCharactersInRange(range[0].rangeAtIndex(1), withString: "")
+    }while(true)
+    return m
+}
 
 
 func randomInt(upper:Int)->Int{

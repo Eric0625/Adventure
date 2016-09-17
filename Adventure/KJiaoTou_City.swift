@@ -13,9 +13,9 @@ class KJiaoTou_City: KHuman {
         super.init(name: "范卢平")
         title = "武馆教头"
         describe = "一个精精瘦瘦的小个子，在练一套拳。"
-        combatExp = 20000
-        lifePropertyMax[.Force] = 200
-        lifeProperty[.Force] = 200
+        //combatExp = 20000
+        setLifePropertyMax(.Force, amount: 200)
+        setLifeProperty(.Force, amount: 200)
         mapSkill(KSUnarmed(level: 30), inType: .Unarmed)
         setSkill(KSDodge.NAME, toLevel: 30)
         setSkill(KSParry.NAME, toLevel: 30)
