@@ -13,24 +13,23 @@ class KCui_Death: KHuman {
         super.init(name: "崔判官")
         title = KColors.HIW + "朱笔判官" + KColors.NOR
         describe = "崔判官原是阳世为官，因广积阴德，死后被封为阴间判官。"
-        setLifePropertyMax(.Kee, amount: 600)
-        receiveHeal(DamageType.Kee, healAmount: maxKee)
-        setLifePropertyMax(.Sen, amount: 600)
-        receiveHeal(DamageType.Sen, healAmount: maxSen)
+        setLifePropertyMax(.kee, amount: 600)
+        receiveHeal(DamageType.kee, healAmount: maxKee)
+        setLifePropertyMax(.sen, amount: 600)
+        receiveHeal(DamageType.sen, healAmount: maxSen)
         combatExp = 100000;
-        setSkill(inType: .Unarmed, toLevel: 50)
-        setSkill(inType: .Dodge, toLevel: 50)
-        setSkill(inType: .Parry, toLevel: 50)
-        let k = KSSword()
-        k.level = 50
+        setSkill(inType: .unarmed, toLevel: 50)
+        setSkill(inType: .dodge, toLevel: 50)
+        setSkill(inType: .parry, toLevel: 50)
+        let k = KSSword(level: 50)
         addSkill(k)
-        mapSkill(k, inType: .Sword)
+        mapSkill(k, inType: .sword)
         var i:KEquipment = KChouPao()
         i.moveTo(self)
-        equip(i)
+        assert(equip(i))
         i = KPanguanBi()
         i.moveTo(self)
-        equip(i)
+        assert(equip(i))
     }
     
     required init(k: KObject) {

@@ -8,9 +8,50 @@
 
 import UIKit
 
-func processColorfulString(str: String) -> NSAttributedString {
+///处理字符串最后的零
+func cutZeroesAtTail(_ input: String) -> String {
+    let range = input.regMatch("\\.*(0+)$", range: NSMakeRange(0, input.length))
+    if range.isEmpty == false {
+        return input[0..<range[0].range.location]
+    }
+    return input
+}
+
+///处理字符串中的颜色和出口位置代码，转换成uitextview可以支持的attribute text
+func processFormattedString(_ str: String) -> NSAttributedString {
+    let pstr = str + " " //这里是为了防止用户点击空白处时，获取到字符串最后一个有意义字符
+    let m = processColorfulString(pstr)
+    //processExitCode(m)
+    return m
+}
+
+//暂时弃用，因为不能对同一字符串设置多个attribute，因此判断出口时以颜色作为判断标准
+fileprivate func processExitCode(_ mstr: NSMutableAttributedString){
+    //寻找<exit></exit>配对
+    let matches = mstr.string.regMatch("<exit>(\\w*)</exit>", range: NSMakeRange(0, mstr.string.length))
+    for singleMatch in matches {
+        let range = singleMatch.rangeAt(1)
+        let exit = mstr.string[range.toRange()!]
+        let exitAttribute = ["exitsAtrribute" : exit]
+        mstr.setAttributes(exitAttribute, range: range)
+    }
+    //删除代码
+    repeat{
+        let range = mstr.string.regMatch("^.*?(</exit>)", range: NSMakeRange(0, mstr.string.length))
+        if range.isEmpty {break}
+        mstr.replaceCharacters(in: range[0].rangeAt(1), with: "")
+    }while(true)
+    repeat{
+        let range = mstr.string.regMatch("^.*?(<exit>)", range: NSMakeRange(0, mstr.string.length))
+        if range.isEmpty {break}
+        mstr.replaceCharacters(in: range[0].rangeAt(1), with: "")
+    }while(true)
+
+}
+//处理颜色代码
+fileprivate func processColorfulString(_ str: String) -> NSMutableAttributedString {
     var colorInfo = ColorParser()
-    let m = NSMutableAttributedString(attributedString: str.color(KColors.colorDictionary["green"]!))
+    let m = NSMutableAttributedString(attributedString: str.color(KColors.toUIColor(input: KColors.GRN)!))
     colorInfo.parseColor(str, from: 0)
     for x in colorInfo.attributes {
         m.setAttributes([NSForegroundColorAttributeName: x.color], range: x.range)
@@ -19,60 +60,60 @@ func processColorfulString(str: String) -> NSAttributedString {
     repeat{
         let range = m.string.regMatch("^.*?(</color>)", range: NSMakeRange(0, m.string.length))
         if range.isEmpty {break}
-        m.replaceCharactersInRange(range[0].rangeAtIndex(1), withString: "")
+        m.replaceCharacters(in: range[0].rangeAt(1), with: "")
     }while(true)
     repeat{
         let range = m.string.regMatch("^.*?(<color \\w+>)", range: NSMakeRange(0, m.string.length))
         if range.isEmpty {break}
-        m.replaceCharactersInRange(range[0].rangeAtIndex(1), withString: "")
+        m.replaceCharacters(in: range[0].rangeAt(1), with: "")
     }while(true)
     return m
 }
 
 
-func randomInt(upper:Int)->Int{
+func randomInt(_ upper:Int)->Int{
     assert(upper >= 0)
     return Int(arc4random_uniform(UInt32(upper)))
 }
 
-func deepCopy<T:KObject>(data:[T]) -> [T] {
+func deepCopy<T:KObject>(_ data:[T]) -> [T] {
     return data.map{
         T(k: $0)
     }
 }
 
-func deepCopy<T:KObject>(data:Set<T>) -> Set<T> {
+func deepCopy<T:KObject>(_ data:Set<T>) -> Set<T> {
     return Set(data.map({T(k: $0)}))
 }
 
 
-func DEBUG(message:Any){
+func DEBUG(_ message:Any){
     debugPrint(message)
 }
 
-private let dateFormatter: NSDateFormatter = {
-    let formatter = NSDateFormatter()
+private let dateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
     //formatter.dateStyle = .NoStyle
-    formatter.timeStyle = .ShortStyle
+    formatter.timeStyle = .short
     return formatter
 }()
 
-func formatDate(date: NSDate) -> String { return dateFormatter.stringFromDate(date) }
+func formatDate(_ date: Date) -> String { return dateFormatter.string(from: date) }
 
-func tellPlayer(msg: String, usr: KEntity){
+func tellPlayer(_ msg: String, usr: KEntity){
     if usr is KUser {
         TheWorld.broadcast(msg)
     }
 }
 
-func notifyFail(msg: String, to chr: KEntity) -> Bool {
+func notifyFail(_ msg: String, to chr: KEntity) -> Bool {
     if chr is KUser {
         TheWorld.broadcast(KColors.ChatMsg + msg + KColors.NOR)
     }
     return false
 }
 
-func tellRoom(msg:String, room: KEntity){
+func tellRoom(_ msg:String, room: KEntity){
     var acturalRoom = room
     if !(room is KRoom){
         if room.environment == nil { return }
@@ -84,7 +125,7 @@ func tellRoom(msg:String, room: KEntity){
     }
 }
 
-func rankRespect(c: KCreature) -> String{
+func rankRespect(_ c: KCreature) -> String{
     switch c.gender {
     case .中性:
         return "大侠"
@@ -109,7 +150,7 @@ func rankRespect(c: KCreature) -> String{
     }
 }
 
-func rankRude (c: KCreature) -> String{
+func rankRude (_ c: KCreature) -> String{
     switch c.gender {
     case .中性:
         return "狗东西"
@@ -138,7 +179,7 @@ private let _chineseNumber = [ "零", "一", "二", "三", "四", "五", "六", 
 private let _chineseDigit = ["零", "十", "百", "千", "万", "亿", "兆" ]
 private let _chineseTianGan = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸" ]
 private let _chineseDiZhi = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥" ]
-func toChineseNumber(number: Int) -> String {
+func toChineseNumber(_ number: Int) -> String {
     var delta:Int, deltaDigit:Int
     var n2:Int
     var str:String
@@ -222,7 +263,7 @@ private let _perLevelFemale = [
     KColors.HIP + "美若天仙，不沾一丝烟尘。" + KColors.NOR,
     KColors.HIP + "宛如" + KColors.HIW + "玉雕冰塑"  + KColors.NOR + "，似梦似幻，已不再是凡间人物。" + KColors.NOR
 ]
-func getPerMsg(chr: KCreature) -> String {
+func getPerMsg(_ chr: KCreature) -> String {
     let per = chr.per
     switch chr.gender {
     case .中性:
@@ -252,30 +293,30 @@ func getPerMsg(chr: KCreature) -> String {
 /// 格式化消息，A为第一个人，D为第二个人，R代表尊称，r代表蔑称，l代表第二个人的肢体，W代表第一个人的武器，w代表第二个人的武器
 /// - parameters:
 ///   - info:消息体
-func processInfomation( info: String, attacker: KCreature? = nil, defenser: KCreature? = nil, limbDesc:String = "") -> String{
+func processInfomation( _ info: String, attacker: KCreature? = nil, defenser: KCreature? = nil, limbDesc:String = "") -> String{
     var message = info
     if let attacker = attacker {
         let attackerName = attacker is KUser ? "你" : attacker.name
-        message = message.stringByReplacingOccurrencesOfString("$AR", withString: rankRespect(attacker)).stringByReplacingOccurrencesOfString("$Ar", withString: rankRude(attacker)).stringByReplacingOccurrencesOfString("$A", withString: attackerName)
-        if let wp = attacker.getEquippedItem(EquipPosition.RightHand) as? KWeapon {
-            message = message.stringByReplacingOccurrencesOfString("$W", withString: wp.name)
-        } else {message = message.stringByReplacingOccurrencesOfString("$W", withString: "手指")}
+        message = message.replacingOccurrences(of: "$AR", with: rankRespect(attacker)).replacingOccurrences(of: "$Ar", with: rankRude(attacker)).replacingOccurrences(of: "$A", with: attackerName)
+        if let wp = attacker.getEquippedItem(EquipPosition.rightHand) as? KWeapon {
+            message = message.replacingOccurrences(of: "$W", with: wp.name)
+        } else {message = message.replacingOccurrences(of: "$W", with: "手指")}
     }
     if let defenser = defenser {
         let denfenserName = defenser is KUser ? "你" : defenser.name
-        if let wp = defenser.getEquippedItem(EquipPosition.RightHand) as? KWeapon {
-            message = message.stringByReplacingOccurrencesOfString("$w", withString: wp.name)
+        if let wp = defenser.getEquippedItem(EquipPosition.rightHand) as? KWeapon {
+            message = message.replacingOccurrences(of: "$w", with: wp.name)
         }
-        message = message.stringByReplacingOccurrencesOfString("$DR", withString: rankRespect(defenser))
-        message = message.stringByReplacingOccurrencesOfString("$Dr", withString: rankRude(defenser))
-        message = message.stringByReplacingOccurrencesOfString("$D", withString: denfenserName)
+        message = message.replacingOccurrences(of: "$DR", with: rankRespect(defenser))
+        message = message.replacingOccurrences(of: "$Dr", with: rankRude(defenser))
+        message = message.replacingOccurrences(of: "$D", with: denfenserName)
     }
-    if !limbDesc.isEmpty { message = message.stringByReplacingOccurrencesOfString("$l", withString: limbDesc)}
+    if !limbDesc.isEmpty { message = message.replacingOccurrences(of: "$l", with: limbDesc)}
     return message
 }
 
 
-func getStatusMsg(chr:KCreature, type: DamageType) -> String
+func getStatusMsg(_ chr:KCreature, type: DamageType) -> String
 {
     let ratio = chr.lifeProperty[type]! * 100 / chr.lifePropertyMax[type]!
     var msg = ""
@@ -304,18 +345,18 @@ func getStatusMsg(chr:KCreature, type: DamageType) -> String
     return processInfomation(msg, attacker: nil, defenser: chr)
 }
 
-func getDamageMsg(damage:Int, type: DamageActionType) -> String {
+func getDamageMsg(_ damage:Int, type: DamageActionType) -> String {
     if damage == 0 { return "结果没有造成任何伤害。\n" }
     var str = ""
     switch type {
-    case .Ci:
+    case .ci:
         if (damage < 10) { return "结果只是轻轻地刺破$D的皮肉。\n" }
         else if (damage < 20) { return "结果在$D的$l刺出一个创口。\n" }
         else if (damage < 40) { return "结果「噗」地一声刺入了$D的$l寸许！\n" }
         else if (damage < 80) { return "结果「噗」地一声刺进$D的$l，使$D不由自主地退了步！\n" }
         else if (damage < 160) { return "结果「噗嗤」地一声，$W已在$D的$l刺出一个血肉模糊的血窟窿！\n" }
         else { return "结果只听见$D一声惨嚎，$W已在$D的$l对穿而出，鲜血溅得满地！\n" }
-    case .Za:
+    case .za:
         if (damage < 10) { return "结果只是轻轻地碰到，等于给$D搔了一下痒。\n" }
         else if (damage < 20) { return "结果在$D的$l砸出一个小鼓包。\n" }
         else if (damage < 40) { return "结果砸个正着，$D的$l登时肿了一块老高！\n" }
@@ -324,21 +365,21 @@ func getDamageMsg(damage:Int, type: DamageActionType) -> String {
         else if (damage < 160) { return "结果这一下「轰」地一声砸得$D眼冒金星，差一点摔倒！\n" }
         else if (damage < 240) { return "结果重重地砸中，$D眼前一黑，「哇」地一声吐出一口鲜血！\n" }
         else { return "结果只听见「轰」地一声巨响，$D被砸得血肉模糊，惨不忍睹！\n" }
-    case .Ge, .Zhua:
+    case .ge, .zhua:
         if (damage < 10) { return "结果只是轻轻地划破$D的皮肉。\n" }
         else if (damage < 20) { return "结果在$D的$l划出一道细长的血痕。\n" }
         else if (damage < 40) { return "结果「嗤」地一声划出一道伤口！\n" }
         else if (damage < 80) { return "结果「嗤」地一声划出一道血淋淋的伤口！\n" }
         else if (damage < 160) { return "结果「嗤」地一声划出一道又长又深的伤口，溅得$N满脸鲜血！\n" }
         else { return "结果只听见$D一声惨嚎，$l被划出一道深及见骨的可怕伤口！\n" }
-    case .Pi, .Kan:
+    case .pi, .kan:
         if (damage < 10) { return "结果只是在$D的皮肉上碰了碰，跟蚊子叮差不多。\n" }
         else if (damage < 20) { return "结果在$D的$l砍出一道细长的血痕。\n" }
         else if (damage < 40) { return "结果「噗嗤」一声劈出一道血淋淋的伤口！\n" }
         else if (damage < 80) { return "结果只听「噗」地一声，$D的$l被劈得血如泉涌，痛得$D咬牙切齿！\n" }
         else if (damage < 160) { return "结果「噗」地一声砍出一道又长又深的伤口，溅得$D满脸鲜血！\n" }
         else { return "结果只听见$D一声惨嚎，$l被劈开一道深及见骨的可怕伤口！\n" }
-    case .Zhang,.Yu:
+    case .zhang,.yu:
         if damage < 10 { return "结果只是轻轻地碰到，比拍苍蝇稍微重了点。\n" }
         else if damage < 20 { return "结果在$D的$l造成一处瘀青。\n" }
         else if damage < 40 { return "结果一击命中，$D的$l登时肿了一块老高！\n" }
@@ -347,21 +388,21 @@ func getDamageMsg(damage:Int, type: DamageActionType) -> String {
         else if (damage < 160) { return "结果这一下「砰」地一声打得$D连退了好几步，差一点摔倒！\n" }
         else if (damage < 240) { return "结果重重地击中，$D「哇」地一声吐出一口鲜血！\n" }
         else { return "结果只听见「砰」地一声巨响，$D像一捆稻草般飞了出去！\n" }
-    case .Nei:
+    case .nei:
         if (damage < 20) { return "结果在$D身上一触即逝，等于给$D搔了一下痒。\n" }
         else if (damage < 40) { return "结果$D晃了一晃，吃了点小亏。\n" }
         else if (damage < 80) { return "结果$D气息一窒，显然有点呼吸不畅！\n" }
         else if (damage < 120) { return "结果$D体内一阵剧痛，看起来内伤不轻！\n" }
         else if (damage < 160) { return "结果「嗡」地一声$D只觉得眼前一黑，双耳轰鸣不止！\n" }
         else { return "结果只听见「嗡」地一声巨响，$D「哇」地一声吐出一口鲜血，五脏六腑都错了位！\n" }
-    case .Chou:
+    case .chou:
         if (damage < 10) { return "结果只是在$D的皮肉上碰了碰，跟蚊子叮差不多。\n" }
         else if (damage < 20) { return "结果在$D的$l抽出一道轻微的紫痕。\n" }
         else if (damage < 40) { return "结果「啪」地一声在$D的$l抽出一道长长的血痕！\n" }
         else if (damage < 80) { return "结果只听「啪」地一声，$D的$l被抽得皮开肉绽，痛得$p咬牙切齿！\n" }
         else if (damage < 160) { return "结果「啪」地一声爆响！这一下好厉害，只抽得$D皮开肉绽，血花飞溅！\n" }
         else { return "结果只听见$D一声惨嚎，$W重重地抽上了$D的$l，$D顿时血肉横飞，十命断了九条！\n" }
-    case .Default:
+    case .default:
         if (damage < 10) { str = "结果只是勉强造成一处轻微" }
         else if (damage < 20) { str = "结果造成轻微的" }
         else if (damage < 30) { str = "结果造成一处" }

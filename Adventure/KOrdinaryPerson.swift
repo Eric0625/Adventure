@@ -12,8 +12,8 @@ class KOrdinaryPerson: KHuman {
     
     required init(){
         super.init(name: names[randomInt(names.count)])
-        mapSkill(KSUnarmed(level: randomInt(20) + 10), inType: .Unarmed)
-        mapSkill(KSQianJunBang(level: randomInt(20) + 10), inType: .Stick)
+        mapSkill(KSUnarmed(level: randomInt(20) + 10), inType: .unarmed)
+        mapSkill(KSQianJunBang(level: randomInt(20) + 10), inType: .stick)
         randomMoveChance = 9
         chatMsg += [ name+"嘴里嘟嘟囔囔不知道说什么。\n",
                      name+"打了个嗝。\n"]
@@ -36,10 +36,10 @@ class KOrdinaryPerson: KHuman {
     func readyEquips() {
         let gun = KQiMeiGun()
         gun.moveTo(self)
-        equip(gun)
+        assert(equip(gun))
         let cloth = KCloth()
         cloth.moveTo(self)
-        equip(cloth)
+        assert(equip(cloth))
     }
     
     override func reborn() {

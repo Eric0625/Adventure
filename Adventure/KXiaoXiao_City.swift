@@ -14,19 +14,19 @@ class KXiaoXiao_City: KSalesMan {
         title = "恶娘子"
         describe = "老英雄萧振远的小女儿，兵器铺女老板。由于凶蛮狠毒，江湖人称＂恶娘子＂。\n"
         per = 14 + randomInt(9)
-        combatExp = 70000;
+        combatExp = 10;
         var skill:KSkill = KSParry(level: 50)
         addSkill(skill)
-        mapSkill(skill, inType: .Parry)
+        mapSkill(skill, inType: .parry)
         skill = KSUnarmed(level: 50)
         addSkill(skill)
-        mapSkill(skill, inType: .Unarmed)
+        mapSkill(skill, inType: .unarmed)
         skill = KSMoonDance(level: 50)
         addSkill(skill)
-        mapSkill(skill, inType: .Dodge)
+        mapSkill(skill, inType: .dodge)
         skill = KSFengshanSword(level: 50)
         addSkill(skill)
-        mapSkill(skill, inType: .Sword)
+        mapSkill(skill, inType: .sword)
         readyEquips()
         addGoods(KQiMeiGun())
         gender = .女性
@@ -45,10 +45,10 @@ class KXiaoXiao_City: KSalesMan {
     func readyEquips() {
         var e:KEquipment = KSteelSword()
         e.moveTo(self)
-        equip(e)
-        e = KPinkCloth();
+        assert(equip(e))
+        e = KPinkCloth()
         e.moveTo(self)
-        equip(e)
+        assert(equip(e))
     }
     
     override func reborn() {

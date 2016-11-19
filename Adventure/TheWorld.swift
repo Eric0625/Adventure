@@ -23,7 +23,7 @@ typealias Guid = UInt32
 
 class TheWorld {
     //MARK: Singleton
-    private init(){
+    fileprivate init(){
         DEBUG("theworld inited")        
     }
     
@@ -36,8 +36,10 @@ class TheWorld {
     
     //MARK:variables
     static let ME = KUser()
-    private var _heartBeatObjects = [WithHeartBeat]()
-    private var _guidCounter:Guid = 0
+    static let VOIDROOM = KVoidRoom()
+    static let worldInterval:TimeInterval = 0.1//心跳的速度，单位为秒
+    fileprivate var _heartBeatObjects = [WithHeartBeat]()
+    fileprivate var _guidCounter:Guid = 0
     
     var displayMessageHandler = [DisplayMessageDelegate]()
     var statusUpdateHandler = [StatusUpdateDelegate]()
@@ -59,44 +61,63 @@ class TheWorld {
     }
     
         
-    class func regHeartBeat(ikb: WithHeartBeat)
+    class func regHeartBeat(_ ikb: WithHeartBeat)
     {
         instance.registerHeartbeatObject(ikb)
     }
     
-    private func heartBeatArrayContains(ob: WithHeartBeat ) -> (isContain: Bool, index: Int?) {
-        let oob = ob as! KObject
-        let index = _heartBeatObjects.indexOf({
-            e in
-            let element = e as! KObject
-            return element == oob
-        })
-        return (index != nil, index)
+    fileprivate func heartBeatArrayContains(_ ob: WithHeartBeat ) -> (isContain: Bool, index: Int?) {
+        if let oob = ob as? KObject {
+            let index = _heartBeatObjects.index(where: {
+                e in
+                let element = e as? KObject
+                return element === oob
+            })
+            return (index != nil, index)
+        }else  if let oob = ob as? NSObject {
+            let index = _heartBeatObjects.index(where: {
+                e in
+                let element = e as? NSObject
+                return element === oob
+            })
+            return (index != nil, index)
+        }
+       fatalError()
     }
     
-    private func registerHeartbeatObject(ob: WithHeartBeat)
+    fileprivate func registerHeartbeatObject(_ ob: WithHeartBeat)
     {
-        assert(ob is KObject)
+        assert(ob is KObject || ob is NSObject)
         if heartBeatArrayContains(ob).isContain == false {
             _heartBeatObjects.append(ob)
         }
     }
     
-    class func unregHeartBeat(ikb: WithHeartBeat){
+    class func unregHeartBeat(_ ikb: WithHeartBeat){
         instance.unregisterHeartBeatObject(ikb)
     }
     
-    private func unregisterHeartBeatObject(ob: WithHeartBeat){
-        assert(ob is KObject)
+    fileprivate func unregisterHeartBeatObject(_ ob: WithHeartBeat){
+        assert(ob is KObject || ob is NSObject)
         guard let index = heartBeatArrayContains(ob).index else {
             return
         }
-        _heartBeatObjects.removeAtIndex(index)
+        _heartBeatObjects.remove(at: index)
     }
     
+    var lastCalled = Date()
     func HeartBeat() {
+        let currentTime = Date()
+        let interval = currentTime.timeIntervalSince(lastCalled)
         for ob in _heartBeatObjects {
+            if ob is KObject  && interval < 1 {
+                continue //如果两次heartbeat之间的时间小于1秒，并且是游戏物体，那么不进行心跳
+            }
             ob.makeOneHeartBeat()//注意，该过程有可能会删除ob
+        }
+        //重置时间标记的行为应等到整个循环结束以后
+        if interval >= 1 {
+            lastCalled = currentTime
         }
     }
     
@@ -106,19 +127,19 @@ class TheWorld {
 //        }
 //    }
     
-    class func didUpdateUserInfo(c:KCreature, type:UserStatusUpdateType, oldValue:AnyObject?){
+    class func didUpdateUserInfo(_ c:KCreature, type:CreatureStatusUpdateType, info:AnyObject?){
         for delegate in instance.statusUpdateHandler{
-            delegate.statusDidUpdate(c, type: type, oldValue: oldValue)
+            delegate.statusDidUpdate(c, type: type, information: info)
         }
     }
     
-    class func broadcast(msg: String) {
+    class func broadcast(_ msg: String) {
         if msg.isEmpty { return }
-        if msg.isOnlyEmptySpacesAndNewLineCharacters() { return }
+        if msg.isBlank { return }
         //let timeStamp = formatDate(NSDate())
         //add carriage return
-        var displayMsg = msg.stringByReplacingOccurrencesOfString("<br>", withString: "\n")
-        displayMsg = displayMsg.stringByReplacingOccurrencesOfString("\r", withString: "")
+        var displayMsg = msg.replacingOccurrences(of: "<br>", with: "\n")
+        displayMsg = displayMsg.replacingOccurrences(of: "\r", with: "")
 //        displayMsg = displayMsg.stringByReplacingOccurrencesOfString("'", withString: "&quot;")
         var test = displayMsg
         while test.hasSuffix("</color>") {
@@ -132,7 +153,7 @@ class TheWorld {
         }
     }
     
-    class func didUpdateRoomInfo(room:KRoom, ent:KEntity? = nil, type:RoomInfoUpdateType = .NewRoom){
+    class func didUpdateRoomInfo(_ room:KRoom, ent:KEntity? = nil, type:RoomInfoUpdateType = .newRoom){
         for delegate in instance.roomInfoHandler {
             delegate.processRoomInfo(room, entity: ent, type: type)
         }

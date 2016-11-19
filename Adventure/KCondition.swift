@@ -23,6 +23,7 @@ class KCondition:KObject
         duration = cond.duration
         owner = cond.owner
         generator = cond.generator
+        imageName = cond.imageName
         super.init(k: k)
     }
   
@@ -33,7 +34,7 @@ class KCondition:KObject
     var duration = 0
     weak var owner: KCreature? //状态的宿主
     weak var generator: KObject?//状态的施加者，有可能不是实体，比如技能等
-    
+    var imageName:String? //状态的图标
     func tickle() { }
     func afterAppliedToOwner() { }
 }

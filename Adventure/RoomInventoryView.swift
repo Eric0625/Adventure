@@ -19,11 +19,11 @@ class RoomInventoryView: UIView {
             for b in buttons!{
                 frames.append(b)
             }
-            groupAndFill(group: .Horizontal, views: frames, padding: 5)
+            groupAndFill(group: .horizontal, views: frames, padding: 5)
         }
     }
     
-    func changeRoom(room:KRoom){
+    func changeRoom(_ room:KRoom){
         self.room = room
         removeSubviews()
         buttons?.removeAll()
@@ -38,7 +38,7 @@ class RoomInventoryView: UIView {
                         continue
                     }
                 }
-                let b = RoomInventoryButton(ent: ent, rect: CGRectMake(0, 0, 10, 10))
+                let b = RoomInventoryButton(ent: ent, rect: CGRect(x: 0, y: 0, width: 10, height: 10))
                 buttons?.append(b)
                 addSubview(b)
             }
@@ -46,17 +46,17 @@ class RoomInventoryView: UIView {
         groupButtons()
     }
     
-    func addEntity(entity:KEntity){
+    func addEntity(_ entity:KEntity){
         if buttons == nil {
             buttons = [RoomInventoryButton]()
         }
-        let b = RoomInventoryButton(ent: entity, rect: CGRectMake(0, 0, 10, 10))
+        let b = RoomInventoryButton(ent: entity, rect: CGRect(x: 0, y: 0, width: 10, height: 10))
         buttons!.append(b)
         addSubview(b)
         groupButtons()
     }
     
-    func updateEntity(ent:KEntity){
+    func updateEntity(_ ent:KEntity){
         if buttons == nil { return }
         for b in buttons! {
             if b.entity === ent {
@@ -66,12 +66,12 @@ class RoomInventoryView: UIView {
         }
     }
     
-    func removeEntity(ent: KEntity){
+    func removeEntity(_ ent: KEntity){
         if buttons == nil {return }
         for b in buttons! {
             if b.entity == ent {
                 b.removeFromSuperview()
-                buttons!.removeObject(b)
+                buttons!.removeFirst(b)
                 break
             }
         }

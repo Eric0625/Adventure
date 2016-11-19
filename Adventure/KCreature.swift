@@ -7,6 +7,26 @@
 //
 
 import Foundation
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 //any thing that can fight，生物
 /*
  天赋：str = 膂力, cor = 胆识, wiz = 悟性, Spe = 口才, kar = 福缘， per = 容貌，基准为20，上限为30,容貌为隐藏属性
@@ -15,13 +35,12 @@ import Foundation
  */
 
 class KCreature: KEntity, CombatEntity, WithHeartBeat {
-    
-    required init( k: KObject) {
+       required init( k: KObject) {
         assert(k is KCreature)
         
         let creature = k as! KCreature
         gender = creature.gender
-        limbs = creature.limbs
+        attackableLimbs = creature.attackableLimbs
         isInFighting = creature.isInFighting
         rivalList = creature.rivalList //使用浅拷贝
         guardMessage = creature.guardMessage
@@ -68,9 +87,9 @@ class KCreature: KEntity, CombatEntity, WithHeartBeat {
     override init(name: String){
         super.init(name: name)
         selfCapacity = Int.max
-        mapSkill(KSUnarmed(), inType: .Unarmed)
-        mapSkill(KSDodge(), inType: .Dodge)
-        mapSkill(KSParry(), inType: .Parry)
+        mapSkill(KSUnarmed(), inType: .unarmed)
+        mapSkill(KSDodge(), inType: .dodge)
+        mapSkill(KSParry(), inType: .parry)
         TheWorld.regHeartBeat(self)
     }
     
@@ -80,26 +99,29 @@ class KCreature: KEntity, CombatEntity, WithHeartBeat {
     
     //MARK:variables
     var gender = Gender.中性
-    private let MAX_OPPPONENTS = 40
-    var limbs = ["上部","中部","下部"]
+    fileprivate let MAX_OPPPONENTS = 40
+    var attackableLimbs = ["上部","中部","下部"] //用于攻击的部位
     var isInFighting = false {
         didSet{
             if isInFighting == true {
                 //into fighting
-                TheWorld.didUpdateUserInfo(self, type: .IntoFight, oldValue: oldValue)
+                TheWorld.didUpdateUserInfo(self, type: .intoFight, info: oldValue as AnyObject?)
             } else {
-                TheWorld.didUpdateUserInfo(self, type: .OutFight, oldValue: oldValue)
+                TheWorld.didUpdateUserInfo(self, type: .outFight, info: oldValue as AnyObject?)
             }
         }
     }
     
-    var rivalList = Set<KCreature>()
+    ///对手列表，使用集合
+    private(set) var rivalList = Set<KCreature>()
+    ///防守信息
     var guardMessage = ["$A伺机而动。\n"]
     var berserkMessage = ["看起来$A想杀死$D！\n"]
     var defaultActions = [KSkillAction.defaultAction]
-    private(set) var learnedSkills = [String: KSkill]()
+    ///具备的技能，键为技能名称（为了快速访问），值为技能本身
+    fileprivate(set) var learnedSkills = [String: KSkill]()
     var combatInfo = CombatInfo()
-    private(set) var mappedSkills = [SkillType: KSkill]() //与各类型动作对应的技能，如空手，武器，闪躲，招架等
+    fileprivate(set) var mappedSkills = [SkillType: KSkill]() //与各类型动作对应的技能，如空手，武器，闪躲，招架等
     var damage = 0
     var armor = 0
     dynamic var combatExp = 0
@@ -109,19 +131,19 @@ class KCreature: KEntity, CombatEntity, WithHeartBeat {
     var isGhost = false {
         didSet{
             if oldValue == false {
-                TheWorld.didUpdateUserInfo(self, type: .Death, oldValue: oldValue)
+                TheWorld.didUpdateUserInfo(self, type: .death, info: oldValue as AnyObject?)
             } else {
-                TheWorld.didUpdateUserInfo(self, type: .Revive, oldValue: oldValue)
+                TheWorld.didUpdateUserInfo(self, type: .revive, info: oldValue as AnyObject?)
             }
         }
     }
     
-    private var conditions = [KCondition]()
+    fileprivate var conditions = [KCondition]()
     //MARK: - status
     var title = ""
     var age = 0{
         didSet{
-            TheWorld.didUpdateUserInfo(self, type: .Age, oldValue: oldValue)
+            TheWorld.didUpdateUserInfo(self, type: .age, info: oldValue as AnyObject?)
         }
     }
     
@@ -131,40 +153,41 @@ class KCreature: KEntity, CombatEntity, WithHeartBeat {
     var per = 20
     var kar = 20
     var spe = 20
-    private(set) var lifeProperty = [DamageType.Force: 0, DamageType.Kee: 100, DamageType.Sen: 100]
-    func setLifeProperty(type:DamageType, amount:Int){
+    fileprivate(set) var lifeProperty = [DamageType.force: 0, DamageType.kee: 100, DamageType.sen: 100]
+    //设置生命、内力或精神
+    func setLifeProperty(_ type:DamageType, amount:Int){
         let oldValue = lifeProperty[type]!
         lifeProperty[type] = amount
         switch type {
-        case .Kee:
-            TheWorld.didUpdateUserInfo(self, type: .Kee, oldValue: oldValue)
-        case .Force:
-            TheWorld.didUpdateUserInfo(self, type: .Force, oldValue: oldValue)
-        case .Sen:
-            TheWorld.didUpdateUserInfo(self, type: .Sen, oldValue: oldValue)
+        case .kee:
+            TheWorld.didUpdateUserInfo(self, type: .kee, info: oldValue as AnyObject?)
+        case .force:
+            TheWorld.didUpdateUserInfo(self, type: .force, info: oldValue as AnyObject?)
+        case .sen:
+            TheWorld.didUpdateUserInfo(self, type: .sen, info: oldValue as AnyObject?)
         }
     }
     
-    private(set) var lifePropertyMax = [DamageType.Force: 0, DamageType.Kee: 100, DamageType.Sen: 100]
-    func setLifePropertyMax(type:DamageType, amount:Int){
+    fileprivate(set) var lifePropertyMax = [DamageType.force: 0, DamageType.kee: 100, DamageType.sen: 100]
+    func setLifePropertyMax(_ type:DamageType, amount:Int){
         let oldValue = lifePropertyMax[type]!
         lifePropertyMax[type] = amount
         switch type {
-        case .Kee:
-            TheWorld.didUpdateUserInfo(self, type: .MaxKee, oldValue: oldValue)
-        case .Force:
-            TheWorld.didUpdateUserInfo(self, type: .MaxForce, oldValue: oldValue)
-        case .Sen:
-            TheWorld.didUpdateUserInfo(self, type: .MaxSen, oldValue: oldValue)
+        case .kee:
+            TheWorld.didUpdateUserInfo(self, type: .maxKee, info: oldValue as AnyObject?)
+        case .force:
+            TheWorld.didUpdateUserInfo(self, type: .maxForce, info: oldValue as AnyObject?)
+        case .sen:
+            TheWorld.didUpdateUserInfo(self, type: .maxSen, info: oldValue as AnyObject?)
         }
     }
     
-    var kee: Int { return lifeProperty[DamageType.Kee]! }
-    var sen: Int { return lifeProperty[DamageType.Sen]! }
-    var force: Int { return lifeProperty[DamageType.Force]! }
-    var maxKee: Int { return lifePropertyMax[DamageType.Kee]! }
-    var maxSen: Int { return lifePropertyMax[DamageType.Sen]! }
-    var maxForce: Int { return lifePropertyMax[DamageType.Force]! }
+    var kee: Int { return lifeProperty[DamageType.kee]! }
+    var sen: Int { return lifeProperty[DamageType.sen]! }
+    var force: Int { return lifeProperty[DamageType.force]! }
+    var maxKee: Int { return lifePropertyMax[DamageType.kee]! }
+    var maxSen: Int { return lifePropertyMax[DamageType.sen]! }
+    var maxForce: Int { return lifePropertyMax[DamageType.force]! }
     var fury = 0 //杀气
     //----------计算型属性-----------------
     var longName: String {
@@ -180,8 +203,8 @@ class KCreature: KEntity, CombatEntity, WithHeartBeat {
     }
     //MARK: - functions
     //MARK: skill functions
-    func hasLearnedSkill(skill: KSkill) -> Bool {
-        return learnedSkills.contains({
+    func hasLearnedSkill(_ skill: KSkill) -> Bool {
+        return learnedSkills.contains(where: {
             $0.1 == skill
         })
     }
@@ -193,14 +216,14 @@ class KCreature: KEntity, CombatEntity, WithHeartBeat {
         }
     }
     
-    func setSkill(skillname: String, toLevel level:Int){
+    func setSkill(_ skillname: String, toLevel level:Int){
         if let skill = learnedSkills[skillname] {
             skill.level = level
         }
     }
     
-    /// 如果没有该skill，会加入，如果已有同类型的，会替换
-    func addSkill(skill: KSkill) {
+    /// 如果没有该skill，会加入，如果已有同名的，会替换
+    func addSkill(_ skill: KSkill) {
         if learnedSkills[skill.name] != nil {
             //找出map里的旧skill，替换之
             if mappedSkills.values.contains(skill) {
@@ -216,7 +239,7 @@ class KCreature: KEntity, CombatEntity, WithHeartBeat {
         skill.owner = self
     }
     
-    func deleteSkill(skill:KSkill){
+    func deleteSkill(_ skill:KSkill){
         skill.owner = nil
         learnedSkills[skill.name] = nil
         for item in mappedSkills {
@@ -227,11 +250,11 @@ class KCreature: KEntity, CombatEntity, WithHeartBeat {
         }
     }
     
-    func getSkill(name: String) -> KSkill?{
+    func getSkill(_ name: String) -> KSkill?{
         return learnedSkills[name]
     }
     
-    func mapSkill(skill:KSkill, inType type: SkillType){
+    func mapSkill(_ skill:KSkill, inType type: SkillType){
         if hasLearnedSkill(skill) == false {
            //先加入该skill
             addSkill(skill)
@@ -240,15 +263,16 @@ class KCreature: KEntity, CombatEntity, WithHeartBeat {
         mappedSkills[type] = skill
     }
     
-    private func getSkillLevel(skillname: String) -> Int {
+    fileprivate func getSkillLevel(_ skillname: String) -> Int {
         return learnedSkills[skillname]?.level ?? KSkill._DEFAULT_SKILL_LEVEL
     }
  
-    func applyCondition(cond: KCondition, caster: KObject? = nil, doPostApply:Bool = true){
+    func applyCondition(_ cond: KCondition, caster: KObject? = nil, doPostApply:Bool = true){
         cond.owner = self
         cond.generator = caster
         conditions.append(cond)
         if doPostApply { cond.afterAppliedToOwner() }
+        TheWorld.didUpdateUserInfo(self, type: .applyCondition, info: cond)
     }
     
     func chooseRandomOpponent() -> KCreature?{
@@ -257,129 +281,105 @@ class KCreature: KEntity, CombatEntity, WithHeartBeat {
         return qualified[randomInt(qualified.count)]
     }
    
-    func startBusy(time:Int){
+    func startBusy(_ time:Int){
         if time <= 0 { return }
         let busy = KBusyCondition(time: time)
         applyCondition(busy)
     }
     
     func getDefaultAction() -> KSkillAction{
-        if let wp = getEquippedItem(.RightHand) as? KWeapon {
+        if let wp = getEquippedItem(.rightHand) as? KWeapon {
             return wp.getRandomAction()
         } else {
             return defaultActions[randomInt(defaultActions.count)]
         }
     }
     
-    func isFightingWith(op: KCreature) -> Bool {
+    func isFightingWith(_ op: KCreature) -> Bool {
         return rivalList.contains(op) && isInFighting
     }
     
-    func startFighting(op: KCreature) {
+    func startFighting(_ op: KCreature) {
         if isGhost { return }
         if op.isGhost { return }
         if rivalList.count >= MAX_OPPPONENTS { return }
         if isFightingWith(op) { return }
         isInFighting = true
-        rivalList.insert(op)
+        insertRival(r: op)
         if op.isFightingWith(self) == false { op.startFighting(self) }
         combatInfo.clearAll()
         combatInfo.rival = op
     }
     
-    func endFighting(op: KCreature) {
+    func endFighting(_ op: KCreature) {
         if rivalList.contains(op) == false { return }
-        rivalList.remove(op)
+        removeRival(r: op)
         if rivalList.isEmpty { isInFighting = false }
     }
     
     
-    func makeOneAttack(op: KCreature) -> KSkillAction {
+    func makeOneAttack(_ op: KCreature) -> KSkillAction {
         //最基本的一次攻击返回信息
-        if let wp = getEquippedItem(.RightHand) as? KWeapon {
+        if let wp = getEquippedItem(.rightHand) as? KWeapon {
             let usage = wp.skillType
             if let skill = mappedSkills[usage] {
                 return skill.getRandomAction()
             } else { return wp.getRandomAction() }
         }
-        return mappedSkills[.Unarmed]!.getRandomAction()
+        return mappedSkills[.unarmed]!.getRandomAction()
     }
     
-    func unequip(eqp: KEquipment) -> Bool {
+    func unequip(_ eqp: KEquipment) -> Bool {
         guard eqp.validUnequip() else { return false }
-        if eqp.equippedPosition == .NONE {return notifyFail("你并没有装备这件装备。\n", to: self)}//TODO:考虑双持
         if !isGhost && eqp.unequipMessage != ""  && environment != nil{
             tellRoom(processInfomation(eqp.unequipMessage, attacker: self), room: environment!)
         }
-        eqp.equippedPosition = .NONE
+        eqp.isEquipped = false
         eqp.afterEquip()
         resetDamage()
         resetArmor()
-        return true
-    }
-    
-    func equipTo(equipment: KEquipment, position: EquipPosition) -> Bool{
-        if let eq = getEquippedItem(position) {
-            if unequip(eq) == false { return notifyFail("你必须先卸下\(eq.name)", to: self) }
-        }
-        equipment.equippedPosition = position
-        if !isGhost && !equipment.equipMessage.isEmpty { tellRoom(equipment.equipMessage, room: environment!) }
-        equipment.afterEquip()
-        resetDamage()
-        resetArmor()
+        TheWorld.didUpdateUserInfo(self, type: .unequip, info: eqp)
         return true
     }
 
-    func equip(eqp: KEquipment) -> Bool {
+    func equip(_ eqp: KEquipment) -> Bool {
         guard let inventory = _entities else { return false }
         if inventory.contains(eqp) == false { return false }
         if eqp.validEquip() == false { return false }
-        
-        switch eqp.equipType {
-        case EquipType.OneHandedWeapon:
-            //检查右手是否有武器，有则先卸下，如果卸下失败，返回，成功则装载
-            //todo:考虑双持
-            if let wp = getEquippedItem(EquipPosition.RightHand){
-                if unequip(wp) == false { return notifyFail("你必须先卸下手里的武器。", to: self) }
+        if isGhost { return false }
+        var oldep: KEquipment?
+        if let wp = getEquippedItem(eqp.definedEquipPosition) {
+            if unequip(wp) == false {
+                return notifyFail("你必须先卸下" + wp.name, to: self)
             }
-            eqp.equippedPosition = EquipPosition.RightHand
-        case EquipType.TwoHandedWeapon:
-            if let wp = getEquippedItem(EquipPosition.RightHand){
-                if unequip(wp) == false { return notifyFail("你必须先卸下手里的武器。", to: self) }
-            }
-            if let wp = getEquippedItem(EquipPosition.RightHand) {
-                if unequip(wp) == false {
-                    if wp is KWeapon { return notifyFail("你必须先卸下左手的武器。", to: self) }
-                    return notifyFail("你必须先卸下手里的防具。", to: self)
-                }
-            }
-            eqp.equippedPosition = EquipPosition.RightHand
-        case EquipType.HeadArmor:
-            return equipTo(eqp, position: EquipPosition.Head)
-        case EquipType.Cloth:
-            return equipTo(eqp, position: EquipPosition.Body)
-        case EquipType.Off_hand:
-            if let wp = getEquippedItem(EquipPosition.RightHand) {
-                if wp.equipType == EquipType.TwoHandedWeapon {
-                    if unequip(wp) == false { return notifyFail("你必须先卸下双手武器。", to: self) }
-                }
-            }
-            return equipTo(eqp, position: EquipPosition.LeftHand)
-        default:
-            return false
+            oldep = wp
         }
+        //只有双手武器需要额外检查左手
+        if eqp.equipType == .twoHandedWeapon {
+            if let wp = getEquippedItem(EquipPosition.leftHand) {
+                if unequip(wp) == false {
+                    return notifyFail("你必须先卸下" + wp.name, to: self)
+                }
+            }
+        }
+        //检测通过，开始装备
+        eqp.isEquipped = true
+        if !isGhost && environment != nil && !eqp.equipMessage.isEmpty { tellRoom(processInfomation(eqp.equipMessage, attacker: self), room: environment!) }
+        eqp.afterEquip()
+        resetDamage()
+        resetArmor()
+        
+        TheWorld.didUpdateUserInfo(self, type: .equip, info: EquipmentChangeInfo(new: eqp, old: oldep) as AnyObject? )
         return true
     }
     
-    
-    
-    func startBerserk(chr: KCreature){
+    func startBerserk(_ chr: KCreature){
         let msg = processInfomation(berserkMessage[randomInt(berserkMessage.count)], attacker: self, defenser: chr)
         tellRoom(msg, room: self.environment!)
         chr.startFighting(self)
     }
     
-    private var _tick = 0
+    fileprivate var _tick = 0
     func makeOneHeartBeat() {
         guard environment != nil else{
             TheWorld.unregHeartBeat(self)
@@ -390,8 +390,8 @@ class KCreature: KEntity, CombatEntity, WithHeartBeat {
             return
         }
         if isGhost {return}
-        for i in (0..<conditions.count).reverse() {
-            if conditions[i].duration == -1 { conditions.removeAtIndex(i) }
+        for i in (0..<conditions.count).reversed() {
+            if conditions[i].duration == -1 { conditions.remove(at: i) }
             else {
                 conditions[i].tickle()
                 conditions[i].duration -= 1
@@ -416,15 +416,15 @@ class KCreature: KEntity, CombatEntity, WithHeartBeat {
     func getGuardingMessage() -> String { return guardMessage[randomInt(guardMessage.count)] }
     
     /// 返回对应类型的技能等级
-    func getEffSkillLevel(type: SkillType) -> Int{
+    func getEffSkillLevel(_ type: SkillType) -> Int{
         return getActualSkillLevel(type)// in base clas,only return raw level
     }
     
-    func getEffSkillLevel(skillname: String) -> Int?{
+    func getEffSkillLevel(_ skillname: String) -> Int?{
         return learnedSkills[skillname]?.level
     }
     
-    func receiveHeal(type:DamageType, healAmount: Int, from healer: KCreature? = nil){
+    func receiveHeal(_ type:DamageType, healAmount: Int, from healer: KCreature? = nil){
         lastHealer = healer
         var result = lifeProperty[type]! + healAmount
         if result > lifePropertyMax[type] {
@@ -433,7 +433,7 @@ class KCreature: KEntity, CombatEntity, WithHeartBeat {
         setLifeProperty(type, amount: result)
     }
     
-    func receiveDamage(type:DamageType, damageAmout: Int, from attacker: KCreature? = nil){
+    func receiveDamage(_ type:DamageType, damageAmout: Int, from attacker: KCreature? = nil){
         lastDamager = attacker
         if lifeProperty[type]! < 0 { return } //死亡不再受到伤害
         setLifeProperty(type, amount: lifeProperty[type]! - damageAmout)        
@@ -452,7 +452,7 @@ class KCreature: KEntity, CombatEntity, WithHeartBeat {
         }
     }
     
-    func reviveFrom(chr: KCreature? = nil){
+    func reviveFrom(_ chr: KCreature? = nil){
         reviver = chr
         for type in DamageType.AllValues {
             lifeProperty[type] = lifePropertyMax[type]
@@ -461,49 +461,54 @@ class KCreature: KEntity, CombatEntity, WithHeartBeat {
         TheWorld.regHeartBeat(self)
     }
     
-    override func remove(ent: KEntity) -> Bool {
+    override func remove(_ ent: KEntity) -> Bool {
         if let eq = ent as? KEquipment {
-            if eq.equippedPosition != EquipPosition.NONE {
+            if eq.isEquipped {
                 if unequip(eq) == false { return false }
             }
         }
-        return super.remove(ent)
+        guard super.remove(ent) else { return false }
+        //移除成功，发送消息
+        TheWorld.didUpdateUserInfo(self, type: .dropItem, info: ent)
+        return true
     }
     
-    func getActualSkillLevel(type: SkillType) -> Int {
+    func getActualSkillLevel(_ type: SkillType) -> Int {
         if let skill = mappedSkills[type] { return skill.level}
         return KSkill._DEFAULT_SKILL_LEVEL
     }
     
     override var allCapacity: Int{
-        return min(super.allCapacity, (str * 5 + getActualSkillLevel(SkillType.Unarmed) * 10).KG)
+        let c = (str * 5 + (getActualSkillLevel(SkillType.unarmed))).KG
+        return min(super.allCapacity, c)
     }
    
     func endAllFighting() {
-        rivalList.removeAll()
+        removeAllRival()
         isInFighting = false;
     }
     
     func getRandomLimb() -> String{
-        return limbs[randomInt(limbs.count)]
+        return attackableLimbs[randomInt(attackableLimbs.count)]
     }
     
         
     func resetDamage(){
         damage = str
-        if let wp = getEquippedItem(EquipPosition.RightHand) as? KWeapon {
+        if let wp = getEquippedItem(EquipPosition.rightHand) as? KWeapon {
             damage += wp.damage
         }
-        if let wp = getEquippedItem(EquipPosition.LeftHand) as? KWeapon {
+        if let wp = getEquippedItem(EquipPosition.leftHand) as? KWeapon {
             damage += wp.damage / 2
         }
     }
     
     func resetArmor(){
+        armor = 0
         if let inventory = _entities {
             for item in inventory {
                 if let ar = item as? KArmor {
-                    if ar.equippedPosition != EquipPosition.NONE {
+                    if ar.isEquipped {
                         armor += ar.armor
                     }
                 }
@@ -511,15 +516,55 @@ class KCreature: KEntity, CombatEntity, WithHeartBeat {
         }
     }
     
-    func getEquippedItem(position: EquipPosition) -> KEquipment? {
+    ///返回特定装备位置的装备
+    func getEquippedItem(_ position: EquipPosition) -> KEquipment? {
         guard let inventory = _entities else { return nil }
-        for item in inventory {
-            let eq = item as? KEquipment
-            if let eq = eq {
-                if eq.equippedPosition == position { return eq }
+        let result = inventory.filter(){
+            if let item = $0 as? KEquipment {
+                return item.definedEquipPosition == position && item.isEquipped
             }
+            return false
         }
-        return nil
+        assert(result.count <= 1)
+        if result.isEmpty { return nil }
+        return result[0] as? KEquipment
+    }
+    
+    ///todo:根据百分比加上颜色
+    func formatLifeProperty(_ type: DamageType) -> String{
+        let amout = TheWorld.ME.lifeProperty[type]!
+        let amoutMax = TheWorld.ME.lifePropertyMax[type]!
+        var per:Double = 0
+        if amoutMax > 0 {
+            per = (Double(amout) * 100 / Double(amoutMax))
+        }
+        let s = cutZeroesAtTail(String(format: "%.2f", per))
+        
+        return "\(amout)/\(amoutMax)(\(s)%)"
+    }
+    
+    //封装对手池编辑功能，因为需要在对手池发生变动时呼叫代理函数
+    func insertRival(r:KCreature){
+        rivalList.insert(r)
+        TheWorld.didUpdateUserInfo(self, type: .addRival, info: r)
+    }
+    func removeRival(r:KCreature){
+        rivalList.remove(r)
+        TheWorld.didUpdateUserInfo(self, type: .removeRival, info: r)
+    }
+    func removeAllRival(){
+        for r in rivalList{
+            removeRival(r: r)
+        }
+    }
+
+    ///逃跑函数，各生物可自定义自己的情况，在基类中永远逃跑失败
+    func fleeFromFight() -> Bool{
+        return false
+    }
+    
+    func getPureDescribe() -> String{
+        return super.describe
     }
 }
 

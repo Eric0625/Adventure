@@ -2,46 +2,50 @@ import Foundation
 import UIKit
 
 extension String {
-    /// EZSE: Cut string from integerIndex to the end
-    public subscript(integerIndex: Int) -> Character {
-        let index = startIndex.advancedBy(integerIndex)
-        return self[index]
-    }
-    
-    /// EZSE: Cut string from range
+        
+        ///Eric: regular expression under default options
+        public func regMatch(_ patter:String, range: NSRange) -> [NSTextCheckingResult] {
+            do{
+                let regex = try NSRegularExpression(pattern: patter, options: .dotMatchesLineSeparators)
+                return regex.matches(in: self, options: .reportCompletion, range: range)
+            }
+            catch{
+                print(error)
+            }
+            fatalError()
+        }
     public subscript(integerRange: Range<Int>) -> String {
-        let start = startIndex.advancedBy(integerRange.startIndex)
-        let end = startIndex.advancedBy(integerRange.endIndex)
+        let start = characters.index(startIndex, offsetBy: integerRange.lowerBound)
+        let end = characters.index(startIndex, offsetBy: integerRange.upperBound)
         let range = start..<end
         return self[range]
     }
-    
-    public func regMatch(patter:String, range: NSRange) -> [NSTextCheckingResult] {
-        do{
-            let regex = try NSRegularExpression(pattern: patter, options: .DotMatchesLineSeparators)
-            return regex.matchesInString(self, options: .ReportCompletion, range: range)
-        }
-        catch{
-            print(error)
-        }
-        fatalError()
-    }
-    
-    /// EZSE: Character count
-    public var length: Int {
-        return self.characters.count
-    }
 
+    /// EZSE: Cut string from integerIndex to the end
+    public subscript(integerIndex: Int) -> Character {
+        let index = characters.index(startIndex, offsetBy: integerIndex)
+        return self[index]
+    }
 }
 
-var s = "100.020000"
-let range = s.regMatch("\\.*(0+)$", range: NSMakeRange(0, s.length))
-if range.isEmpty == false {
-print(range[0].rangeAtIndex(1))
-let start = range[0].range.location
-let end = start + range[0].range.length
-let ss = s[0..<start]
-print(ss)
+let str = "<color chatColor>s"
+let ranges = str.regMatch("^<color (\\w*)>$", range: NSMakeRange(0, str.characters.count))
 
-    //let p = s.replaceRange(range[0].rangeAtIndex(1), with: "")
+print(ranges.count)
+for range in ranges {
+    let r = range.rangeAt(1).toRange()!
+    print(r)
+    print(str[r])
 }
+
+class TClass {
+    var desc = "test"
+    required init(){
+        
+    }
+}
+let someType = TClass.self
+let sobject = someType.init()
+//let emptyString = someType.init()
+print(sobject.desc)
+print(someType.self)

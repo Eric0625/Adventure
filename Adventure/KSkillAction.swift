@@ -27,7 +27,7 @@ final class KSkillAction: KObject, WithHeartBeat{
     }
     
     
-    init(describe:String, actionTypeOfDamage:DamageActionType = DamageActionType.Default, requiredLevel lvl:Int = 0, dodge d:Double = 1, parry p:Double = 1, damageFactor dam:Double=1, name:String = NAME, coolDown cd:Int = 0)
+    init(describe:String, actionTypeOfDamage:DamageActionType = DamageActionType.default, requiredLevel lvl:Int = 0, dodge d:Double = 1, parry p:Double = 1, damageFactor dam:Double=1, name:String = NAME, coolDown cd:Int = 0)
     {
         damageActionType = actionTypeOfDamage
         skillLevelRequire = lvl
@@ -50,7 +50,7 @@ final class KSkillAction: KObject, WithHeartBeat{
     let damageFactor: Double//伤害加成，直接乘到AP上
     var skillLevelRequire: Int//使出这一招需要的技术等级
     let coolDownTime: Int//此特殊招式的CD时间
-    private var _cdLeft = 0
+    fileprivate var _cdLeft = 0
     let damageActionType: DamageActionType
     var isInCooldDown: Bool{
         return _cdLeft != 0

@@ -22,8 +22,8 @@ class UIGearInventoryView: UIView {
     var invView = UIInventoryView()
     
     init(){
-        super.init(frame: CGRectMake(0, 0, 100, 100))
-        backgroundColor = UIColor.blueColor()
+        super.init(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        backgroundColor = UIColor.blue
         addSubview(gearView)
         addSubview(invView)
     }
@@ -34,9 +34,9 @@ class UIGearInventoryView: UIView {
     
     override func refresh() {
         let gearHeight = frame.height * 0.4
-        gearView.anchorAndFillEdge(.Top, xPad: 0, yPad: 0, otherSize: gearHeight)
+        gearView.anchorAndFillEdge(.top, xPad: 0, yPad: 0, otherSize: gearHeight)
         gearView.refresh()
-        invView.alignAndFillHeight(align: .UnderCentered, relativeTo: gearView, padding: 0, width: frame.width)
+        invView.alignAndFillHeight(align: .underCentered, relativeTo: gearView, padding: 0, width: frame.width)
         invView.refresh()
     }
 }

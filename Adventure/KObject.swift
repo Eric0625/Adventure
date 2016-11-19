@@ -9,7 +9,11 @@
 import Foundation
 
 class KObject: Hashable {
-    var name:String
+    var name:String {
+        set { neatName = newValue }
+        get { return neatName }
+    }
+    private var neatName:String
     var describe = ""
     var guid = TheWorld.newGuid()
     
@@ -17,18 +21,21 @@ class KObject: Hashable {
 
     required init(k: KObject){
         guid = TheWorld.newGuid()
-        name = k.name
         describe = k.describe
+        neatName = k.neatName
     }
     
     init(name:String){
-        self.name = name        
+        neatName = name
     }
     
     func clone() -> KObject{
         let ob = KObject(k: self)
         return ob
     }
+    
+    ///返回纯名称，用于对比
+    final func getNeatName() -> String { return neatName }
 }
 
 

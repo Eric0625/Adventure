@@ -21,7 +21,7 @@ class KSalesMan: KHuman {
     override init(name: String) {
         super.init(name: name)
         //selfCapacity = Int.max //商人负重无限
-        availableCommands.insert(.Trade)
+        availableCommands.append(NPCCommands.trade)
     }
     
     required convenience init(){
@@ -33,7 +33,7 @@ class KSalesMan: KHuman {
     }
     
     var carriedMoney = 10000
-    private(set) var goods = Set<KItem>()
+    fileprivate(set) var goods = Set<KItem>()
     override var allCapacity: Int { return super.allCapacity }
     
     func canTrade() -> Bool {
@@ -43,13 +43,13 @@ class KSalesMan: KHuman {
         return true
     }
     
-    func addGoods(commodity: KItem){
+    func addGoods(_ commodity: KItem){
         if commodity.moveTo(self) {
             goods.insert(commodity)
         }
     }
     
-    func buy(item: KItem) -> Bool {
+    func buy(_ item: KItem) -> Bool {
         if !canTrade() { return false }
         let value = item.sellValue
         if carriedMoney < value { return false }
@@ -62,7 +62,7 @@ class KSalesMan: KHuman {
         return true
     }
     
-    func sell(item: KItem) -> Bool {
+    func sell(_ item: KItem) -> Bool {
         if canTrade() == false {return false}
         if !goods.contains(item) {return false}
         let value = item.sellValue

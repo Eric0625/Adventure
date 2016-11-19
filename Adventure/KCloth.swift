@@ -20,8 +20,9 @@ class KCloth: KArmor {
         super.init(name: "布衣")
         armor = 1
         describe = "一件普普通通的粗布衣服。\n"
-        weight = 200
-        equipType = .Cloth
+        weight = 200 //单位是克
+        equipType = .cloth
+        definedEquipPosition = .body
         value = 1
     }
     

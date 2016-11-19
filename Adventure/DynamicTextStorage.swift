@@ -15,31 +15,31 @@ class DynamicTextStorage: NSTextStorage {
         return backingStore.string
     }
     
-    override func attributesAtIndex(location: Int, effectiveRange range: NSRangePointer) -> [String : AnyObject] {
-        return backingStore.attributesAtIndex(location, effectiveRange: range)
+    override func attributes(at location: Int, effectiveRange range: NSRangePointer?) -> [String : Any] {
+        return backingStore.attributes(at: location, effectiveRange: range)
     }
 
-    override func replaceCharactersInRange(range: NSRange, withString str: String) {
+    override func replaceCharacters(in range: NSRange, with str: String) {
         //print("replaceCharactersInRange:\(range) withString:\(str)")
         
         beginEditing()
-        backingStore.replaceCharactersInRange(range, withString:str)
-        edited([.EditedCharacters,.EditedAttributes], range: range, changeInLength: (str as NSString).length - range.length)
+        backingStore.replaceCharacters(in: range, with:str)
+        edited([.editedCharacters,.editedAttributes], range: range, changeInLength: (str as NSString).length - range.length)
         endEditing()
     }
     
-    override func setAttributes(attrs: [String : AnyObject]?, range: NSRange) {
+    override func setAttributes(_ attrs: [String : Any]?, range: NSRange) {
         //print("setAttributes:\(attrs) range:\(range)")
         
         beginEditing()
         backingStore.setAttributes(attrs, range: range)
-        edited(.EditedAttributes, range: range, changeInLength: 0)
+        edited(.editedAttributes, range: range, changeInLength: 0)
         endEditing()
     }
     
-    func appendAttribute(str:NSAttributedString) {
+    func appendAttribute(_ str:NSAttributedString) {
         beginEditing()
-        backingStore.appendAttributedString(str)
+        backingStore.append(str)
         endEditing()
     }
     

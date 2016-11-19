@@ -33,16 +33,16 @@ class KSkill:KObject{
     static let _DEFAULT_SKILL_LEVEL = 1
     var level = 1
     var subLevel = 0 //达到level＋1的平方后level加1
-    //var skillType = SkillType.None
+    var skillType = SkillType.none
     var actions = [KSkillAction]()
     weak var owner:KCreature?
     
     //MARK:functions
-    func isValidForMappingWith(usage: SkillType) -> Bool {return owner != nil}    
+    func isValidForMappingWith(_ usage: SkillType) -> Bool { return owner != nil && skillType == usage }
     func isValidForLearn() -> Bool {return owner != nil}
     func isValidForPractice() -> Bool{return owner != nil}
     
-    func afterSkillHit(someone: KCreature){}
+    func afterSkillHit(_ someone: KCreature){}
     
     func getRandomAction() -> KSkillAction {
         guard let owner = self.owner else {
@@ -62,7 +62,7 @@ class KSkill:KObject{
         } else { return owner.getDefaultAction() }
     }
     
-    func improveSubLevel( amount: Int ) {
+    func improveSubLevel( _ amount: Int ) {
         guard let owner = self.owner else { return }
         var realAmount = amount
         let wiz = owner.wiz / 2
@@ -70,7 +70,7 @@ class KSkill:KObject{
         if wiz < count {
             realAmount /= count - wiz
         }
-        subLevel += amount
+        subLevel += realAmount
         if subLevel > (level + 1) * (level + 1) {
             level += 1
             tellPlayer(KColors.HIC + "你的" + name + "进步了！\n" + KColors.NOR, usr: owner)
@@ -91,7 +91,7 @@ class KSkill:KObject{
     }
     
     /// 施展一个特定的招式，在基类中什么也不做，只进行标准判断
-    func performSpecialAction(name: String, toTarget target:KCreature) -> Bool{
+    func performSpecialAction(_ name: String, toTarget target:KCreature) -> Bool{
         guard let owner = self.owner else { return false }
         if owner.isGhost {return false}
         if owner.isBusy { return notifyFail("你正忙着呢。", to: owner) }

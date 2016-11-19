@@ -13,6 +13,7 @@ class KBusyCondition: KCondition
     static let NAME = "定身";
     init(time: Int){
         super.init(name: KBusyCondition.NAME, duration: time)
+        imageName = "busy"
     }
     
     required init(k: KObject) {

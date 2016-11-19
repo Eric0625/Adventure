@@ -13,6 +13,7 @@ class KSUnarmed: KSkill{
     init(level:Int = 1){
         super.init(name: KSUnarmed.NAME)
         self.level = level
+        skillType = .unarmed
     }
     
     required init(k: KObject) {
@@ -22,10 +23,6 @@ class KSUnarmed: KSkill{
         super.init(k: k)
     }
     
-    static let NAME = "空手格斗"
-    
-    override func isValidForMappingWith(usage: SkillType) -> Bool {
-        return usage == SkillType.Unarmed
-    }
+    static let NAME = "扑击格斗之技"
 
 }

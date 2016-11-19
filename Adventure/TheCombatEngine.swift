@@ -10,7 +10,7 @@ import Foundation
 
 class TheCombatEngine {
     //MARK: Singleton
-    private init(){
+    fileprivate init(){
         DEBUG("combat engine inited")
         
     }
@@ -21,7 +21,7 @@ class TheCombatEngine {
         return Singleton._instance
     }
     
-    private func calculateRealDamage(attacker: KCreature, defenser: KCreature) -> Double{
+    fileprivate func calculateRealDamage(_ attacker: KCreature, defenser: KCreature) -> Double{
         let starter = attacker.damage - defenser.armor
         var realDamage = Double( starter + randomInt(starter)) / 2
         //TODO:技能特殊效果，武器特殊效果
@@ -35,7 +35,7 @@ class TheCombatEngine {
         return realDamage
     }
     
-    private func getSkillPower(chr:KCreature, skill:KSkill?) -> Double {
+    fileprivate func getSkillPower(_ chr:KCreature, skill:KSkill?) -> Double {
         var power = Double(skill?.level ?? 1)
         power = power * (power + 1) * (2 * power + 1) / 6
         if chr.maxSen > 0 {power = power * Double(chr.sen / chr.maxSen)}
@@ -49,14 +49,14 @@ class TheCombatEngine {
     ///   - isCounterAttack: 是否反击，如果是反击则不会闪躲
     ///   - noGarding: 如果为真则必定出手（仍然有可能躲闪和招架）
     ///   - designatedAction: 是否已指定招式
-    func doCombat(attacker: KCreature, defenser: KCreature, isCounterAttack:Bool = false, noGarding: Bool = false, designatedAction:KSkillAction? = nil) -> String{
+    func doCombat(_ attacker: KCreature, defenser: KCreature, isCounterAttack:Bool = false, noGarding: Bool = false, designatedAction:KSkillAction? = nil) -> String{
         if attacker.isGhost || defenser.isGhost {return ""}
         let aCor = Double(attacker.cor)
         var ap, dp, pp, checker, mod: Double
         var message = ""
         var attackerAction, defenserAction: KSkillAction
         let attackerSkill: KSkill?
-        let aWeapon: KWeapon? = attacker.getEquippedItem(EquipPosition.RightHand) as? KWeapon
+        let aWeapon: KWeapon? = attacker.getEquippedItem(EquipPosition.rightHand) as? KWeapon
         //let dWeapon: KWeapon? = defenser.getEquippedItem(EquipPosition.RightHand) as? KWeapon
         let defenserLimb = defenser.getRandomLimb()
         if !isCounterAttack { attacker.combatInfo.allRounds += 1 }
@@ -69,7 +69,7 @@ class TheCombatEngine {
         } else {
             if let aw = aWeapon {
                 attackerSkill = attacker.mappedSkills[aw.skillType]
-            } else { attackerSkill = attacker.mappedSkills[SkillType.Unarmed] }
+            } else { attackerSkill = attacker.mappedSkills[SkillType.unarmed] }
             if designatedAction != nil { attackerAction = designatedAction! }
             else { attackerAction = attacker.makeOneAttack(defenser) }
             ap = getSkillPower(attacker, skill: attackerSkill)
@@ -79,7 +79,7 @@ class TheCombatEngine {
             attackerAction.afterActionTaken()
             if !isCounterAttack {
                 //check the dodge
-                let dodge = defenser.mappedSkills[SkillType.Dodge]!
+                let dodge = defenser.mappedSkills[SkillType.dodge]!
                 defenserAction = dodge.getRandomAction()
                 dp = getSkillPower(defenser, skill: dodge)
                 dp *= defenserAction.dodgePower
@@ -113,7 +113,7 @@ class TheCombatEngine {
                 }
             }
             //命中，判断是否格挡
-            let parry = defenser.mappedSkills[SkillType.Parry]!
+            let parry = defenser.mappedSkills[SkillType.parry]!
             defenserAction = parry.getRandomAction()
             pp = getSkillPower(defenser, skill: parry)
             pp *= defenserAction.parryPower
@@ -140,14 +140,14 @@ class TheCombatEngine {
             //格挡失败，计算伤害
             var damage = calculateRealDamage(attacker, defenser: defenser)
             damage *= attackerAction.damageFactor
-            defenser.receiveDamage(.Kee, damageAmout: Int(damage), from: attacker)
+            defenser.receiveDamage(.kee, damageAmout: Int(damage), from: attacker)
             attacker.combatInfo.lastDamage = damage
             attacker.combatInfo.keeDamage += damage
             if damage > attacker.combatInfo.maxDamage {
                 attacker.combatInfo.maxDamage = damage
             }
             message += getDamageMsg(Int(damage), type: attackerAction.damageActionType)
-            message += getStatusMsg(defenser, type: .Kee)
+            message += getStatusMsg(defenser, type: .kee)
             if ap < max(pp, dp)  && randomInt(Int(attacker.kar * attacker.wiz + attacker.sen * 100 / attacker.maxSen)) > 150{
                 attacker.combatExp += 1
                 if let askill = attackerSkill { askill.improveSubLevel(1) }

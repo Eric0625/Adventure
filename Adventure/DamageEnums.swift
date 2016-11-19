@@ -9,20 +9,20 @@
 import Foundation
 
 enum DamageType{
-    case Kee, Sen, Force
-    static let AllValues = [Kee, Sen, Force]
+    case kee, sen, force
+    static let AllValues = [kee, sen, force]
 }
 
 enum DamageActionType{
-    case Ci
-    case Za
-    case Ge
-    case Zhua
-    case Pi
-    case Kan
-    case Zhang//掌伤
-    case Nei//内伤
-    case Chou//抽伤
-    case Yu//淤伤
-    case Default
+    case ci
+    case za
+    case ge
+    case zhua
+    case pi
+    case kan
+    case zhang//掌伤
+    case nei//内伤
+    case chou//抽伤
+    case yu//淤伤
+    case `default`
 }

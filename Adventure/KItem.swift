@@ -15,7 +15,6 @@ class KItem: KEntity {
         }
         itemType = item.itemType
         value = item.value
-        availableCommands = item.availableCommands
         super.init(k: k)
     }
     
@@ -23,6 +22,7 @@ class KItem: KEntity {
         super.init(name: name)
     }
     
+    ///该初始化函数是作为动态载入物品时的必需调用出现的
     required convenience init(){
         self.init(name: "普通物品")
     }
@@ -31,13 +31,24 @@ class KItem: KEntity {
         return  KItem(k: self)
     }
     
-    var itemType = ItemType.Item
+    var itemType = ItemType.item
     var value = 0
-    var availableCommands = ItemCommands.Normal
+    var availableCommands: ItemCommands {
+        get {
+            //对于一般物品来说，可用命令只有丢弃，拾取和观察，其它命令需要各自类别物品自己重载
+            var cmds = ItemCommands.none
+            if environment === TheWorld.ME { cmds.formUnion(.drop)}
+            else { cmds.formUnion([.get, .observe]) }
+            if _entities?.isEmpty == false {
+                cmds.formUnion(.getAll)
+            }
+            return cmds
+        }
+    }
     var buyValue: Int { return TheWorld.ME.buyValueOf(self) }
     var sellValue: Int { return TheWorld.ME.sellValueOf(self) }
 
-    private func isPickable() -> Bool {
+    fileprivate func isPickable() -> Bool {
         //检查user和物品是否在一个房间里
         let room = TheWorld.ME.environment
         var itemRoom = environment
@@ -49,13 +60,17 @@ class KItem: KEntity {
         return true
     }
     
-    func processCommand(cmd: ItemCommands) -> Bool {
-        if isPickable() == false {return notifyFail("这件物品已经不在这里了。", to: TheWorld.ME) }
+    ///处理可用命令，这里要根据是否在玩家身上进行调整
+    ///当不知道该命令如何处理时，应返回真，返回假表示处理失败
+    @discardableResult func processCommand(_ cmd: ItemCommands) -> Bool {
+        
         switch cmd {
-        case ItemCommands.Observe:
-            givePlayerBrief()
+        case ItemCommands.observe:
+            if isPickable() == false {return notifyFail("这件物品已经不在这里了。", to: TheWorld.ME) }
+            tellPlayer(describe, usr: TheWorld.ME)
             break
-        case ItemCommands.Get:
+        case ItemCommands.get:
+            if isPickable() == false {return notifyFail("这件物品已经不在这里了。", to: TheWorld.ME) }
             if TheWorld.ME.isBusy { return notifyFail("你正忙着呢。", to: TheWorld.ME) }
             if self.moveTo(TheWorld.ME){
                 if TheWorld.ME.isInFighting {
@@ -63,26 +78,54 @@ class KItem: KEntity {
                 }
                 tellPlayer("你拾取了\(name)", usr: TheWorld.ME)
             }
+        case ItemCommands.drop:
+            if environment !== TheWorld.ME { return notifyFail("这件物品不在你身上", to: TheWorld.ME) }
+            if TheWorld.ME.isBusy { return notifyFail("你正忙着呢。", to: TheWorld.ME) }
+            if let env = TheWorld.ME.environment {
+                if self.moveTo(env) {
+                    if TheWorld.ME.isInFighting {
+                        TheWorld.ME.startBusy(5)
+                    }
+                    tellPlayer("你将\(name)丢在\(env.name)", usr: TheWorld.ME)
+                } else {
+                    return notifyFail("物品\(name)丢弃失败。", to: TheWorld.ME)
+                }
+            } else {
+                return notifyFail("你并没有地方可丢弃这件物品", to: TheWorld.ME)
+            }
+        case ItemCommands.getAll :
+            //取出所有内容物，逐一放到玩家身上
+            if let inv = _entities {
+                for ent in inv {
+                    if ent.moveTo(TheWorld.ME) {
+                        tellPlayer("你拾取了\(ent.name)", usr: TheWorld.ME)
+                    }
+                }
+            }
         default:
             break
         }
         return true
     }
     
-    override func givePlayerBrief() {
-        var str = "\(name)\n\(describe)\n"
-        if let inventroy = _entities {
-            let corpse = self as? KCorpse
-            if corpse != nil && corpse!.decayPhase == 0
-                {str += corpse!.gender.thirdPersonPronounce() + "的遗物有：\n"}
-            else {
-                str += "里面有：\n"
-            }
-            for item in inventroy {
-                str += KColors.White + item.name + KColors.NOR + "\n"
-            }
-        
+    override var describe: String {
+        set {
+            super.describe = newValue
         }
-        TheWorld.broadcast(str)
+        get {
+            var str = "\(name)\n\(super.describe)\n重量：\(weight)克\n"
+            if let inventroy = _entities {
+                let corpse = self as? KCorpse
+                if corpse != nil && corpse!.decayPhase == 0
+                    { str += corpse!.gender.thirdPersonPronounce + "的遗物有：\n" }
+                else {
+                    str += "里面有：\n"
+                }
+                for item in inventroy {
+                    str += KColors.White + item.name + KColors.NOR + "\n"
+                }
+            }
+            return str
+        }
     }
 }

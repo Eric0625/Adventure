@@ -27,7 +27,7 @@ struct KColors {
     static let  YEL = "<color yellow>"
     static let  HIP = "<color hiPurple>"
     static let  PINK = "<color pink>"
-    static let colorDictionary = [
+    private static let colorDictionary = [
         "red": UIColor(r: 132, g: 0, b: 2),
         "green": UIColor(r: 0, g: 119, b: 4),
         "hiGreen": UIColor(r: 3, g: 202, b: 46),
@@ -45,6 +45,21 @@ struct KColors {
         "hiPurple": UIColor(r: 255, g: 0, b: 254),
         "pink": UIColor(r: 255, g: 182, b: 196)
     ]
+    
+    //此函数只接受颜色宏或者直接代码，其它输入均传出nil
+    static func toUIColor(input: String) -> UIColor? {
+        //要么是<color xx>类型的，要么直接传入颜色代码
+        if let color = colorDictionary[input] {
+            return color
+        }
+        //解析宏字符串
+        let matches = input.regMatch("^<color (\\w*)>$", range: NSMakeRange(0, input.length))
+        if let match = matches.first {
+            let range = match.rangeAt(1).toRange()!
+            return colorDictionary[input[range]]
+        }
+        return nil
+    }
 //    
 //    static func red(str: String) -> NSAttributedString {
 //        return str.color(colorDictionary["red"]!)

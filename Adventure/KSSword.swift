@@ -9,15 +9,14 @@
 import Foundation
 
 class KSSword:KSkill {
-    init(){
+    init(level: Int){
         super.init(name: "基本剑法")
+        self.level = level
+        skillType = .sword
     }
     
     required init(k: KObject) {
         super.init(k: k)
     }
-    
-    override func isValidForMappingWith(usage: SkillType) -> Bool {
-        return usage == .Sword
-    }
+
 }

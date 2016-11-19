@@ -20,59 +20,81 @@ class UISlideTabView: UIView {
     }
     */
     
-    private var slideViews = Dictionary<String, UIView>()
-    private var tags = [Frameable]()//标签组，只用于标签数据的存放
-    private var tagView = UIView()//标签栏
-    private var currentView:UIView?
+    fileprivate var slideViews = Dictionary<String, UIView>()
+    fileprivate var tags = [Frameable]()//标签组，只用于标签数据的存放
+    fileprivate var tagView = UIView()//标签栏
+    fileprivate var currentView:UIView?
  
-    func addView(view: UIView, name: String) {
+    func addView(_ view: UIView, name: String) {
         slideViews[name] = view
         addSubview(view)
-        view.hidden = true
+        view.isHidden = true
         let l = UIButton()
-        l.setTitle(name, forState: .Normal)
-        l.addTarget(self, action: #selector(UISlideTabView.tagTouched(_:)), forControlEvents: .TouchUpInside)
+        l.setTitle(name, for: UIControlState())
+        l.addTarget(self, action: #selector(UISlideTabView.tagTouched(_:)), for: .touchUpInside)
         tagView.addSubview(l)
-        tags.append(l)
+        tags.insert(l, at: tags.count-1)//添加在关闭按钮之前
         refresh()
     }
     
     override func refresh(){
         let buttonHeight = frame.height * 0.1
-        tagView.anchorAndFillEdge(.Bottom, xPad: 0, yPad: 0, otherSize: buttonHeight)//底部按钮
-        tagView.groupAndFill(group: .Horizontal, views: tags, padding: 3)
+        tagView.anchorAndFillEdge(.bottom, xPad: 0, yPad: 0, otherSize: buttonHeight)//底部按钮
+        tagView.groupAndFill(group: .horizontal, views: tags, padding: 3)
         for view in slideViews.values {
-            view.alignAndFillHeight(align: .AboveCentered, relativeTo: tagView, padding: 0, width: frame.width)
+            view.alignAndFillHeight(align: .aboveCentered, relativeTo: tagView, padding: 0, width: frame.width)
             view.refresh()
         }
     }
     
     init(subView: UIView, viewName: String, rect: CGRect){
         super.init(frame: rect)
+        //添加关闭按钮
+        let button = UIButton()
+        button.setTitle("❌", for: .normal)
+        button.addTarget(self, action: #selector(UISlideTabView.closeView), for: .touchUpInside)
+        tagView.addSubview(button)
+        tags.append(button)
         addSubview(tagView)
         currentView = subView
         addView(subView, name: viewName)
-        subView.hidden = false//第一个view一定可见
+        subView.isHidden = false//第一个view一定可见
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func tagTouched(sender: UIButton){
+    func tagTouched(_ sender: UIButton){
         let title = sender.titleLabel!.text!
         if let view = slideViews[title] {
             if view !== currentView {
-                currentView?.hidden = true
+                currentView?.isHidden = true
                 currentView = view
-                currentView?.hidden = false
+                currentView?.isHidden = false
             }
         }
     }
+    
+    func closeView(){
+        findViewController()?.dismiss(animated: true, completion: nil)
+    }
 }
 
+///eric's extension of uiview
 extension UIView {
     func refresh(){
         
+    }
+    
+    func findViewController() -> UIViewController? {
+        var target:UIResponder? = self
+        while target != nil {
+            target = target?.next
+            if target is UIViewController {
+                return target as? UIViewController
+            }
+        }
+        return nil
     }
 }

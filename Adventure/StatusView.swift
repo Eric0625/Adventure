@@ -17,11 +17,12 @@ class StatusView: UIView, StatusUpdateDelegate {
     var age = UILabel()
     var damage = UILabel()
     var defense = UILabel()
+    var attributes = UILabel()
     
     init()
     {
-        super.init(frame: CGRectMake(0, 0, 100, 100))
-        self.backgroundColor = UIColor.whiteColor()
+        super.init(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        self.backgroundColor = UIColor.white
         addSubview(health)
         addSubview(force)
         addSubview(sen)
@@ -29,14 +30,16 @@ class StatusView: UIView, StatusUpdateDelegate {
         addSubview(age)
         addSubview(damage)
         addSubview(defense)
+        addSubview(attributes)
+        let user = TheWorld.ME
         age.text = "年龄:" + TheWorld.ME.age.toString
         combatExp.text = "武学:" + TheWorld.ME.combatExp.toString
         damage.text = "伤害:" + TheWorld.ME.damage.toString
         defense.text = "防御:" + TheWorld.ME.armor.toString
-        force.text = "内力:" + formatLifeProperty(.Force)
-        health.text = "气血:" + formatLifeProperty(.Kee)
-        sen.text = "精神:" + formatLifeProperty(.Sen)
-        
+        force.text = "内力:" + TheWorld.ME.formatLifeProperty(.force)
+        health.text = "气血:" + TheWorld.ME.formatLifeProperty(.kee)
+        sen.text = "精神:" + TheWorld.ME.formatLifeProperty(.sen)
+        attributes.text = "力量:\(user.str)胆识:\(user.cor)悟性:\(user.wiz)容貌:\(user.per)福缘:\(user.kar)口才:\(user.spe)"
         TheWorld.instance.statusUpdateHandler.append(self)
     }
     
@@ -45,55 +48,35 @@ class StatusView: UIView, StatusUpdateDelegate {
     }
     
     override func refresh(){
-        let height = frame.height / 7
-        health.anchorAndFillEdge(.Top, xPad: 0, yPad: 0, otherSize: height)
-        force.alignAndFillWidth(align: .UnderCentered, relativeTo: health, padding: 0, height: height)
-        sen.alignAndFillWidth(align: .UnderCentered, relativeTo: force, padding: 0, height: height)
-        combatExp.alignAndFillWidth(align: .UnderCentered, relativeTo: sen, padding: 0, height: height)
-        age.alignAndFillWidth(align: .UnderCentered, relativeTo: combatExp, padding: 0, height: height)
-        damage.alignAndFillWidth(align: .UnderCentered, relativeTo: age, padding: 0, height: height)
-        defense.alignAndFillWidth(align: .UnderCentered, relativeTo: damage, padding: 0, height: height)
+        let height = frame.height / 8
+        health.anchorAndFillEdge(.top, xPad: 0, yPad: 0, otherSize: height)
+        force.alignAndFillWidth(align: .underCentered, relativeTo: health, padding: 0, height: height)
+        sen.alignAndFillWidth(align: .underCentered, relativeTo: force, padding: 0, height: height)
+        combatExp.alignAndFillWidth(align: .underCentered, relativeTo: sen, padding: 0, height: height)
+        age.alignAndFillWidth(align: .underCentered, relativeTo: combatExp, padding: 0, height: height)
+        damage.alignAndFillWidth(align: .underCentered, relativeTo: age, padding: 0, height: height)
+        defense.alignAndFillWidth(align: .underCentered, relativeTo: damage, padding: 0, height: height)
+        attributes.alignAndFillWidth(align: .underCentered, relativeTo: defense, padding: 0, height: height)
     }
     
-    func cutZeroesAtTail(input: String) -> String {
-        let range = input.regMatch("\\.*(0+)$", range: NSMakeRange(0, input.length))
-        if range.isEmpty == false {
-            return input[0..<range[0].range.location]
-        }
-        return input
-    }
-    
-    //todo:根据百分比加上颜色
-    func formatLifeProperty(type: DamageType) -> String{
-        let amout = TheWorld.ME.lifeProperty[type]!
-        let amoutMax = TheWorld.ME.lifePropertyMax[type]!
-        var per:Double = 0
-        if amoutMax > 0 {
-            per = (Double(amout) * 100 / Double(amoutMax))
-        }
-        let s = cutZeroesAtTail(String(format: "%.2f", per))
-        
-        return "\(amout)/\(amoutMax)(\(s)%)"
-    }
-    
-    func statusDidUpdate(creature: KCreature, type: UserStatusUpdateType, oldValue: AnyObject?) {
+    func statusDidUpdate(_ creature: KCreature, type: CreatureStatusUpdateType, information: AnyObject?) {
         if creature !== TheWorld.ME { return }
         switch type {
-        case .Age:
+        case .age:
             age.text = "年龄:" + TheWorld.ME.age.toString
-        case .CombatExp:
+        case .combatExp:
             combatExp.text = "武学:" + TheWorld.ME.combatExp.toString
-        case .Damage:
+        case .damage:
             damage.text = "伤害:" + TheWorld.ME.damage.toString
-        case .Defense:
+        case .defense:
             defense.text = "防御:" + TheWorld.ME.armor.toString
-        case .Force, .MaxForce:
-            force.text = "内力:" + formatLifeProperty(.Force)
-        case .Kee, .MaxKee:
-            health.text = "气血:" + formatLifeProperty(.Kee)
-        case .Sen, .MaxSen:
-            sen.text = "精神:" + formatLifeProperty(.Sen)
-        case .Target:
+        case .force, .maxForce:
+            force.text = "内力:" + TheWorld.ME.formatLifeProperty(.force)
+        case .kee, .maxKee:
+            health.text = "气血:" + TheWorld.ME.formatLifeProperty(.kee)
+        case .sen, .maxSen:
+            sen.text = "精神:" + TheWorld.ME.formatLifeProperty(.sen)
+        case .target:
             break
         default:
             break

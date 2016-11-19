@@ -8,6 +8,7 @@
 
 import Foundation
 
+///NPC不同于creature基类的地方是具备和玩家互动的能力，如有触发函数，命令处理函数等
 class KNPC: KCreature {
     required init(k: KObject) {
         guard let npc = k as? KNPC else {
@@ -15,7 +16,7 @@ class KNPC: KCreature {
         }
         startRoomID = npc.startRoomID
         attitude = npc.attitude
-        availableCommands = npc.availableCommands
+        //availableCommands = npc.availableCommands
         chatMsg = npc.chatMsg
         chatChance = npc.chatChance
         randomMoveChance = npc.randomMoveChance
@@ -38,29 +39,29 @@ class KNPC: KCreature {
     }
     
     var startRoomID = -1
-    var attitude = NPCAttitude.Peace
-    var availableCommands = NPCCommands.Normal
+    var attitude = NPCAttitude.peace
+    var availableCommands = NPCCommands.normalCmds
     var chatMsg = [""]
     var chatChance = 0
     var randomMoveChance = 0
     var rebornInterval = 300//十分钟
-    private var _rebornTick = 0
+    fileprivate var _rebornTick = 0
     var expGain = 0//杀死时直接获得的经验
     var visible: Bool { return isGhost == TheWorld.ME.isGhost }
     
     ///在玩家来到同一环境时的互动，因为是立即触发，因此greeting不发生在这里
-    func interactWith(user: KUser){
+    func interactWith(_ user: KUser){
         switch attitude {
-        case .Peace: break
-        case .Aggressive:
+        case .peace: break
+        case .aggressive:
             if !isFightingWith(user) {
                 startFighting(user)
             }
-        case .Defend: break
+        case .defend: break
         }
     }
     
-    func chat() -> Bool {
+    @discardableResult func chat() -> Bool {
         if isInFighting {return false }
         if isGhost { return false }
         if chatMsg.isEmpty { return false }
@@ -74,7 +75,7 @@ class KNPC: KCreature {
         TheRoomEngine.instance.move(self, toRoomWithRoomID: startRoomID)
         reviveFrom()
         let room = environment as! KRoom
-        TheWorld.didUpdateRoomInfo(room, ent: self, type: .NewEntity)//因为前面的移动是以鬼魂形式，所以这里需要更新（todo：玩家是鬼魂形式时的额外处理)
+        TheWorld.didUpdateRoomInfo(room, ent: self, type: .newEntity)//因为前面的移动是以鬼魂形式，所以这里需要更新（todo：玩家是鬼魂形式时的额外处理)
     }
     
     override func makeOneHeartBeat() {
@@ -90,9 +91,9 @@ class KNPC: KCreature {
         if randomInt(100) < randomMoveChance { randomMove() }
     }
     
-    func acceptObject(ent: KEntity) -> Bool { return true }
+    func acceptObject(_ ent: KEntity) -> Bool { return true }
     
-    func randomMove() -> Bool {
+    @discardableResult func randomMove() -> Bool {
         if isGhost { return false }
         if isInFighting { return false }
         if isBusy { return false }
@@ -103,16 +104,16 @@ class KNPC: KCreature {
         return false
     }
     
-    func processUserCommand(cmd: NPCCommands) -> Bool {
+    @discardableResult func processNPCCommand(_ cmd: String) -> Bool {
         switch cmd {
-        case NPCCommands.Observe:
+        case NPCCommands.observe:
             if TheWorld.ME.environment != environment {
-                return notifyFail("你看不见" + gender.thirdPersonPronounce() + "了。", to: TheWorld.ME)
+                return notifyFail("你看不见" + gender.thirdPersonPronounce + "了。", to: TheWorld.ME)
             }
-            givePlayerBrief()
-        case NPCCommands.Kill:
+            tellPlayer(describe, usr: TheWorld.ME)
+        case NPCCommands.kill:
             if TheWorld.ME.environment != environment {
-                return notifyFail("你和" + gender.thirdPersonPronounce() + "不在一起了。", to: TheWorld.ME)
+                return notifyFail("你和" + gender.thirdPersonPronounce + "不在一起了。", to: TheWorld.ME)
             }
             startFighting(TheWorld.ME)
         default:
@@ -126,26 +127,35 @@ class KNPC: KCreature {
         guard let env = environment else { return }
         let corpse = KCorpse(creature: self)
         var belongingDest:KEntity = corpse
-        if env.accept(corpse) == false { belongingDest = env }
         if let inventory = _entities {
             for item in inventory {
                 if item.moveTo(belongingDest) == false
                 { item.moveTo(env) }
             }
         }
+        if corpse.moveTo(env) == false {
+            belongingDest = env
+            if let inventory = corpse._entities {
+                for item in inventory {
+                    if item.moveTo(belongingDest) == false
+                    { print("尸体物品转移失败：from \(name) to \(belongingDest.name)") }
+                }
+            }
+        }
+        corpse.weight = weight
         if lastDamager == TheWorld.ME { rewardUser() }
         if let room = env as? KRoom {
             if visible {
-                TheWorld.didUpdateRoomInfo(room, ent: self, type: .UpdateEntity)
+                TheWorld.didUpdateRoomInfo(room, ent: self, type: .updateEntity)
             } else {
-                TheWorld.didUpdateRoomInfo(room, ent: self, type: .RemoveEntity)
+                TheWorld.didUpdateRoomInfo(room, ent: self, type: .removeEntity)
             }
         }
 
     }
     
     /// 玩家杀死NPC后的奖励
-    private func rewardUser(){
+    fileprivate func rewardUser(){
         var reward = expGain
         var effExp:Double = Double(combatExp)
         if effExp > 20000 { effExp /= 3 }

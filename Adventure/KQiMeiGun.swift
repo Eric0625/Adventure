@@ -12,9 +12,9 @@ class KQiMeiGun: KLongStick {
     required init(){
         super.init()
         name = "齐眉棍"
-        describe = "一根非常结实的齐眉棍。\n"
+        describe = "一根非常结实的齐眉棍。"
         damage = 15
-        weight = 2000
+        weight = 2.KG
         equipMessage = "$A挽了个棍花，将$W握在手中。\n"
         unequipMessage = "$A哼了一声，将齐眉棍别回腰间。\n"
         value = 1000

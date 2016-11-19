@@ -19,7 +19,9 @@ class KDeathRoom: KRoom {
         hasWindow = false;
         addLinkedRoom(.Outside, roomID: 1)
         let cui = KCui_Death()
-        accept(cui)
+        if accept(cui) == false {
+            fatalError()
+        }
     }
     
     required init(k: KObject) {

@@ -28,6 +28,8 @@ class KEntity: KObject, Comparable{
         }
         selfCapacity = ent.selfCapacity
         usedCapacity = ent.usedCapacity
+        amount = ent.amount
+        stackable = ent.stackable
         environment = nil //此物体在虚空中
         super.init(k: k)
     }
@@ -41,14 +43,17 @@ class KEntity: KObject, Comparable{
     }
     
     //MARK: Variables
-    private var _weight = Int.max
-    private(set) var _entities: [KEntity]?
+    fileprivate var _weight = Int.max
+    fileprivate(set) var _entities: [KEntity]?
     /// 自身容量，默认为0，如果是容器则应设置此容量
     var selfCapacity = Int.min
     var usedCapacity = 0
+    var amount = 1 //非堆叠类物品永远是1
+    //是否可以堆叠，可堆叠物体在进入同一空间时会融合到一起，操作就是已存在物体的amount＋1，新物体摧毁，因此属性会各异的物体严禁堆叠
+    var stackable = false
     weak var environment:KEntity?
     var weight:Int{
-        get{ return _weight + usedCapacity }
+        get{ return _weight * amount + usedCapacity }
         set{ _weight = newValue }
     }
     /// getter属性，计算当前容器的容量
@@ -62,7 +67,8 @@ class KEntity: KObject, Comparable{
     }
     
     //MARK:Functions
-    func accept(ent: KEntity) -> Bool {
+    //接受物体，所有的重量检测和物体融合都在这里
+    func accept(_ ent: KEntity) -> Bool {
         if ent === self { return false }
         if ent.environment === self {return false}
         //暂时减去ent所在环境的ent重量，这是防止下面检查capacity时会附加ent重量
@@ -99,20 +105,32 @@ class KEntity: KObject, Comparable{
         if _entities == nil {
             _entities = [KEntity]()
         }
-        _entities!.append(ent)
-        _entities!.sortInPlace(){$0 < $1}
-        
-        ent.environment = self
+        //检测是否可堆叠物体
+        var needAppend = true
+        if ent.stackable {
+            //先查找是否已存在同类物体
+            if let oldEnt = _entities!.first(where: { $0.getNeatName() == ent.getNeatName() }) {
+                //已有，旧物体数量增加，传入物体被抛弃
+                assert(oldEnt.stackable)
+                oldEnt.amount += ent.amount
+                needAppend = false
+            }
+        }
+        if needAppend {
+            _entities!.append(ent)
+            _entities!.sort(){$0 < $1}
+            ent.environment = self
+        }
         env = self
         repeat
         {
             env!.usedCapacity += ent.weight
             env = env!.environment
         } while (env != nil)
-        return true;
+        return true
     }
     
-    func moveTo(ent: KEntity) -> Bool {
+    @discardableResult func moveTo(_ ent: KEntity) -> Bool {
         if ent === self { return false }
         if ent === environment {return false}
         let temp = environment
@@ -120,21 +138,27 @@ class KEntity: KObject, Comparable{
             return false
         }
         temp?.remove(self)
+        //这里才算真正移动成功
+        if let creatrue = ent as? KCreature {
+            TheWorld.didUpdateUserInfo(creatrue, type: .getItem, info: self)
+        }
+
         return true
     }
     
-    /// 该功能不改变物体的environment变量
-    func remove(ent: KEntity) -> Bool {
+    /// 因为有可能在物体已经移动后再去修改，该功能不改变传入物体的environment变量，仅仅是在自身列表中移除物体的引用并减去重量
+    /// 由此，似乎不应该直接调用该功能，因为除了移动物体，没有别的场景需要呼叫该功能
+    @discardableResult func remove(_ ent: KEntity) -> Bool {
         if ent === self { return false }
         guard _entities != nil else {
             return false
         }
         
-        guard let indexOfEnt = _entities!.indexOf({$0 === ent}) else {
+        guard let indexOfEnt = _entities!.index(where: {$0 === ent}) else {
             return false
         }
         
-        _entities!.removeAtIndex(indexOfEnt)
+        _entities!.remove(at: indexOfEnt)
         usedCapacity -= ent.weight
         var env = environment
         while env != nil {
@@ -147,8 +171,9 @@ class KEntity: KObject, Comparable{
         }
         return true
     }
-    
-    func givePlayerBrief(){}
+    ///暂时删除此函数，因为似乎可以用重载describe来实现同样的功能
+    ///想不到存在另外一个返回长描述的理由
+    //func givePlayerBrief(){}
     
     func moveAllInventoryItemTo(destEnv env:KEntity){
         if env === self { return }
@@ -157,6 +182,32 @@ class KEntity: KObject, Comparable{
                 item.moveTo(env)
             }
         }
+    }
+    
+    ///检查当前物体是否在目标物体中（在物体中的容器中也返回真）
+    func isContained(in target: KEntity) -> Bool {
+        if var env = environment {
+            if env === target { return true }
+            while env !== target {
+                if env.environment == nil { return false }
+                env = env.environment!
+            }
+            return true
+        }
+        return false
+    }
+    
+    ///根据名称寻找特定物品，深度优先，会在容器中寻找，为简化操作，只寻找第一件满足要求的物品
+    func findEntity(withName name:String) -> KEntity? {
+        if let inv = _entities {
+            for box in inv {
+                if box.getNeatName() == name { return box }
+                if let ent = box.findEntity(withName: name) {
+                    return ent
+                }
+            }
+        }
+        return nil
     }
 }
 

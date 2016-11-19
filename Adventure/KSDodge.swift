@@ -15,7 +15,7 @@ class KSDodge: KSkill {
         self.level = level
         actions = [KSkillAction(describe: "$D一闪，躲开了$A的攻击\r\n"),
                    KSkillAction(describe: "$D身子一侧，$A的攻击便落了空\r\n")]
-        //skillType =
+        skillType = .dodge
     }
     
     required init(k: KObject) {
@@ -30,9 +30,5 @@ class KSDodge: KSkill {
     override func getRandomAction() -> KSkillAction {
         //todo 重型盔甲降低躲闪
         return super.getRandomAction()
-    }
-    
-    override func isValidForMappingWith(usage: SkillType) -> Bool {
-        return usage == SkillType.Dodge
     }
 }

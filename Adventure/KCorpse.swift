@@ -19,17 +19,18 @@ class KCorpse: KItem, WithHeartBeat {
         var age = creature.age / 10
         age *= 10
         super.init(name: creature.name + "的尸体")
-        describe = creature.describe
-        describe +=  gender.thirdPersonPronounce() + "是一位" + toChineseNumber(age)
+        var desc = creature.getPureDescribe() //提取原始字符串
+        desc +=  gender.thirdPersonPronounce + "是一位" + toChineseNumber(age)
         if creature.age != age {
-            describe += "多"
+            desc += "多"
         }
-        describe += "岁的" + rankRespect(creature) + "\n";
-        describe += gender.thirdPersonPronounce() + getPerMsg(creature) + "\n";
-        describe += "然而" + gender.thirdPersonPronounce() + "已经死了，只剩下一具尸体静静地躺在这里。";
+        desc += "岁的" + rankRespect(creature) + "\n"
+        desc += gender.thirdPersonPronounce + getPerMsg(creature) + "\n"
+        desc += "然而" + gender.thirdPersonPronounce + "已经死了，只剩下一具尸体静静地躺在这里。"
+        describe = desc
         TheWorld.regHeartBeat(self)
         selfCapacity = creature.selfCapacity
-        weight = creature.weight
+        weight = 10.KG
     }
     
     required init(k: KObject) {
@@ -51,7 +52,7 @@ class KCorpse: KItem, WithHeartBeat {
     }
     
     var decayPhase = 0
-    private var _tick = 0
+    fileprivate var _tick = 0
     let gender:Gender
     
     func makeOneHeartBeat() {
@@ -76,7 +77,7 @@ class KCorpse: KItem, WithHeartBeat {
                 }
                 describe = "这具尸体显然已经躺在这里有一段时间了，正散发着一股腐尸的味道。"
                 if let r = env as? KRoom {
-                    TheWorld.didUpdateRoomInfo(r, ent: self, type: .UpdateEntity)
+                    TheWorld.didUpdateRoomInfo(r, ent: self, type: .updateEntity)
                 }
             }
         case 1:
@@ -87,7 +88,7 @@ class KCorpse: KItem, WithHeartBeat {
                 name = "一具枯干的骸骨"
                 describe = "这副骸骨已经躺在这里很久了。"
                 if let r = env as? KRoom {
-                    TheWorld.didUpdateRoomInfo(r, ent: self, type: .UpdateEntity)
+                    TheWorld.didUpdateRoomInfo(r, ent: self, type: .updateEntity)
                 }
             }
         case 2:

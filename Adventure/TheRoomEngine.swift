@@ -11,7 +11,7 @@ import Foundation
 class TheRoomEngine {
     
     //MARK: Singleton
-    private init(){
+    fileprivate init(){
         DEBUG("room engine inited")
         initDictionarys()
         //loadResources()
@@ -25,10 +25,10 @@ class TheRoomEngine {
     //MARK:variables
     var roomDic = [String: Int]()
     var fakeRooms = [KRoomDescribe]()
-    var rooms = [Int: KRoom]()
+    private(set) var rooms = [Int: KRoom]()
         
     //MARK:functions
-    private func initDictionarys() {
+    fileprivate func initDictionarys() {
         var roomNames = [String]()
         roomNames.append("十字街头")
         roomNames.append("白虎大街1");
@@ -43,6 +43,9 @@ class TheRoomEngine {
         roomNames.append("青龙大街1");
         roomNames.append("兵器铺");
         roomNames.append("武馆");
+        roomNames.append("玄武大街1")
+        roomNames.append("玄武大街2")
+        roomNames.append("国子监")
         var id = 0
         for item in roomNames {
             roomDic[item] = id
@@ -77,7 +80,7 @@ class TheRoomEngine {
     }
     
     /// 链接两个房间，direction是指从r1到r2，因此r2到r1是反过来的
-    private func linkRoom(roomid1:Int, roomid2:Int, direction:Directions){
+    fileprivate func linkRoom(_ roomid1:Int, roomid2:Int, direction:Directions){
         let r1 = fakeRooms.filter({$0.roomID == roomid1})[0]
         let r2 = fakeRooms.filter({$0.roomID == roomid2})[0]
         assert(r1.linkedRooms[direction] == nil, "Room \(r1.roomID)已存在该方向：\(direction)")
@@ -87,7 +90,7 @@ class TheRoomEngine {
         r2.linkedRooms[d] = r1
     }
     
-    func move(ob: KEntity, toRoomWithRoomID roomid: Int) -> Bool{
+    @discardableResult func move(_ ob: KEntity, toRoomWithRoomID roomid: Int) -> Bool{
         if let room = rooms[roomid] {
             return ob.moveTo(room)
         } else {
@@ -100,13 +103,17 @@ class TheRoomEngine {
         }
     }
     
-    func moveFrom(origin: KRoom, through direction: Directions, ob: KEntity) -> Bool{
+    func moveFrom(_ origin: KRoom, through direction: Directions, ob: KEntity) -> Bool{
         guard let id = origin.linkedRooms[direction] else {
             return notifyFail("这个方向并不存在。", to: ob)
         }
         if move(ob, toRoomWithRoomID: id) {
-            if ob is KCreature {
-                tellRoom("\(ob.name)往\(direction.chineseString)离开。", room: origin)
+            if let cob = ob as? KCreature {
+                if cob.isInFighting {
+                    tellRoom("\(ob.name)往\(direction.chineseString)落荒而逃了!", room: origin)
+                } else {
+                    tellRoom("\(ob.name)往\(direction.chineseString)离开。", room: origin)
+                }
                 //TheWorld.didUpdateRoomInfo(origin, ent: ob, type: .RemoveEntity)
             }
             return true
@@ -115,7 +122,7 @@ class TheRoomEngine {
     }
     
     //字符串形式的移动
-    func moveFrom(origin: KRoom, throughStringDicrection str: String, ob: KEntity) -> Bool {
+    func moveFrom(_ origin: KRoom, throughStringDicrection str: String, ob: KEntity) -> Bool {
         if let direction = Directions(rawValue: str) { return moveFrom(origin, through: direction, ob: ob) }
         return false
     }
@@ -123,16 +130,17 @@ class TheRoomEngine {
     func generateCity(){
         var rd = KRoomDescribe(name: "十字街头",id: roomDic["十字街头"]!)
         rd.describe = "这里便是长安城的中心，四条大街交汇于此。一座巍峨高大的钟楼耸立于前，很是有些气势。\n每到清晨，响亮的钟声便会伴着淡淡雾气传向长安城的大街小巷。路口车水马龙，来往人潮不断。\n"
-        rd.npcLists[NSStringFromClass(KLiBai_City)] = 1//李白
-        rd.npcLists[NSStringFromClass(KOrdinaryPerson)] = 2//路人
+        rd.npcLists[NSStringFromClass(KLiBai_City.self)] = 1//李白
+        rd.npcLists[NSStringFromClass(KOrdinaryPerson.self)] = 2//路人
         fakeRooms.append(rd)
         rd = KRoomDescribe(name: "白虎大街", id: roomDic["白虎大街1"]!)
         rd.describe = "你走在一条宽阔的石板大街上，东面就快到城中心了，可以看到钟楼耸立于前。\n北面静静的是一家书局，来往多是些读书人。\n南面是一家钱庄，整天看见客人进进出出，显得生意很兴隆。\n"
-        rd.itemLists[NSStringFromClass(KSteelSword)] = 1
-        rd.itemLists[NSStringFromClass(KQiMeiGun)] = 2
+        rd.itemLists[NSStringFromClass(KSteelSword.self)] = 1
+        rd.itemLists[NSStringFromClass(KQiMeiGun.self)] = 2
         fakeRooms.append(rd)
         rd = KRoomDescribe(name: "白虎大街", id: roomDic["白虎大街2"]!)
         rd.describe = "你走在一条宽阔的石板大街上，东面就快到城中心了，可以看到钟楼\n耸立于前。北边是家大的酒楼，里面唏唏嚷嚷，热闹非凡。而南却是\n家规模不小的寺院，往西就快要出城了。\n"
+        rd.itemLists[NSStringFromClass(KMNormal.self)] = 3
         fakeRooms.append(rd)
         rd = KRoomDescribe(name: "白虎大街", id: roomDic["白虎大街3"]!)
         rd.describe = "这里已是白虎大街的西段，北面小巷里隐约看到一座大的草堂，堂外\n挂一蓝布幌子，上写一个“卦”字。南面巷中一行歪柳，处处民宅，\n几个小童在巷中玩耍。\n"
@@ -141,7 +149,7 @@ class TheRoomEngine {
         rd.describe = "这是一家新开张不久的书局。书架上整整齐齐地放着一些手抄的卷轴。\n雕板印刷书到了唐朝已日趋成熟，因此这里的书架上也放着不少印制\n精美图文并茂的图书。\n"
         rd.isOutDoor = false
         rd.hasWindow = true
-        rd.npcLists[NSStringFromClass(KBookSeller_City)] = 1
+        rd.npcLists[NSStringFromClass(KBookSeller_City.self)] = 1
         fakeRooms.append(rd)
         rd = KRoomDescribe(name: "相记钱庄", id: roomDic["相记钱庄"]!)
         rd.describe = "这是一家老字号的钱庄，相老板是山西人，这家钱庄从他的爷爷的爷\n爷的爷爷的爷爷那辈开始办起，一直传到他手里，声誉非常好，在全\n国各地都有分店。它发行的银票通行全国。钱庄的门口挂有一块牌子(paizi)。\n"
@@ -153,18 +161,31 @@ class TheRoomEngine {
         fakeRooms.append(rd)
         rd = KRoomDescribe(name: "兵器铺", id: roomDic["兵器铺"]!)
         rd.describe = "刚一进门就看到兵器架上摆着各种兵器，从上百斤重的大刀到轻如芥\n子的飞磺石，是应有尽有。女老板是老英雄萧振远的小女儿，也是振\n远镖局二老板，巾帼不让须眉。\n"
-        rd.npcLists[NSStringFromClass(KXiaoXiao_City)] = 1
+        rd.npcLists[NSStringFromClass(KXiaoXiao_City.self)] = 1
         rd.isOutDoor = false
         rd.hasWindow = true
         fakeRooms.append(rd)
         rd = KRoomDescribe(name:"长安武馆" ,id: roomDic["武馆"]!)
         rd.describe = "你现在正站在一个长安武馆的教练场中，地上铺着黄色的细砂，一群\n二十来岁的年轻人正在这里努力地操练着, 还有一个中年汉子在不停\n的喊着号子，让人振奋。\n"
-        rd.npcLists[NSStringFromClass(KJiaoTou_City)] = 1
+        rd.npcLists[NSStringFromClass(KJiaoTou_City.self)] = 1
         //rd.npcLists[.武馆弟子] = 4
         rd.isOutDoor = false
         rd.hasWindow = true
         fakeRooms.append(rd)
+        rd = KRoomDescribe(name:"玄武大街" ,id: roomDic["玄武大街1"]!)
+        rd.describe = "这里的路相当的宽，能容好几匹马车并行，长长的道路通向北方。远远的能看到皇宫的朝阳门。西面是麒麟阁，东边是醉星楼。\n"
+        fakeRooms.append(rd)
+        rd = KRoomDescribe(name:"玄武大街" ,id: roomDic["玄武大街2"]!)
+        rd.describe = "这里的路相当的宽，能容好几匹马车并行，长长的道路通向北方。远远的能看到皇宫的朝阳门。西面是天监台，东边是国子监。\n"
+        fakeRooms.append(rd)
+        rd = KRoomDescribe(name: "国子监", id: roomDic["国子监"]!)
+        rd.describe = "国子监是国家培养高级人才的地方。唐朝的学风很浓，在这里不时可以看到三三两两的学生模样的人大声争辩着什么问题，还有一些老先生门蹙着眉头匆匆走过，象是在思考着什么问题。\n"
+        rd.npcLists[NSStringFromClass(KYuanTianGang_City.self)] = 1
+        rd.isOutDoor = false
+        rd.hasWindow = true
+        fakeRooms.append(rd)
         linkRoom(roomDic["十字街头"]!, roomid2: roomDic["白虎大街1"]!, direction: .West)
+        linkRoom(roomDic["十字街头"]!, roomid2: roomDic["相记钱庄"]!, direction: .SWest)
         linkRoom(roomDic["白虎大街1"]!, roomid2: roomDic["白虎大街2"]!, direction: .West)
         linkRoom(roomDic["白虎大街1"]!, roomid2: roomDic["三联书局"]!, direction: .North)
         linkRoom(roomDic["白虎大街1"]!, roomid2: roomDic["相记钱庄"]!, direction: .South)
@@ -172,5 +193,8 @@ class TheRoomEngine {
         linkRoom(roomDic["十字街头"]!, roomid2: roomDic["青龙大街1"]!, direction: .East)
         linkRoom(roomDic["青龙大街1"]!, roomid2: roomDic["武馆"]!, direction: .North)
         linkRoom(roomDic["青龙大街1"]!, roomid2: roomDic["兵器铺"]!, direction: .South)
+        linkRoom(roomDic["十字街头"]!, roomid2: roomDic["玄武大街1"]!, direction: .North)
+        linkRoom(roomDic["玄武大街1"]!, roomid2: roomDic["玄武大街2"]!, direction: .North)
+        linkRoom(roomDic["玄武大街2"]!, roomid2: roomDic["国子监"]!, direction: .East)
     }
 }

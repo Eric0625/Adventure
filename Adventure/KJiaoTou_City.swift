@@ -14,9 +14,9 @@ class KJiaoTou_City: KHuman {
         title = "武馆教头"
         describe = "一个精精瘦瘦的小个子，在练一套拳。"
         //combatExp = 20000
-        setLifePropertyMax(.Force, amount: 200)
-        setLifeProperty(.Force, amount: 200)
-        mapSkill(KSUnarmed(level: 30), inType: .Unarmed)
+        setLifePropertyMax(.force, amount: 200)
+        setLifeProperty(.force, amount: 200)
+        mapSkill(KSUnarmed(level: 30), inType: .unarmed)
         setSkill(KSDodge.NAME, toLevel: 30)
         setSkill(KSParry.NAME, toLevel: 30)
         age = 39
@@ -34,8 +34,8 @@ class KJiaoTou_City: KHuman {
     
     func readyEquips() {
         let c = KCloth()
-        c.moveTo(self)
-        equip(c)
+        assert(c.moveTo(self))
+        assert(equip(c))
     }
     
     override func reborn() {

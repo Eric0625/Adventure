@@ -24,7 +24,8 @@ class KChouPao : KArmor
         value = 600
         weight = 500
         armor = 2
-        equipType = .Cloth
+        equipType = .cloth
+        definedEquipPosition = .body
     }
     
     override func clone() -> KObject {

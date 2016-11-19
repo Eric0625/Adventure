@@ -14,7 +14,8 @@ class KBookSeller_City: KSalesMan {
         super.init(name: "孔方兄")
         title = "书店老板"
         describe = "孔秀才入京赶考落第，盘缠用尽，无法还乡，\n不得已在长安开一家书店。传说他曾遇异人，\n学得一些防身之术。"
-        availableCommands.subtractInPlace([.Stole, .Kill])
+        availableCommands.removeFirst(NPCCommands.kill)
+        availableCommands.removeFirst(NPCCommands.give)
         age = 40
     }
     
@@ -25,7 +26,7 @@ class KBookSeller_City: KSalesMan {
         super.init(k: k)
     }
     
-    override func greeting(usr: KUser) {
+    override func greeting(_ usr: KUser) {
         super.greeting(usr)
         if let env = environment {
             tellRoom("孔方兄说道：这位" + rankRespect(usr) + "，快请进。\n", room: env)

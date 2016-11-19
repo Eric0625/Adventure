@@ -15,7 +15,8 @@ class KPinkCloth: KArmor {
         armor = 1
         describe = "这件粉红色的绸衫上面绣着几只黄鹊，闻起来还有一股淡香。\n"
         weight = 200
-        equipType = .Cloth
+        equipType = .cloth
+        definedEquipPosition = .body
         value = 10000
     }
     
