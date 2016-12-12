@@ -106,6 +106,10 @@ func tellPlayer(_ msg: String, usr: KEntity){
     }
 }
 
+func tellUser(_ msg:String) {
+    tellPlayer(msg, usr: TheWorld.ME)
+}
+
 func notifyFail(_ msg: String, to chr: KEntity) -> Bool {
     if chr is KUser {
         TheWorld.broadcast(KColors.ChatMsg + msg + KColors.NOR)
@@ -121,6 +125,9 @@ func tellRoom(_ msg:String, room: KEntity){
     }
     guard let inventory = acturalRoom._entities else { return }
     for ent in inventory {
+        if ent === TheWorld.ME {//todo:应该有可见性检测，参数中应增加来源物体
+            //if TheWorld.ME.canSee(ent: )
+        }
         tellPlayer(KColors.ChatMsg + msg + KColors.NOR, usr: ent)
     }
 }
@@ -129,6 +136,8 @@ func rankRespect(_ c: KCreature) -> String{
     switch c.gender {
     case .中性:
         return "大侠"
+    case .公, .母:
+        return "仙兽"
     case .女性:
         switch c.age {
         case 0...19:
@@ -154,6 +163,8 @@ func rankRude (_ c: KCreature) -> String{
     switch c.gender {
     case .中性:
         return "狗东西"
+    case .公, .母:
+        return "孽畜"
     case .女性:
         switch c.age {
         case 0...19:
@@ -286,6 +297,8 @@ func getPerMsg(_ chr: KCreature) -> String {
         default:
             return _perLevelMale[20]
         }
+    case .公, .母:
+        break //todo
     }
     return "长得怎样你没什么概念。"
 }
@@ -457,4 +470,14 @@ func getDamageMsg(_ damage:Int, type: DamageActionType) -> String {
     //        if (!type) type = "伤害";
     //        return str + type + "！\n";
     //}
+    
 }
+
+func appRootViewController() -> UIViewController? {
+    var topVC = UIApplication.shared.keyWindow?.rootViewController
+    while topVC?.presentedViewController != nil {
+        topVC = topVC?.presentedViewController
+    }
+    return topVC
+}
+

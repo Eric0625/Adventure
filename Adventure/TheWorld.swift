@@ -106,17 +106,18 @@ class TheWorld {
     }
     
     var lastCalled = Date()
+    let gameObHeartbeatInterval = 1.5
     func HeartBeat() {
         let currentTime = Date()
         let interval = currentTime.timeIntervalSince(lastCalled)
         for ob in _heartBeatObjects {
-            if ob is KObject  && interval < 1 {
+            if ob is KObject  && interval < gameObHeartbeatInterval {
                 continue //如果两次heartbeat之间的时间小于1秒，并且是游戏物体，那么不进行心跳
             }
             ob.makeOneHeartBeat()//注意，该过程有可能会删除ob
         }
         //重置时间标记的行为应等到整个循环结束以后
-        if interval >= 1 {
+        if interval >= gameObHeartbeatInterval {
             lastCalled = currentTime
         }
     }

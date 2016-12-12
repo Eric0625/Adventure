@@ -20,7 +20,6 @@ class KJiaoTou_City: KHuman {
         setSkill(KSDodge.NAME, toLevel: 30)
         setSkill(KSParry.NAME, toLevel: 30)
         age = 39
-        readyEquips()
     }
     
     required init(k: KObject) {
@@ -32,14 +31,9 @@ class KJiaoTou_City: KHuman {
         return KJiaoTou_City(k: self)
     }
     
-    func readyEquips() {
+    override func readyEquips() {
         let c = KCloth()
         assert(c.moveTo(self))
         assert(equip(c))
-    }
-    
-    override func reborn() {
-        super.reborn()
-        readyEquips()
     }
 }

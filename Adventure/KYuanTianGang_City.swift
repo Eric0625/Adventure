@@ -28,7 +28,6 @@ class KYuanTianGang_City: KHuman {
         setSkill(KSDodge.NAME, toLevel: 50)
         setSkill(KSParry.NAME, toLevel: 50)
         age = 45
-        readyEquips()
         availableCommands.append(KYuanTianGang_City.questCmd)
     }
     
@@ -41,7 +40,7 @@ class KYuanTianGang_City: KHuman {
         return KJiaoTou_City(k: self)
     }
     
-    func readyEquips() {
+    override func readyEquips() {
         let c = KBaguaPao()
         c.moveTo(self)
         guard equip(c) == true else {
@@ -52,11 +51,6 @@ class KYuanTianGang_City: KHuman {
         guard equip(s) == true else {
             fatalError()
         }
-    }
-    
-    override func reborn() {
-        super.reborn()
-        readyEquips()
     }
 
     override func processNPCCommand(_ cmd: String) -> Bool {

@@ -8,6 +8,7 @@
 
 import UIKit
 import WebKit
+import SQLite
 
 class ViewController: UIViewController, DisplayMessageDelegate, UITextViewDelegate, RoomInfoUpdateDelegate, StatusUpdateDelegate {
 
@@ -86,11 +87,12 @@ class ViewController: UIViewController, DisplayMessageDelegate, UITextViewDelega
     //创建界面上按钮
     func createButtons(){
         containerView.addSubview(buttonGroupView)
-        statusButton.setTitle("菜  单", for: UIControlState())
+        statusButton.setTitle("菜  单", for: .normal)
         statusButton.backgroundColor = UIColor.brown
         buttonGroupView.addSubview(statusButton)
-        observeButton.setTitle("地  图", for: UIControlState())
+        observeButton.setTitle("地  图", for: .normal)
         observeButton.backgroundColor = UIColor.gray
+        observeButton.addTarget(self, action: #selector(ViewController.mapButtonTapped), for: .touchUpInside)
         buttonGroupView.addSubview(observeButton)
     }
     
@@ -127,8 +129,62 @@ class ViewController: UIViewController, DisplayMessageDelegate, UITextViewDelega
         scrollView.alignBetweenVertical(align: Align.underCentered, primaryView: roomInventoryView, secondaryView: personalPanel, padding: 0, width: view.frame.width)//滚动显示夹在上下固定高度的区块中间，高度不定
     }
     
+    func testDB() {
+        let path = NSSearchPathForDirectoriesInDomains(
+            .documentDirectory, .userDomainMask, true
+            ).first!
+        print(path)
+        let db = try! Connection("\(path)/data.db")
+        let users = Table("users")
+        let id = Expression<Int64>("id")
+        let name = Expression<String?>("name")
+        let email = Expression<String>("email")
+        do {
+        try db.run(users.create { t in
+            t.column(id, primaryKey: true)
+            t.column(name)
+            t.column(email, unique: true)
+        })
+        } catch {
+            return
+        }
+        // CREATE TABLE "users" (
+        //     "id" INTEGER PRIMARY KEY NOT NULL,
+        //     "name" TEXT,
+        //     "email" TEXT NOT NULL UNIQUE
+        // )
+        
+        let insert = users.insert(name <- "Alice", email <- "alice@mac.com")
+        let rowid = try? db.run(insert)
+        // INSERT INTO "users" ("name", "email") VALUES ('Alice', 'alice@mac.com')
+        
+        for user in try! db.prepare(users) {
+            print("id: \(user[id]), name: \(user[name]), email: \(user[email])")
+            // id: 1, name: Optional("Alice"), email: alice@mac.com
+        }
+        // SELECT * FROM "users"
+        
+        let alice = users.filter(id == rowid!)
+        
+        _ = try! db.run(alice.update(email <- email.replace("mac.com", with: "me.com")))
+        // UPDATE "users" SET "email" = replace("email", 'mac.com', 'me.com')
+        // WHERE ("id" = 1)
+        
+        _ = try! db.run(alice.delete())
+        // DELETE FROM "users" WHERE ("id" = 1)
+        
+        _ = try! db.scalar(users.count) // 0
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        //读取文件的代码
+//        let path = Bundle.main.path(forResource: "city", ofType: "txt")
+//        let data = try? Data(contentsOf: URL(fileURLWithPath: path!))
+//        let string = String(data: data!, encoding: .utf8)
+//        print(string ?? "error")
+        //读取数据库
+        //testDB()
         createFramework()
         TheWorld.instance.displayMessageHandler.append(self)
         TheWorld.instance.roomInfoHandler.append(self)
@@ -136,7 +192,7 @@ class ViewController: UIViewController, DisplayMessageDelegate, UITextViewDelega
         timer = Timer.scheduledTimer(timeInterval: TheWorld.worldInterval,
                                                        target:self,selector:#selector(ViewController.tickDown(_:)),
                                                        userInfo:nil,repeats:true)
-        TheRoomEngine.instance.move(TheWorld.ME, toRoomWithRoomID: 0)
+        TheRoomEngine.instance.move(TheWorld.ME, toRoomWithRoomID: TheRoomEngine.instance.roomIndex["高-土路1"]!)
     }
 
     func tickDown(_ timer: Timer) {
@@ -200,5 +256,14 @@ class ViewController: UIViewController, DisplayMessageDelegate, UITextViewDelega
         }
     }
     
+    func mapButtonTapped() {
+
+        if let room = TheWorld.ME.environment as? KRoom {
+            if room.dungeonID != -1 {
+                let map = UIMapView(m: TheDungeonEngine.instance.mazes[room.dungeonID], frame: CGRect(x: 0, y: 0, width: 200, height: 200))
+                PopupContainer.generatePopupWithView(view: map).show()
+            }
+        }
+    }
 }
 

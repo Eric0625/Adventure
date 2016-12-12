@@ -190,10 +190,11 @@ class KCreature: KEntity, CombatEntity, WithHeartBeat {
     var maxForce: Int { return lifePropertyMax[DamageType.force]! }
     var fury = 0 //杀气
     //----------计算型属性-----------------
-    var longName: String {
+    var nameWithTitle: String {
         if title.isEmpty { return name }
         return title + " " + name
     }
+    
     var isLiving: Bool{ return false }
     var isBusy: Bool {
         for cond in conditions {

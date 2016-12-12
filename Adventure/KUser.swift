@@ -51,7 +51,7 @@ class KUser: KCreature {
     fileprivate var _mudAge:TimeInterval = 0
     fileprivate var _lastSetTime: Date
     var money = 0
-    let availableCommands = UserCommands.all
+    //let availableCommands = UserCommands.all
     var proSkills = [KProSkill]() //专业技能
     var questData = [Int: STQuestData]()
     override var combatExp: Int {
@@ -113,13 +113,21 @@ class KUser: KCreature {
     
     override func startFighting(_ op: KCreature) {
         super.startFighting(op)
-        tellPlayer(KColors.HIR + "看起来" + op.name + "想杀死你！" + KColors.NOR, usr: self)
+        tellUser(KColors.HIR + "看起来" + op.name + "想杀死你！" + KColors.NOR)
     }
     
     override func makeOneHeartBeat() {
         super.makeOneHeartBeat()
         for rival in rivalList {
             if rival.environment != environment { removeRival(r: rival) }
+        }
+        if exploreTick > -1 {
+            if exploreTick == 0 {
+                if let room = environment as? KRoom {
+                    room.explore()
+                }
+            }
+            exploreTick -= 1
         }
         if isGhost == false {
             let now = Date()
@@ -131,7 +139,7 @@ class KUser: KCreature {
             if _deathTick < 0 {
                 isGhost = false
                 let deathRoom = KDeathRoom()
-                moveTo(deathRoom)
+                _ = TheRoomEngine.instance.move(self, toRoom: deathRoom)
                 _deathTick = 0
                 receiveHeal(.sen, healAmount: maxSen / 5)
                 receiveHeal(.kee, healAmount: maxKee / 5)
@@ -228,7 +236,7 @@ class KUser: KCreature {
             guard let room = environment as? KRoom else { return false }
             if let direct = room.exits.random() {
                 if walkRoom(bydirect: direct) == true{
-                    tellPlayer(KColors.HIR + "你往\(direct.chineseString)落荒而逃了!" + KColors.NOR, usr: self)
+                    tellUser(KColors.HIR + "你往\(direct.chineseString)落荒而逃了!" + KColors.NOR)
                     return true
                 }
             }
@@ -243,6 +251,46 @@ class KUser: KCreature {
         }
         proSkills.append(skill)
         skill.owner = self
+    }
+    
+    ///探索周围的环境，每次消耗5%的气血，cd60秒，有成功率
+    var exploreTick = -1
+    func explore(){
+        guard isInFighting == false else {
+            tellUser("专心战斗吧！")
+            return
+        }
+        guard exploreTick < 0 else {
+            tellUser("你还没探索完毕。")
+            return
+        }
+        let exploreMsg = [
+            "你小心地查看着周围。。。",
+            "你仔细地检查着环境。。。",
+            "你努力地想要查看出什么线索。。。",
+            "你收敛心神，专心致志地检查着周围。。。"
+        ]
+        tellUser(exploreMsg.random()!)
+        if isGhost == false {//鬼魂状态探索不耗气血
+            if kee * 100 / maxKee < 6 {
+                tellUser("你的气血不够了，无力探索。")
+                return
+            }
+            receiveDamage(.kee, damageAmout: Int(maxKee.toDouble * 0.05))
+            tellUser(getStatusMsg(self, type: .kee))
+        }
+        let duration = 4 + randomInt(2)
+        startBusy(duration)
+        exploreTick = duration
+    }
+    
+    func canSee(ent:KEntity) -> Bool {
+        if ent == self { return false }
+        if ent.isInStealth == true { return false }
+        if let npc = ent as? KNPC {
+            return npc.isGhost == TheWorld.ME.isGhost
+        }
+        return true
     }
 }
 

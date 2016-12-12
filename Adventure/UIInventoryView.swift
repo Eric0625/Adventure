@@ -75,7 +75,7 @@ class UIInventoryView: UIView,UITableViewDataSource, UITableViewDelegate, Status
         itemDescView.attributedText = processFormattedString(ent.describe)
         commandsGroupView.removeSubviews()
         if let item = ent as? KItem {
-            let itemStrings = item.availableCommands.chineseStrings
+            let itemStrings = item.availableCommands
             var tempButtons = [Frameable]()
             for i in 0..<itemStrings.count {
                 let button = itemCommands[i]
@@ -185,7 +185,7 @@ class UIInventoryView: UIView,UITableViewDataSource, UITableViewDelegate, Status
     
     func processCommandButton(button: ProgressButton) {
         //获取命令
-        let cmd = ItemCommands(string: button.title(for: .normal)!)
+        let cmd = button.title(for: .normal)!
         //能处理命令的一定至少是item
         let item = button.object as! KItem
         item.processCommand(cmd)
@@ -294,20 +294,7 @@ class UIInventoryView: UIView,UITableViewDataSource, UITableViewDelegate, Status
         if money == 0 {
             coinBar.text = "身无分文"
         } else {
-            var message = ""
-            let gold = money.gold
-            let silver = money.silver
-            let coin = money.coin
-            if gold != 0 {
-                message = "\(gold)金"
-            }
-            if silver != 0 {
-                message += "\(silver)银"
-            }
-            if coin != 0 {
-                message += "\(coin)铜"
-            }
-            coinBar.text = message
+            coinBar.text = money.moneyString
         }
     }
 }

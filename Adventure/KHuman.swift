@@ -8,6 +8,7 @@
 
 import Foundation
 
+///人型生物
 class KHuman: KNPC{
     required init(k: KObject) {
         guard let human = k as? KHuman else {
@@ -80,9 +81,11 @@ class KHuman: KNPC{
     
     func greeting(_ usr: KUser) {}
     
-    override func interactWith(_ user: KUser) {
-        super.interactWith(user)
-        if user.isGhost == false { _interactiveTarget = user }
+    override func interactWith(_ ent: KEntity) {
+        super.interactWith(ent)
+        if let user = ent as? KUser {
+            if user.isGhost == false { _interactiveTarget = user }
+        }
     }
 
     override func makeOneHeartBeat() {
@@ -94,17 +97,8 @@ class KHuman: KNPC{
         }
     }
     
-    override var describe: String{
-        set { super.describe = newValue }
-        get { return generateDescribe() }
-    }
-    func generateDescribe() -> String {
-        var str = "--------------------------------------------\n\(name)\n" + super.describe
-        let dispAge = (age / 10) * 10
-        str += "\n" + gender.thirdPersonPronounce + "是一位" + toChineseNumber(dispAge)
-        if dispAge != age { str += "多" }
-        str += "岁的" + rankRespect(self) + "\n"
-        str += gender.thirdPersonPronounce + getPerMsg(self) + "\n"
+    override func generateDescribe() -> String {
+        var str = super.generateDescribe()
         if let inventory = _entities {
             var equipArmor = ""
             var equipWeapon = ""

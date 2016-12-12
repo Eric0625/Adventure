@@ -59,7 +59,7 @@ class UIConditionIcon: UIImageView, WithHeartBeat {
     func makeOneHeartBeat() {
         //计算layer的覆盖度
         let percent = Double(100 * condition.duration) / Double(conditionLastTime)
-        print("\(condition.name) percent : \(percent)")
+        //print("\(condition.name) percent : \(percent)")
         if percent == 0 {
             TheWorld.unregHeartBeat(self)
             let view = superview

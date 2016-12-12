@@ -28,6 +28,7 @@ class KNPC: KCreature {
     
     override init(name: String) {
         super.init(name: name)
+        readyEquips()
     }
     
     required convenience init(){
@@ -38,26 +39,30 @@ class KNPC: KCreature {
         return  KNPC(k: self)
     }
     
+    var money = 0 //击杀时可获得的money
     var startRoomID = -1
     var attitude = NPCAttitude.peace
     var availableCommands = NPCCommands.normalCmds
-    var chatMsg = [""]
+    var chatMsg = [String]()
+    var combatChatMsg = [String]()
     var chatChance = 0
+    var combatChatChance = 0
     var randomMoveChance = 0
-    var rebornInterval = 300//十分钟
+    var rebornInterval = 300//十分钟,-1为永不复生
     fileprivate var _rebornTick = 0
     var expGain = 0//杀死时直接获得的经验
-    var visible: Bool { return isGhost == TheWorld.ME.isGhost }
     
-    ///在玩家来到同一环境时的互动，因为是立即触发，因此greeting不发生在这里
-    func interactWith(_ user: KUser){
-        switch attitude {
-        case .peace: break
-        case .aggressive:
-            if !isFightingWith(user) {
-                startFighting(user)
+    ///npc与房间内物体的互动，可用来自定义触发情节，因为是立即触发，因此greeting不发生在这里
+    func interactWith(_ ent: KEntity){
+        if let user = ent as? KUser {
+            switch attitude {
+            case .peace: break
+            case .aggressive:
+                if !isFightingWith(user) {
+                    startFighting(user)
+                }
+            case .defend: break
             }
-        case .defend: break
         }
     }
     
@@ -70,9 +75,23 @@ class KNPC: KCreature {
         return true
     }
     
+    @discardableResult func combatChat() -> Bool {
+        if isInFighting == false { return false }
+        if isGhost { return false }
+        if environment == nil { return false }
+        if let msg = combatChatMsg.random() {
+            tellRoom(msg, room: environment!)
+            return true
+        }
+        return false
+    }
+    ///初始化装备的地方
+    func readyEquips() { }
+    
     func reborn() {
         _rebornTick = 0
         TheRoomEngine.instance.move(self, toRoomWithRoomID: startRoomID)
+        readyEquips()
         reviveFrom()
         let room = environment as! KRoom
         TheWorld.didUpdateRoomInfo(room, ent: self, type: .newEntity)//因为前面的移动是以鬼魂形式，所以这里需要更新（todo：玩家是鬼魂形式时的额外处理)
@@ -81,6 +100,11 @@ class KNPC: KCreature {
     override func makeOneHeartBeat() {
         super.makeOneHeartBeat()
         if isGhost {
+            if rebornInterval < 0 {
+                TheWorld.unregHeartBeat(self)
+                environment?.remove(self)
+                return
+            }
             _rebornTick += 1
             if _rebornTick == rebornInterval{
                 reborn()
@@ -88,6 +112,7 @@ class KNPC: KCreature {
             }
         }
         if randomInt(100) < chatChance { chat() }
+        if isInFighting && randomInt(100) < combatChatChance { combatChat() }
         if randomInt(100) < randomMoveChance { randomMove() }
     }
     
@@ -110,7 +135,7 @@ class KNPC: KCreature {
             if TheWorld.ME.environment != environment {
                 return notifyFail("你看不见" + gender.thirdPersonPronounce + "了。", to: TheWorld.ME)
             }
-            tellPlayer(describe, usr: TheWorld.ME)
+            tellUser(describe)
         case NPCCommands.kill:
             if TheWorld.ME.environment != environment {
                 return notifyFail("你和" + gender.thirdPersonPronounce + "不在一起了。", to: TheWorld.ME)
@@ -122,10 +147,14 @@ class KNPC: KCreature {
         return true
     }
     
+    func createCorpse() -> KCorpse{
+        return KCorpse(creature: self)
+    }
+    
     override func die() {
         super.die()
         guard let env = environment else { return }
-        let corpse = KCorpse(creature: self)
+        let corpse = createCorpse()
         var belongingDest:KEntity = corpse
         if let inventory = _entities {
             for item in inventory {
@@ -145,7 +174,7 @@ class KNPC: KCreature {
         corpse.weight = weight
         if lastDamager == TheWorld.ME { rewardUser() }
         if let room = env as? KRoom {
-            if visible {
+            if TheWorld.ME.canSee(ent: self) {
                 TheWorld.didUpdateRoomInfo(room, ent: self, type: .updateEntity)
             } else {
                 TheWorld.didUpdateRoomInfo(room, ent: self, type: .removeEntity)
@@ -156,6 +185,10 @@ class KNPC: KCreature {
     
     /// 玩家杀死NPC后的奖励
     fileprivate func rewardUser(){
+        if money != 0 {
+            TheWorld.ME.money += money
+            tellUser("你获得了\(money.moneyString)")
+        }
         var reward = expGain
         var effExp:Double = Double(combatExp)
         if effExp > 20000 { effExp /= 3 }
@@ -193,7 +226,28 @@ class KNPC: KCreature {
         }
         reward = Int(Double(reward) * ratio)
         DEBUG("combat with \(name) gain exp:\(reward)")
-        tellPlayer("你获得了\(reward)点武学。", usr: TheWorld.ME)
+        tellUser("你获得了\(reward)点武学。")
         TheWorld.ME.combatExp += reward
-    }    
+    }
+    
+    override var describe: String{
+        set { super.describe = newValue }
+        get { return generateDescribe() }
+    }
+    
+    func generateDescribe() -> String {
+        var str = "--------------------------------------------\n\(nameWithTitle)"
+        if isInFighting {
+            str += KColors.HIR + "<战斗中>" + KColors.NOR
+        }
+        str += "\n" + super.describe
+        if age != 0 {
+            let dispAge = (age / 10) * 10
+            str += "\n" + gender.thirdPersonPronounce + "是一位" + toChineseNumber(dispAge)
+            if dispAge != age { str += "多" }
+            str += "岁的" + rankRespect(self) + "\n"
+        }
+        str += gender.thirdPersonPronounce + getPerMsg(self) + "\n"
+        return str
+    }
 }

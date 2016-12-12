@@ -30,6 +30,7 @@ class KEntity: KObject, Comparable{
         usedCapacity = ent.usedCapacity
         amount = ent.amount
         stackable = ent.stackable
+        isInStealth = ent.isInStealth
         environment = nil //此物体在虚空中
         super.init(k: k)
     }
@@ -56,6 +57,8 @@ class KEntity: KObject, Comparable{
         get{ return _weight * amount + usedCapacity }
         set{ _weight = newValue }
     }
+    ///当前是否隐身
+    var isInStealth = false
     /// getter属性，计算当前容器的容量
     var allCapacity: Int {
         if let env = environment {

@@ -32,12 +32,7 @@ class RoomInventoryView: UIView {
                 buttons = [RoomInventoryButton]()
             }
             for ent in inv {
-                if ent === TheWorld.ME { continue }
-                if let npc = ent as? KNPC {
-                    if npc.visible  == false {
-                        continue
-                    }
-                }
+                if TheWorld.ME.canSee(ent: ent) == false { continue }
                 let b = RoomInventoryButton(ent: ent, rect: CGRect(x: 0, y: 0, width: 10, height: 10))
                 buttons?.append(b)
                 addSubview(b)

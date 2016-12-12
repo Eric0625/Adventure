@@ -35,12 +35,12 @@ class KEquipment: KItem {
     }
     
     ///获取可用命令，根据是否在玩家身上返回不同值
-    override var availableCommands: ItemCommands {
+    override var availableCommands: [String] {
         get {
-            let cmd = super.availableCommands
+            var cmd = super.availableCommands
             if environment === TheWorld.ME {
-                if isEquipped { return cmd.union(ItemCommands.unequip) }
-                else { return cmd.union(ItemCommands.equip) }
+                if isEquipped {  cmd.append(ItemCommands.unequip) }
+                else {  cmd.append(ItemCommands.equip) }
             }
             return cmd
         }
@@ -75,7 +75,7 @@ class KEquipment: KItem {
     func afterEquip() {}
     func afterUnequip() {}
     
-    override func processCommand(_ cmd: ItemCommands) -> Bool {
+    override func processCommand(_ cmd: String) -> Bool {
         if super.processCommand(cmd) == false { return false }
         switch cmd {
         case ItemCommands.equip:

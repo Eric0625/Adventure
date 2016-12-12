@@ -10,7 +10,7 @@ import Foundation
 
 class TheCombatEngine {
     //MARK: Singleton
-    fileprivate init(){
+    private init(){
         DEBUG("combat engine inited")
         
     }
@@ -22,8 +22,9 @@ class TheCombatEngine {
     }
     
     fileprivate func calculateRealDamage(_ attacker: KCreature, defenser: KCreature) -> Double{
-        let starter = attacker.damage - defenser.armor
-        var realDamage = Double( starter + randomInt(starter)) / 2
+        var starter = attacker.damage - defenser.armor
+        if starter < 1 { starter = 1 }
+        var realDamage = Double( starter + (randomInt(starter - 1) + 1)) / 2.0
         //TODO:技能特殊效果，武器特殊效果
         /*// Let combat exp take effect
          defense_factor = your["combat_exp"];
@@ -31,7 +32,7 @@ class TheCombatEngine {
          damage -= damage / 3;
          defense_factor /= 2;
          }*/
-        if realDamage <= 0 { realDamage = 1 }
+        if realDamage <= 1 { realDamage = 1 }
         return realDamage
     }
     

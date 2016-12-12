@@ -33,14 +33,14 @@ class KItem: KEntity {
     
     var itemType = ItemType.item
     var value = 0
-    var availableCommands: ItemCommands {
+    var availableCommands: [String] {
         get {
             //对于一般物品来说，可用命令只有丢弃，拾取和观察，其它命令需要各自类别物品自己重载
-            var cmds = ItemCommands.none
-            if environment === TheWorld.ME { cmds.formUnion(.drop)}
-            else { cmds.formUnion([.get, .observe]) }
+            var cmds = [String]()
+            if environment === TheWorld.ME { cmds.append(ItemCommands.drop) }
+            else { cmds.append(contentsOf: [ItemCommands.get, ItemCommands.observe]) }
             if _entities?.isEmpty == false {
-                cmds.formUnion(.getAll)
+                cmds.append(ItemCommands.getAll)
             }
             return cmds
         }
@@ -62,12 +62,12 @@ class KItem: KEntity {
     
     ///处理可用命令，这里要根据是否在玩家身上进行调整
     ///当不知道该命令如何处理时，应返回真，返回假表示处理失败
-    @discardableResult func processCommand(_ cmd: ItemCommands) -> Bool {
+    @discardableResult func processCommand(_ cmd: String) -> Bool {
         
         switch cmd {
         case ItemCommands.observe:
             if isPickable() == false {return notifyFail("这件物品已经不在这里了。", to: TheWorld.ME) }
-            tellPlayer(describe, usr: TheWorld.ME)
+            tellUser(describe)
             break
         case ItemCommands.get:
             if isPickable() == false {return notifyFail("这件物品已经不在这里了。", to: TheWorld.ME) }
@@ -76,7 +76,7 @@ class KItem: KEntity {
                 if TheWorld.ME.isInFighting {
                     TheWorld.ME.startBusy(2)
                 }
-                tellPlayer("你拾取了\(name)", usr: TheWorld.ME)
+                tellUser("你拾取了\(name)")
             }
         case ItemCommands.drop:
             if environment !== TheWorld.ME { return notifyFail("这件物品不在你身上", to: TheWorld.ME) }
@@ -86,7 +86,7 @@ class KItem: KEntity {
                     if TheWorld.ME.isInFighting {
                         TheWorld.ME.startBusy(5)
                     }
-                    tellPlayer("你将\(name)丢在\(env.name)", usr: TheWorld.ME)
+                    tellUser("你将\(name)丢在\(env.name)")
                 } else {
                     return notifyFail("物品\(name)丢弃失败。", to: TheWorld.ME)
                 }

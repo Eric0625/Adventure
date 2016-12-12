@@ -7,27 +7,24 @@
 //
 
 import Foundation
+import UIKit
 
-class KRoomDescribe:KObject {
+class KRoomDescribe {
     var linkedRooms = [Directions: KRoomDescribe]()
     var npcLists = [String: Int]()
     var itemLists = [String: Int]()
     var isOutDoor = true
     var hasWindow = true
-    var roomID = -1
-    
-
-    init(name:String, id:Int){
-        super.init(name: name)
+    private(set) var roomID:Int = -1
+    var roomIDInString:String
+    var roomClassString:String?
+    var name: String
+    var describe = ""
+    var dungeonID = -1
+    var dungeonCoordinate = CGPoint.zero
+    init(name:String, id:String, ignoreIndex:Bool = false) {
         self.name = name
-        roomID = id
-    }
-    
-    required init(k: KObject) {
-        fatalError("room desc can't be cloned!")
-    }
-    
-    override func clone() -> KObject{
-        return  KNPC(k: self)
-    }
+        roomIDInString = id
+        roomID = TheRoomEngine.instance.newRoomID(roomIdentifier: id, ignoreIndex: ignoreIndex)
+    }    
 }

@@ -29,7 +29,7 @@ class RoomInventoryButton: UIButton, StatusUpdateDelegate {
         if let npc = ent as? KNPC {
             dropDown.dataSource = npc.availableCommands
         } else if let item = ent as? KItem {
-            dropDown.dataSource = item.availableCommands.chineseStrings
+            dropDown.dataSource = item.availableCommands
         }
         dropDown.selectionAction = itemSeleted
         TheWorld.instance.statusUpdateHandler.append(self)
@@ -68,7 +68,7 @@ class RoomInventoryButton: UIButton, StatusUpdateDelegate {
         if let npc = entity as? KNPC {
             npc.processNPCCommand(item)
         } else if let it = entity as? KItem {
-            it.processCommand(ItemCommands(string: item))
+            it.processCommand(item)
         }
     }
     

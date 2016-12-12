@@ -20,11 +20,13 @@ class KCorpse: KItem, WithHeartBeat {
         age *= 10
         super.init(name: creature.name + "的尸体")
         var desc = creature.getPureDescribe() //提取原始字符串
-        desc +=  gender.thirdPersonPronounce + "是一位" + toChineseNumber(age)
-        if creature.age != age {
-            desc += "多"
+        if age != 0 {
+            desc +=  gender.thirdPersonPronounce + "是一位" + toChineseNumber(age)
+            if creature.age != age {
+                desc += "多"
+            }
+            desc += "岁的" + rankRespect(creature) + "\n"
         }
-        desc += "岁的" + rankRespect(creature) + "\n"
         desc += gender.thirdPersonPronounce + getPerMsg(creature) + "\n"
         desc += "然而" + gender.thirdPersonPronounce + "已经死了，只剩下一具尸体静静地躺在这里。"
         describe = desc
@@ -74,6 +76,8 @@ class KCorpse: KItem, WithHeartBeat {
                     name = "腐烂的尸体"
                 case .女性:
                     name = "腐烂的女尸"
+                case .公, .母:
+                    name = "腐烂的尸体"
                 }
                 describe = "这具尸体显然已经躺在这里有一段时间了，正散发着一股腐尸的味道。"
                 if let r = env as? KRoom {

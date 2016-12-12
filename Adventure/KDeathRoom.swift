@@ -28,4 +28,8 @@ class KDeathRoom: KRoom {
         assert(k is KDeathRoom)
         super.init(k: k)
     }
+    
+    required init(roomDescribe d: KRoomDescribe) {
+        super.init(roomDescribe: d)
+    }
 }

@@ -27,7 +27,7 @@ class PersonalPanel: UIView,StatusUpdateDelegate {
     var buttonGroupView = UIView()//按钮组的容器
     var statusBar: UIStatusBar
     
-    private var menuStringss = ["行走", "飞行", "探索", "采集", "挂机"]
+    private var menuStringss : [(String, Double)] = [("行走", 0), ("飞行", 0), ("探索", 1), ("采集", 10), ("挂机", 0)]
     init() {
         statusBar = UIStatusBar()
         super.init(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
@@ -52,11 +52,14 @@ class PersonalPanel: UIView,StatusUpdateDelegate {
     func createButtons(){
         addSubview(buttonGroupView)
         var btn:UICDButton
-        for str in menuStringss {
+        for (str, cdTime) in menuStringss {
             btn = UICDButton(with: UIColor.white)
             btn.setTitle(str, for: .normal)
             btn.backgroundColor = UIColor.brown
             btn.action = processButtonTap
+            if cdTime > 0 {
+                btn.coolDownTime = cdTime
+            }
             buttonGroupView.addSubview(btn)
             buttons.append(btn)
         }
@@ -68,7 +71,7 @@ class PersonalPanel: UIView,StatusUpdateDelegate {
         if let dir = Directions.fromString(str: item) {
             _ = TheWorld.ME.walkRoom(bydirect: dir)
         } else {
-            tellPlayer("没有这个方向", usr: TheWorld.ME)
+            tellUser("没有这个方向")
         }
     }
     
@@ -90,7 +93,7 @@ class PersonalPanel: UIView,StatusUpdateDelegate {
                     popUp.dataSource = roomDirections
                 } else {
                     //弹出没有出口的提示，todo：灰化行走菜单
-                    tellPlayer(KColors.White + "这里没有出口" + KColors.NOR, usr: TheWorld.ME)
+                    tellUser(KColors.White + "这里没有出口" + KColors.NOR)
                     break
                 }
             }else{
@@ -102,8 +105,12 @@ class PersonalPanel: UIView,StatusUpdateDelegate {
         case "逃跑":
             
             if TheWorld.ME.fleeFromFight() == false {
-                tellPlayer(KColors.HIY + "你逃跑失败！" + KColors.NOR, usr: TheWorld.ME)
+                tellUser(KColors.HIY + "你逃跑失败！" + KColors.NOR)
             }
+        case "飞行":
+            let _ = 1
+        case "探索" :
+            TheWorld.ME.explore()
         default:
             break
         }
@@ -111,7 +118,7 @@ class PersonalPanel: UIView,StatusUpdateDelegate {
     
     //生成面板上的字符串：名字＋生命值＋百分比，以及确定面板血量的颜色todo：改为配置
     func generatePersonalLabel() {
-        var userString = TheWorld.ME.longName
+        var userString = TheWorld.ME.nameWithTitle
         if TheWorld.ME.isGhost {
             userString += "<鬼魂>"
         }

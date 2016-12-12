@@ -27,7 +27,6 @@ class KXiaoXiao_City: KSalesMan {
         skill = KSFengshanSword(level: 50)
         addSkill(skill)
         mapSkill(skill, inType: .sword)
-        readyEquips()
         addGoods(KQiMeiGun())
         gender = .女性
         age = 26
@@ -42,17 +41,12 @@ class KXiaoXiao_City: KSalesMan {
         return KXiaoXiao_City(k: self)
     }
     
-    func readyEquips() {
+    override func readyEquips() {
         var e:KEquipment = KSteelSword()
         e.moveTo(self)
         assert(equip(e))
         e = KPinkCloth()
         e.moveTo(self)
         assert(equip(e))
-    }
-    
-    override func reborn() {
-        super.reborn()
-        readyEquips()
     }
 }

@@ -32,15 +32,13 @@ class UIRoomDescView: UITextView {
                 if let attributeValue = attributedText.attribute(NSForegroundColorAttributeName, at: index, effectiveRange: &range) as? UIColor {
                     switch attributeValue {
                     case KColors.toUIColor(input: KColors.HIW)!:
-                        let tappedExitString = attributedText.attributedSubstring(from: range).string //获取到整个sub string（按颜色分割）
+                        let tappedExitString = attributedText.attributedSubstring(from: range).string.trimmed() //获取到整个sub string（按颜色分割）
                         if let direct = Directions.fromString(str: tappedExitString){
                             _ = TheWorld.ME.walkRoom(bydirect: direct)
                         }
                     default:
                         break
                     }
-                    
-                    
                 }
             }
         }

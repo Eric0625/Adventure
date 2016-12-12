@@ -72,7 +72,7 @@ class KWeapon: KEquipment {
     
     override func validEquip() -> Bool {
         guard super.validEquip() else { return false }
-        if !(environment is KHuman) && !(environment is KUser) { return false }//todo:直接装备身上容器内的武器
+        if !(environment is KNPC) && !(environment is KUser) { return false }//todo:直接装备身上容器内的武器
         return true
     }
     

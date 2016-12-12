@@ -30,7 +30,6 @@ class KLiBai_City: KHuman {
         combatExp = 10
         let p = KPoisonCondition(amount: 10, duration: 50)
         applyCondition(p)
-        readyEquips()
         //attitude = .Aggressive
     }
     
@@ -50,17 +49,12 @@ class KLiBai_City: KHuman {
         return KLiBai_City(k: self)
     }
     
-    func readyEquips(){
+    override func readyEquips(){
         var k:KEquipment = KPanguanBi()
         k.moveTo(self)
         assert(equip(k))
         k = KCloth()
         k.moveTo(self)
         assert(equip(k))
-    }
-    
-    override func reborn() {
-        super.reborn()
-        readyEquips()
     }
 }

@@ -41,8 +41,10 @@ class KRoom: KEntity, WithHeartBeat{
         assert(super.accept(real))//作为特殊处理，这里不使用本房间的accept函数以跳过销毁物品的步骤
     }
     
-    convenience init(roomDescribe d:KRoomDescribe){
-        self.init(name: d.name, roomDescribe: d)
+    required init(roomDescribe d:KRoomDescribe){
+        roomDesc = d
+        super.init(name: d.name)
+        selfCapacity = 1000.T
         isOutDoor = d.isOutDoor
         hasWindow = d.hasWindow
         for (npcClassString, npcNumber) in d.npcLists {
@@ -64,7 +66,7 @@ class KRoom: KEntity, WithHeartBeat{
         }        
         describe = d.describe
         itemStayDuration = 300
-        
+        dungeonID = d.dungeonID
     }
     
     init(name:String = KRoom.NAME, roomDescribe d: KRoomDescribe? = nil){
@@ -73,7 +75,7 @@ class KRoom: KEntity, WithHeartBeat{
         selfCapacity = 1000.T        
     }
     
-    required convenience init(){
+    convenience init(){
         self.init(name: KRoom.NAME)
     }
     
@@ -90,20 +92,36 @@ class KRoom: KEntity, WithHeartBeat{
     var itemDestroyTimeStamp: [Guid: Int]?//物品摧毁时间戳，key为物品guid，value为计时
     var itemRestoreTimeStamp: [Guid: Int]?//物品重新生成的时间戳
     var itemRestoreClassString = [Guid: String]()//需要恢复的物品所对应的类字符串
-    fileprivate let roomDesc:KRoomDescribe?
+    let roomDesc:KRoomDescribe?
     var linkedRooms = [Directions:Int]()//与该房间链接的房间,value为该房间ID
     var isOutDoor = true
     var hasWindow = false
     var title:String {
         get { return KColors.HIY + name + KColors.NOR }
     }
-    
+    var dungeonID = -1 //地下城序号
     //MARK:functions
     func addLinkedRoom(_ direction:Directions, roomID:Int){
         //let link = "<a href=d:\(direction)>" + KColors.HIW +  direction.chineseString + KColors.NOR + "</a>"
-        let link = KColors.HIW + direction.chineseString + KColors.NOR
-        exitsInString.append(link)
-        exits.append(direction)
+        let link = KColors.HIW + " \(direction.chineseString) " + KColors.NOR
+        if exits.isEmpty {
+            exitsInString.append(link)
+            exits.append(direction)
+        } else {
+            var index = 0
+            for d in exits {
+                if direction < d {
+                    exits.insert(direction, at: index)
+                    exitsInString.insert(link, at: index)
+                    break
+                }
+                index += 1
+            }
+            if index == exits.count {
+                exitsInString.append(link)
+                exits.append(direction)
+            }
+        }
         linkedRooms[direction] = roomID
     }
     
@@ -153,13 +171,20 @@ class KRoom: KEntity, WithHeartBeat{
         if let chr = ent as? KCreature {
             if !(chr is KUser) && !chr.isGhost {
                 tellRoom(chr.name + "走了过来", room: self) //todo:加上坐骑和战斗信息
+                if let npc = chr as? KNPC {
+                    if let inv = _entities {
+                        for ent in inv {
+                            npc.interactWith(ent)
+                        }
+                    }
+                }
                 TheWorld.didUpdateRoomInfo(self, ent: chr, type: .newEntity)//提醒代理发生了房间更新事件
             }
             if let user = chr as? KUser {
-                if TheWorld.ME.isInFighting {
-                    tellPlayer("你跌跌撞撞地跑到了\(name)", usr: TheWorld.ME)
+                if user.isInFighting {
+                    tellUser("你跌跌撞撞地跑到了\(name)")
                 } else {
-                    tellPlayer("你来到了\(name)", usr: TheWorld.ME)
+                    tellUser("你来到了\(name)")
                 }
                 TheWorld.didUpdateRoomInfo(self)//提醒代理发生了房间更新事件
                 if let inventory = _entities {
@@ -208,7 +233,7 @@ class KRoom: KEntity, WithHeartBeat{
                 msg += exitsInString[0..<exitsInString.count-1].joined(separator: "、")
                 msg += "和" + exitsInString.last!
             }
-        }
+        } else { msg += "\n    这里没有明显的出路。" }
         return msg
     }
     
@@ -235,6 +260,14 @@ class KRoom: KEntity, WithHeartBeat{
                 }
             }
         }
+    }
+    
+    ///某个出口的条件检查，自定义房间可通过此函数阻止人物从某个方向离开
+    func canMoveTo(direction: Directions, entity: KEntity) -> Bool { return true }
+    
+    ///探索该房间，会发生什么由子类定义
+    func explore() {
+        tellUser("你什么也没发现。")
     }
     
 }

@@ -7,13 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C0C5B111DE1D5B1003AA25C /* TheDungeonEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C5B101DE1D5B1003AA25C /* TheDungeonEngine.swift */; };
+		1C0C5B131DE1FEBD003AA25C /* UIMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C5B121DE1FEBD003AA25C /* UIMapView.swift */; };
+		1C0C5B151DE21426003AA25C /* PopupContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C5B141DE21426003AA25C /* PopupContainer.swift */; };
+		1C161E511DE90824005D4254 /* KGaoNiu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C161E501DE90824005D4254 /* KGaoNiu.swift */; };
+		1C161E531DE909CE005D4254 /* KBeastWithPalm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C161E521DE909CE005D4254 /* KBeastWithPalm.swift */; };
+		1C161E551DE90BB0005D4254 /* KGaoCunZhang.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C161E541DE90BB0005D4254 /* KGaoCunZhang.swift */; };
+		1C161E571DE917F0005D4254 /* KGaoFarmer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C161E561DE917F0005D4254 /* KGaoFarmer.swift */; };
+		1C161E5A1DE92F16005D4254 /* KGaoGateRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C161E591DE92F16005D4254 /* KGaoGateRoom.swift */; };
+		1C161E5C1DE97205005D4254 /* KGaoHouHuaYuanRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C161E5B1DE97205005D4254 /* KGaoHouHuaYuanRoom.swift */; };
+		1C161E5F1DE9854C005D4254 /* KGaoHouHuaYuanWall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C161E5E1DE9854C005D4254 /* KGaoHouHuaYuanWall.swift */; };
 		1C180C251CFA92F100131A83 /* Neon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C180C201CFA92F100131A83 /* Neon.swift */; };
 		1C180C261CFA92F100131A83 /* NeonAlignable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C180C211CFA92F100131A83 /* NeonAlignable.swift */; };
 		1C180C271CFA92F100131A83 /* NeonAnchorable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C180C221CFA92F100131A83 /* NeonAnchorable.swift */; };
 		1C180C281CFA92F100131A83 /* NeonFrameable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C180C231CFA92F100131A83 /* NeonFrameable.swift */; };
 		1C180C291CFA92F100131A83 /* NeonGroupable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C180C241CFA92F100131A83 /* NeonGroupable.swift */; };
 		1C1EE8EE1CD1BC400034B1A4 /* KUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1EE8ED1CD1BC400034B1A4 /* KUser.swift */; };
+		1C2B52931DEA878A00570955 /* KGaoXiaolinMaze.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2B52921DEA878A00570955 /* KGaoXiaolinMaze.swift */; };
+		1C2B52951DEA9C2600570955 /* KGaoXiaoluWall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2B52941DEA9C2600570955 /* KGaoXiaoluWall.swift */; };
 		1C3A15811DE08F38007C5CFE /* UIQuestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3A15801DE08F38007C5CFE /* UIQuestView.swift */; };
+		1C3A15841DE09ABC007C5CFE /* KYuanTianGangYao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3A15831DE09ABC007C5CFE /* KYuanTianGangYao.swift */; };
+		1C3C70C21DE4837000BA4BA0 /* KBeastWithClaw.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3C70C11DE4837000BA4BA0 /* KBeastWithClaw.swift */; };
 		1C55EE9B1CD3B5020014D471 /* KEquipment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C55EE9A1CD3B5020014D471 /* KEquipment.swift */; };
 		1C55EE9D1CD3C71B0014D471 /* KWeapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C55EE9C1CD3C71B0014D471 /* KWeapon.swift */; };
 		1C55EE9F1CD3D2260014D471 /* KArmor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C55EE9E1CD3D2260014D471 /* KArmor.swift */; };
@@ -45,6 +59,11 @@
 		1C5F3E671CCD0E8B00FFBB70 /* KEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5F3E661CCD0E8B00FFBB70 /* KEntity.swift */; };
 		1C5FDFF91D3BBC03003E369F /* RoomInventoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5FDFF81D3BBC03003E369F /* RoomInventoryView.swift */; };
 		1C5FDFFB1D3C886B003E369F /* RoomInventoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5FDFFA1D3C886B003E369F /* RoomInventoryButton.swift */; };
+		1C62864A1DE71705004D65A7 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C6286491DE71705004D65A7 /* libsqlite3.0.tbd */; };
+		1C62865C1DE73A4E004D65A7 /* data.db in Resources */ = {isa = PBXBuildFile; fileRef = 1C62865B1DE73A4E004D65A7 /* data.db */; };
+		1C66F7D81DF0417800235B06 /* TheNatureEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C66F7D71DF0417800235B06 /* TheNatureEngine.swift */; };
+		1C68B36F1DE336F700504CDD /* KShuangChaLingMonster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C68B36E1DE336F700504CDD /* KShuangChaLingMonster.swift */; };
+		1C68B3711DE3395100504CDD /* KShuangChaLingBoss1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C68B3701DE3395100504CDD /* KShuangChaLingBoss1.swift */; };
 		1C71C0EA1CD99FC70009C97C /* KCui_Death.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C71C0E91CD99FC70009C97C /* KCui_Death.swift */; };
 		1C71C0EC1CD9A1020009C97C /* KSSword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C71C0EB1CD9A1020009C97C /* KSSword.swift */; };
 		1C71C0EF1CD9A1E90009C97C /* KDeathRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C71C0EE1CD9A1E90009C97C /* KDeathRoom.swift */; };
@@ -55,6 +74,9 @@
 		1C8134291CF007AD007090F1 /* CircleMenuLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8134261CF007AD007090F1 /* CircleMenuLoader.swift */; };
 		1C8E679D1CE5650200F6F6DB /* WorldMessageBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E679C1CE5650200F6F6DB /* WorldMessageBoardView.swift */; };
 		1C8E67F21CE5888B00F6F6DB /* DynamicTextStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8E67F11CE5888B00F6F6DB /* DynamicTextStorage.swift */; };
+		1C98E7F11DE7DA9F0081CDC5 /* STDungeonSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C98E7F01DE7DA9F0081CDC5 /* STDungeonSettings.swift */; };
+		1C98E7F31DE8253B0081CDC5 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C98E7F21DE8253B0081CDC5 /* City.swift */; };
+		1C98E7F51DE825B40081CDC5 /* GaoJiaZhuang.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C98E7F41DE825B40081CDC5 /* GaoJiaZhuang.swift */; };
 		1CB4AECD1CD5BFF1007002D4 /* KChouPao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB4AECC1CD5BFF1007002D4 /* KChouPao.swift */; };
 		1CB4AECF1CD5C1E0007002D4 /* KCloth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB4AECE1CD5C1E0007002D4 /* KCloth.swift */; };
 		1CB4AED11CD5C28C007002D4 /* KPinkCloth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB4AED01CD5C28C007002D4 /* KPinkCloth.swift */; };
@@ -90,6 +112,7 @@
 		1CCDE45F1D4213E300F85A28 /* UIPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCDE45E1D4213E300F85A28 /* UIPlayerView.swift */; };
 		1CD073FA1DDDEDEC00D938FB /* TheQuestEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD073F91DDDEDEC00D938FB /* TheQuestEngine.swift */; };
 		1CD073FC1DDDF0F500D938FB /* STQuestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD073FB1DDDF0F500D938FB /* STQuestData.swift */; };
+		1CE077441DE28AF9000E694C /* KMazeShuangChaLing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE077431DE28AF9000E694C /* KMazeShuangChaLing.swift */; };
 		1CE91FF91CD6E91500419791 /* KLiBai_City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE91FF81CD6E91500419791 /* KLiBai_City.swift */; };
 		1CE91FFB1CD6EBF500419791 /* KXiaoXiao_City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE91FFA1CD6EBF500419791 /* KXiaoXiao_City.swift */; };
 		1CE91FFD1CD6F16900419791 /* KOrdinaryPerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE91FFC1CD6F16900419791 /* KOrdinaryPerson.swift */; };
@@ -145,6 +168,8 @@
 		2809C05E1DB1CE9A0014FB97 /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2809C02F1DB1CE9A0014FB97 /* UIViewControllerExtensions.swift */; };
 		2809C05F1DB1CE9A0014FB97 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2809C0301DB1CE9A0014FB97 /* UIViewExtensions.swift */; };
 		2809C0601DB1CE9A0014FB97 /* UIWindowExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2809C0311DB1CE9A0014FB97 /* UIWindowExtensions.swift */; };
+		280EC78B1DEC7E0A00087644 /* qujing in Resources */ = {isa = PBXBuildFile; fileRef = 280EC78A1DEC7E0A00087644 /* qujing */; };
+		280EC78F1DED41FB00087644 /* JiangZhouZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280EC78E1DED41FB00087644 /* JiangZhouZone.swift */; };
 		2817A5341DB9106200C9E884 /* UIRoomDescView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2817A5331DB9106200C9E884 /* UIRoomDescView.swift */; };
 		2842F0781DCACA4300DB23DF /* KTailor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842F0771DCACA4300DB23DF /* KTailor.swift */; };
 		2842F07D1DCB30C000DB23DF /* KClothBoot1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842F07C1DCB30C000DB23DF /* KClothBoot1.swift */; };
@@ -167,6 +192,16 @@
 
 /* Begin PBXFileReference section */
 		010674ED0B4E84FA593F3D88 /* Pods_Adventure.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Adventure.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1C0C5B101DE1D5B1003AA25C /* TheDungeonEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheDungeonEngine.swift; sourceTree = "<group>"; };
+		1C0C5B121DE1FEBD003AA25C /* UIMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIMapView.swift; sourceTree = "<group>"; };
+		1C0C5B141DE21426003AA25C /* PopupContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupContainer.swift; sourceTree = "<group>"; };
+		1C161E501DE90824005D4254 /* KGaoNiu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KGaoNiu.swift; sourceTree = "<group>"; };
+		1C161E521DE909CE005D4254 /* KBeastWithPalm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KBeastWithPalm.swift; sourceTree = "<group>"; };
+		1C161E541DE90BB0005D4254 /* KGaoCunZhang.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KGaoCunZhang.swift; sourceTree = "<group>"; };
+		1C161E561DE917F0005D4254 /* KGaoFarmer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KGaoFarmer.swift; sourceTree = "<group>"; };
+		1C161E591DE92F16005D4254 /* KGaoGateRoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KGaoGateRoom.swift; sourceTree = "<group>"; };
+		1C161E5B1DE97205005D4254 /* KGaoHouHuaYuanRoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KGaoHouHuaYuanRoom.swift; sourceTree = "<group>"; };
+		1C161E5E1DE9854C005D4254 /* KGaoHouHuaYuanWall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KGaoHouHuaYuanWall.swift; sourceTree = "<group>"; };
 		1C180C1F1CFA92F100131A83 /* Neon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Neon.h; sourceTree = "<group>"; };
 		1C180C201CFA92F100131A83 /* Neon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Neon.swift; sourceTree = "<group>"; };
 		1C180C211CFA92F100131A83 /* NeonAlignable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeonAlignable.swift; sourceTree = "<group>"; };
@@ -174,7 +209,11 @@
 		1C180C231CFA92F100131A83 /* NeonFrameable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeonFrameable.swift; sourceTree = "<group>"; };
 		1C180C241CFA92F100131A83 /* NeonGroupable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeonGroupable.swift; sourceTree = "<group>"; };
 		1C1EE8ED1CD1BC400034B1A4 /* KUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KUser.swift; sourceTree = "<group>"; };
+		1C2B52921DEA878A00570955 /* KGaoXiaolinMaze.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KGaoXiaolinMaze.swift; sourceTree = "<group>"; };
+		1C2B52941DEA9C2600570955 /* KGaoXiaoluWall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KGaoXiaoluWall.swift; sourceTree = "<group>"; };
 		1C3A15801DE08F38007C5CFE /* UIQuestView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIQuestView.swift; sourceTree = "<group>"; };
+		1C3A15831DE09ABC007C5CFE /* KYuanTianGangYao.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KYuanTianGangYao.swift; sourceTree = "<group>"; };
+		1C3C70C11DE4837000BA4BA0 /* KBeastWithClaw.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KBeastWithClaw.swift; sourceTree = "<group>"; };
 		1C55EE9A1CD3B5020014D471 /* KEquipment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KEquipment.swift; sourceTree = "<group>"; };
 		1C55EE9C1CD3C71B0014D471 /* KWeapon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KWeapon.swift; sourceTree = "<group>"; };
 		1C55EE9E1CD3D2260014D471 /* KArmor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KArmor.swift; sourceTree = "<group>"; };
@@ -207,6 +246,11 @@
 		1C5F3E661CCD0E8B00FFBB70 /* KEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KEntity.swift; sourceTree = "<group>"; };
 		1C5FDFF81D3BBC03003E369F /* RoomInventoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomInventoryView.swift; sourceTree = "<group>"; };
 		1C5FDFFA1D3C886B003E369F /* RoomInventoryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomInventoryButton.swift; sourceTree = "<group>"; };
+		1C6286491DE71705004D65A7 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		1C62865B1DE73A4E004D65A7 /* data.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = data.db; sourceTree = "<group>"; };
+		1C66F7D71DF0417800235B06 /* TheNatureEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheNatureEngine.swift; sourceTree = "<group>"; };
+		1C68B36E1DE336F700504CDD /* KShuangChaLingMonster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KShuangChaLingMonster.swift; sourceTree = "<group>"; };
+		1C68B3701DE3395100504CDD /* KShuangChaLingBoss1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KShuangChaLingBoss1.swift; sourceTree = "<group>"; };
 		1C71C0E91CD99FC70009C97C /* KCui_Death.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KCui_Death.swift; sourceTree = "<group>"; };
 		1C71C0EB1CD9A1020009C97C /* KSSword.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KSSword.swift; sourceTree = "<group>"; };
 		1C71C0EE1CD9A1E90009C97C /* KDeathRoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KDeathRoom.swift; sourceTree = "<group>"; };
@@ -217,6 +261,9 @@
 		1C8134261CF007AD007090F1 /* CircleMenuLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleMenuLoader.swift; sourceTree = "<group>"; };
 		1C8E679C1CE5650200F6F6DB /* WorldMessageBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorldMessageBoardView.swift; sourceTree = "<group>"; };
 		1C8E67F11CE5888B00F6F6DB /* DynamicTextStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicTextStorage.swift; sourceTree = "<group>"; };
+		1C98E7F01DE7DA9F0081CDC5 /* STDungeonSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STDungeonSettings.swift; sourceTree = "<group>"; };
+		1C98E7F21DE8253B0081CDC5 /* City.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
+		1C98E7F41DE825B40081CDC5 /* GaoJiaZhuang.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GaoJiaZhuang.swift; sourceTree = "<group>"; };
 		1CB4AECC1CD5BFF1007002D4 /* KChouPao.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KChouPao.swift; sourceTree = "<group>"; };
 		1CB4AECE1CD5C1E0007002D4 /* KCloth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KCloth.swift; sourceTree = "<group>"; };
 		1CB4AED01CD5C28C007002D4 /* KPinkCloth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KPinkCloth.swift; sourceTree = "<group>"; };
@@ -253,6 +300,7 @@
 		1CCDE45E1D4213E300F85A28 /* UIPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIPlayerView.swift; sourceTree = "<group>"; };
 		1CD073F91DDDEDEC00D938FB /* TheQuestEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheQuestEngine.swift; sourceTree = "<group>"; };
 		1CD073FB1DDDF0F500D938FB /* STQuestData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STQuestData.swift; sourceTree = "<group>"; };
+		1CE077431DE28AF9000E694C /* KMazeShuangChaLing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMazeShuangChaLing.swift; sourceTree = "<group>"; };
 		1CE91FF81CD6E91500419791 /* KLiBai_City.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KLiBai_City.swift; sourceTree = "<group>"; };
 		1CE91FFA1CD6EBF500419791 /* KXiaoXiao_City.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KXiaoXiao_City.swift; sourceTree = "<group>"; };
 		1CE91FFC1CD6F16900419791 /* KOrdinaryPerson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KOrdinaryPerson.swift; sourceTree = "<group>"; };
@@ -310,6 +358,8 @@
 		2809C02F1DB1CE9A0014FB97 /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIViewControllerExtensions.swift; path = EZSwiftExtensions/UIViewControllerExtensions.swift; sourceTree = "<group>"; };
 		2809C0301DB1CE9A0014FB97 /* UIViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIViewExtensions.swift; path = EZSwiftExtensions/UIViewExtensions.swift; sourceTree = "<group>"; };
 		2809C0311DB1CE9A0014FB97 /* UIWindowExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIWindowExtensions.swift; path = EZSwiftExtensions/UIWindowExtensions.swift; sourceTree = "<group>"; };
+		280EC78A1DEC7E0A00087644 /* qujing */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = qujing; sourceTree = "<group>"; };
+		280EC78E1DED41FB00087644 /* JiangZhouZone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JiangZhouZone.swift; sourceTree = "<group>"; };
 		2817A5331DB9106200C9E884 /* UIRoomDescView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIRoomDescView.swift; sourceTree = "<group>"; };
 		2842F0771DCACA4300DB23DF /* KTailor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KTailor.swift; sourceTree = "<group>"; };
 		2842F07C1DCB30C000DB23DF /* KClothBoot1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KClothBoot1.swift; sourceTree = "<group>"; };
@@ -336,6 +386,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C62864A1DE71705004D65A7 /* libsqlite3.0.tbd in Frameworks */,
 				FF326CB16F8CFEABF1D76BA9 /* Pods_Adventure.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -343,6 +394,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C161E4F1DE90805005D4254 /* Gao */ = {
+			isa = PBXGroup;
+			children = (
+				1C161E501DE90824005D4254 /* KGaoNiu.swift */,
+				1C161E541DE90BB0005D4254 /* KGaoCunZhang.swift */,
+				1C161E561DE917F0005D4254 /* KGaoFarmer.swift */,
+			);
+			name = Gao;
+			sourceTree = "<group>";
+		};
+		1C161E581DE92ED0005D4254 /* Gao */ = {
+			isa = PBXGroup;
+			children = (
+				1C98E7F41DE825B40081CDC5 /* GaoJiaZhuang.swift */,
+				1C161E591DE92F16005D4254 /* KGaoGateRoom.swift */,
+				1C161E5B1DE97205005D4254 /* KGaoHouHuaYuanRoom.swift */,
+				1C2B52921DEA878A00570955 /* KGaoXiaolinMaze.swift */,
+			);
+			name = Gao;
+			sourceTree = "<group>";
+		};
+		1C161E5D1DE9851E005D4254 /* GaoJiaZhuang */ = {
+			isa = PBXGroup;
+			children = (
+				1C161E5E1DE9854C005D4254 /* KGaoHouHuaYuanWall.swift */,
+				1C2B52941DEA9C2600570955 /* KGaoXiaoluWall.swift */,
+			);
+			name = GaoJiaZhuang;
+			sourceTree = "<group>";
+		};
 		1C180C1E1CFA92D900131A83 /* Neon */ = {
 			isa = PBXGroup;
 			children = (
@@ -354,6 +435,14 @@
 				1C180C241CFA92F100131A83 /* NeonGroupable.swift */,
 			);
 			name = Neon;
+			sourceTree = "<group>";
+		};
+		1C3A15821DE09A92007C5CFE /* Quest */ = {
+			isa = PBXGroup;
+			children = (
+				1C3A15831DE09ABC007C5CFE /* KYuanTianGangYao.swift */,
+			);
+			name = Quest;
 			sourceTree = "<group>";
 		};
 		1C55EEA81CD486650014D471 /* Items */ = {
@@ -370,6 +459,7 @@
 		1C55EEA91CD4866C0014D471 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
+				1C161E5D1DE9851E005D4254 /* GaoJiaZhuang */,
 				1C55EEAE1CD4869C0014D471 /* KCorpse.swift */,
 			);
 			name = Misc;
@@ -414,6 +504,10 @@
 		1C55EEAD1CD486870014D471 /* NPCs */ = {
 			isa = PBXGroup;
 			children = (
+				280EC78D1DED41E500087644 /* JiangZhou */,
+				1C161E4F1DE90805005D4254 /* Gao */,
+				1C68B36D1DE336CE00504CDD /* D_ShuangChaLing */,
+				1C3A15821DE09A92007C5CFE /* Quest */,
 				1C71C0E81CD99FB90009C97C /* Death */,
 				1CB4AEDE1CD5C9B7007002D4 /* City */,
 				1CE91FFC1CD6F16900419791 /* KOrdinaryPerson.swift */,
@@ -448,13 +542,16 @@
 				1C55EEA01CD445000014D471 /* KHuman.swift */,
 				1C55EEA61CD47FE70014D471 /* KSalesMan.swift */,
 				28DCFFD71DCA559D0036B333 /* KProSkill.swift */,
+				1C3C70C11DE4837000BA4BA0 /* KBeastWithClaw.swift */,
+				1C161E521DE909CE005D4254 /* KBeastWithPalm.swift */,
 			);
 			name = Inherits;
 			sourceTree = "<group>";
 		};
-		1C5F3E591CCC40D400FFBB70 /* Structs */ = {
+		1C5F3E591CCC40D400FFBB70 /* SimpleStructs */ = {
 			isa = PBXGroup;
 			children = (
+				1C5ECDF71CD0DFA6005839EF /* KRoomDescribe.swift */,
 				1C5ECDE21CCEF830005839EF /* KCombatInfo.swift */,
 				1C5F3E641CCD0C2100FFBB70 /* KColors.swift */,
 				1C5ECDDE1CCED4D5005839EF /* DamageEnums.swift */,
@@ -462,8 +559,9 @@
 				1C5ECDEE1CD01F58005839EF /* LinkedList.swift */,
 				1CCDA26B1CD2DE83001BE986 /* MoneyExtension.swift */,
 				1CD073FB1DDDF0F500D938FB /* STQuestData.swift */,
+				1C98E7F01DE7DA9F0081CDC5 /* STDungeonSettings.swift */,
 			);
-			name = Structs;
+			name = SimpleStructs;
 			sourceTree = "<group>";
 		};
 		1C5F3E631CCC809100FFBB70 /* GameObjects */ = {
@@ -476,17 +574,27 @@
 				1C55EEA81CD486650014D471 /* Items */,
 				1C1EE8ED1CD1BC400034B1A4 /* KUser.swift */,
 				1C5ECDF21CD0BE28005839EF /* Conditions */,
-				1C5F3E591CCC40D400FFBB70 /* Structs */,
+				1C5F3E591CCC40D400FFBB70 /* SimpleStructs */,
 				1C5F3E521CCC3AA100FFBB70 /* Inherits */,
 				1C5F3E5F1CCC7A0700FFBB70 /* Protocols.swift */,
-				1C5ECDF71CD0DFA6005839EF /* KRoomDescribe.swift */,
 				1C5F3E531CCC3AC600FFBB70 /* TheWorld.swift */,
 				1C5ECDF01CD0BA94005839EF /* GlobalFunctions.swift */,
 				1C5ECDF51CD0DF45005839EF /* TheRoomEngine.swift */,
 				1C55EEA41CD460900014D471 /* TheCombatEngine.swift */,
 				1CD073F91DDDEDEC00D938FB /* TheQuestEngine.swift */,
+				1C0C5B101DE1D5B1003AA25C /* TheDungeonEngine.swift */,
+				1C66F7D71DF0417800235B06 /* TheNatureEngine.swift */,
 			);
 			name = GameObjects;
+			sourceTree = "<group>";
+		};
+		1C68B36D1DE336CE00504CDD /* D_ShuangChaLing */ = {
+			isa = PBXGroup;
+			children = (
+				1C68B36E1DE336F700504CDD /* KShuangChaLingMonster.swift */,
+				1C68B3701DE3395100504CDD /* KShuangChaLingBoss1.swift */,
+			);
+			name = D_ShuangChaLing;
 			sourceTree = "<group>";
 		};
 		1C71C0E81CD99FB90009C97C /* Death */ = {
@@ -500,8 +608,12 @@
 		1C71C0ED1CD9A1CF0009C97C /* Rooms */ = {
 			isa = PBXGroup;
 			children = (
+				280EC78C1DED41D400087644 /* JiangZhou */,
+				1C161E581DE92ED0005D4254 /* Gao */,
 				1C71C0EE1CD9A1E90009C97C /* KDeathRoom.swift */,
 				2887F6F61DD019EF00101297 /* KVoidRoom.swift */,
+				1CE077431DE28AF9000E694C /* KMazeShuangChaLing.swift */,
+				1C98E7F21DE8253B0081CDC5 /* City.swift */,
 			);
 			name = Rooms;
 			sourceTree = "<group>";
@@ -678,6 +790,8 @@
 				2842F07E1DCB363F00DB23DF /* UIProfessionView.swift */,
 				28F4C4081DD9962000DC9B50 /* UIStatusBar.swift */,
 				1C3A15801DE08F38007C5CFE /* UIQuestView.swift */,
+				1C0C5B121DE1FEBD003AA25C /* UIMapView.swift */,
+				1C0C5B141DE21426003AA25C /* PopupContainer.swift */,
 			);
 			name = GameUI;
 			sourceTree = "<group>";
@@ -685,6 +799,8 @@
 		1CFC79A61CCB3CE80032B71D = {
 			isa = PBXGroup;
 			children = (
+				280EC78A1DEC7E0A00087644 /* qujing */,
+				1C62865B1DE73A4E004D65A7 /* data.db */,
 				1C5ECDE01CCEF631005839EF /* 日志.txt */,
 				1CFC79B11CCB3CE80032B71D /* Adventure */,
 				1CFC79B01CCB3CE80032B71D /* Products */,
@@ -722,6 +838,21 @@
 				1C8133B61CEF430C007090F1 /* ColorParser.swift */,
 			);
 			path = Adventure;
+			sourceTree = "<group>";
+		};
+		280EC78C1DED41D400087644 /* JiangZhou */ = {
+			isa = PBXGroup;
+			children = (
+				280EC78E1DED41FB00087644 /* JiangZhouZone.swift */,
+			);
+			name = JiangZhou;
+			sourceTree = "<group>";
+		};
+		280EC78D1DED41E500087644 /* JiangZhou */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = JiangZhou;
 			sourceTree = "<group>";
 		};
 		2842F0761DCACA2500DB23DF /* ProSkills */ = {
@@ -770,6 +901,7 @@
 		6D1E4E1C185CB2FCBCADDD07 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1C6286491DE71705004D65A7 /* libsqlite3.0.tbd */,
 				010674ED0B4E84FA593F3D88 /* Pods_Adventure.framework */,
 			);
 			name = Frameworks;
@@ -851,6 +983,8 @@
 				1C5ECDE11CCEF631005839EF /* 日志.txt in Resources */,
 				1CFC79BD1CCB3CE80032B71D /* LaunchScreen.storyboard in Resources */,
 				1CFC79BA1CCB3CE80032B71D /* Assets.xcassets in Resources */,
+				280EC78B1DEC7E0A00087644 /* qujing in Resources */,
+				1C62865C1DE73A4E004D65A7 /* data.db in Resources */,
 				1CCDE4521D3E72D200F85A28 /* Info.plist in Resources */,
 				1CFC79B81CCB3CE80032B71D /* Main.storyboard in Resources */,
 			);
@@ -886,7 +1020,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		971FE2750F40445D9263E206 /* [CP] Embed Pods Frameworks */ = {
@@ -931,26 +1065,32 @@
 				1CB4AEEE1CD5D64B007002D4 /* KSPutiZhi.swift in Sources */,
 				1C180C251CFA92F100131A83 /* Neon.swift in Sources */,
 				1C5ECDFA1CD0F49C005839EF /* KRoom.swift in Sources */,
+				1C0C5B111DE1D5B1003AA25C /* TheDungeonEngine.swift in Sources */,
 				2887F6F51DCC7EAD00101297 /* KMNormal.swift in Sources */,
 				2809C05F1DB1CE9A0014FB97 /* UIViewExtensions.swift in Sources */,
 				2809C0321DB1CE9A0014FB97 /* ArrayExtensions.swift in Sources */,
 				1CFC79B51CCB3CE80032B71D /* ViewController.swift in Sources */,
 				2809C05D1DB1CE9A0014FB97 /* UIUserInterfaceSizeClassExtensions.swift in Sources */,
+				1C3C70C21DE4837000BA4BA0 /* KBeastWithClaw.swift in Sources */,
 				28DCFFD81DCA559D0036B333 /* KProSkill.swift in Sources */,
 				1CB4AED31CD5C45C007002D4 /* KPanguanBi.swift in Sources */,
 				1C8133B71CEF430C007090F1 /* ColorParser.swift in Sources */,
 				1CCDE4501D3E72D200F85A28 /* DPDKeyboardListener.swift in Sources */,
 				2809C03D1DB1CE9A0014FB97 /* CharacterExtensions.swift in Sources */,
+				1C68B3711DE3395100504CDD /* KShuangChaLingBoss1.swift in Sources */,
 				1CB4AEF01CD5D83A007002D4 /* KSQianJunBang.swift in Sources */,
+				1C161E5A1DE92F16005D4254 /* KGaoGateRoom.swift in Sources */,
 				2809C0361DB1CE9A0014FB97 /* BlockPinch.swift in Sources */,
 				2809C05E1DB1CE9A0014FB97 /* UIViewControllerExtensions.swift in Sources */,
 				1CB4AED11CD5C28C007002D4 /* KPinkCloth.swift in Sources */,
 				2809C0501DB1CE9A0014FB97 /* UIButtonExtensions.swift in Sources */,
+				1C161E571DE917F0005D4254 /* KGaoFarmer.swift in Sources */,
 				1C180C261CFA92F100131A83 /* NeonAlignable.swift in Sources */,
 				2809C0551DB1CE9A0014FB97 /* UIImageExtensions.swift in Sources */,
 				1C180C291CFA92F100131A83 /* NeonGroupable.swift in Sources */,
 				1C5ECDE31CCEF830005839EF /* KCombatInfo.swift in Sources */,
 				2809C05C1DB1CE9A0014FB97 /* UITextViewExtensions.swift in Sources */,
+				1C0C5B131DE1FEBD003AA25C /* UIMapView.swift in Sources */,
 				1C5ECDFC1CD0F515005839EF /* KNPC.swift in Sources */,
 				1CB4AEDD1CD5C8CC007002D4 /* KSteelSword.swift in Sources */,
 				2809C04A1DB1CE9A0014FB97 /* NSURLExtensions.swift in Sources */,
@@ -960,11 +1100,16 @@
 				1C5FDFF91D3BBC03003E369F /* RoomInventoryView.swift in Sources */,
 				1CB4AEE61CD5CE5D007002D4 /* KSUnarmed.swift in Sources */,
 				1C74B63D1D45D2AF00575B5E /* SkillView.swift in Sources */,
+				280EC78F1DED41FB00087644 /* JiangZhouZone.swift in Sources */,
 				2809C0401DB1CE9A0014FB97 /* ErrorTypeExtensions.swift in Sources */,
 				1C55EEA11CD445000014D471 /* KHuman.swift in Sources */,
+				1CE077441DE28AF9000E694C /* KMazeShuangChaLing.swift in Sources */,
+				1C161E5F1DE9854C005D4254 /* KGaoHouHuaYuanWall.swift in Sources */,
+				1C2B52931DEA878A00570955 /* KGaoXiaolinMaze.swift in Sources */,
 				1C8E67F21CE5888B00F6F6DB /* DynamicTextStorage.swift in Sources */,
 				2842F07D1DCB30C000DB23DF /* KClothBoot1.swift in Sources */,
 				1CB776511D4AFBDB00C0317B /* UIGearsView.swift in Sources */,
+				1C98E7F51DE825B40081CDC5 /* GaoJiaZhuang.swift in Sources */,
 				288C9EF11DD320650011175A /* KLeatherWorking.swift in Sources */,
 				2809C04E1DB1CE9A0014FB97 /* UIApplicationExtensions.swift in Sources */,
 				1CFC79B31CCB3CE80032B71D /* AppDelegate.swift in Sources */,
@@ -977,6 +1122,7 @@
 				2809C0411DB1CE9A0014FB97 /* EZSwiftFunctions.swift in Sources */,
 				1C71C0EF1CD9A1E90009C97C /* KDeathRoom.swift in Sources */,
 				2809C04B1DB1CE9A0014FB97 /* NSUserDefaultsExtension.swift in Sources */,
+				1C161E511DE90824005D4254 /* KGaoNiu.swift in Sources */,
 				1C5ECDE71CCF0D4F005839EF /* MiscEnums.swift in Sources */,
 				2809C0521DB1CE9A0014FB97 /* UIColorExtensions.swift in Sources */,
 				28EC60811DBDDC6B00424DEB /* UICDButton.swift in Sources */,
@@ -985,6 +1131,8 @@
 				2809C0441DB1CE9A0014FB97 /* NSAttributedStringExtensions.swift in Sources */,
 				1CB4AED51CD5C47A007002D4 /* KSword.swift in Sources */,
 				2809C04F1DB1CE9A0014FB97 /* UIBarButtonItemExtensions.swift in Sources */,
+				1C161E5C1DE97205005D4254 /* KGaoHouHuaYuanRoom.swift in Sources */,
+				1C0C5B151DE21426003AA25C /* PopupContainer.swift in Sources */,
 				1CE91FF91CD6E91500419791 /* KLiBai_City.swift in Sources */,
 				2809C04C1DB1CE9A0014FB97 /* StringExtensions.swift in Sources */,
 				2809C0581DB1CE9A0014FB97 /* UISliderExtensions.swift in Sources */,
@@ -1000,11 +1148,15 @@
 				2809C0381DB1CE9A0014FB97 /* BlockTap.swift in Sources */,
 				2842F0781DCACA4300DB23DF /* KTailor.swift in Sources */,
 				1CB4AEE41CD5CB8F007002D4 /* KSDodge.swift in Sources */,
+				1C161E531DE909CE005D4254 /* KBeastWithPalm.swift in Sources */,
 				2809C05B1DB1CE9A0014FB97 /* UITextFieldExtensions.swift in Sources */,
 				1C55EEA51CD460900014D471 /* TheCombatEngine.swift in Sources */,
+				1C68B36F1DE336F700504CDD /* KShuangChaLingMonster.swift in Sources */,
 				1CCDA26C1CD2DE83001BE986 /* MoneyExtension.swift in Sources */,
+				1C98E7F31DE8253B0081CDC5 /* City.swift in Sources */,
 				2809C03B1DB1CE9A0014FB97 /* CGFloatExtensions.swift in Sources */,
 				1C5FDFFB1D3C886B003E369F /* RoomInventoryButton.swift in Sources */,
+				1C98E7F11DE7DA9F0081CDC5 /* STDungeonSettings.swift in Sources */,
 				2809C0451DB1CE9A0014FB97 /* NSBundleExtensions.swift in Sources */,
 				1CCDE44F1D3E72D200F85A28 /* DPDConstants.swift in Sources */,
 				2809C03E1DB1CE9A0014FB97 /* DictionaryExtensions.swift in Sources */,
@@ -1014,6 +1166,7 @@
 				1CB7764F1D4AFB6400C0317B /* UIInventoryView.swift in Sources */,
 				2809C0371DB1CE9A0014FB97 /* BlockSwipe.swift in Sources */,
 				2809C0491DB1CE9A0014FB97 /* NSTimerExtensions.swift in Sources */,
+				1C3A15841DE09ABC007C5CFE /* KYuanTianGangYao.swift in Sources */,
 				1C5ECDF61CD0DF45005839EF /* TheRoomEngine.swift in Sources */,
 				284B01B21DBA592400395B6D /* UICombatListView.swift in Sources */,
 				1C5ECDFE1CD0F540005839EF /* KItem.swift in Sources */,
@@ -1036,6 +1189,7 @@
 				2809C0331DB1CE9A0014FB97 /* BlockButton.swift in Sources */,
 				2809C0591DB1CE9A0014FB97 /* UIStoryboardExtensions.swift in Sources */,
 				2809C0511DB1CE9A0014FB97 /* UIColoredView.swift in Sources */,
+				1C66F7D81DF0417800235B06 /* TheNatureEngine.swift in Sources */,
 				1C55EE9F1CD3D2260014D471 /* KArmor.swift in Sources */,
 				1CB4AEE21CD5CB17007002D4 /* KJiaoTou_City.swift in Sources */,
 				1CB4AEEA1CD5D0E4007002D4 /* KSMoonDance.swift in Sources */,
@@ -1052,12 +1206,14 @@
 				2817A5341DB9106200C9E884 /* UIRoomDescView.swift in Sources */,
 				1CB4AECF1CD5C1E0007002D4 /* KCloth.swift in Sources */,
 				1CD073FA1DDDEDEC00D938FB /* TheQuestEngine.swift in Sources */,
+				1C2B52951DEA9C2600570955 /* KGaoXiaoluWall.swift in Sources */,
 				284F423F1DDEE43600D43FB6 /* KYuanTianGang_City.swift in Sources */,
 				28F4C4091DD9962000DC9B50 /* UIStatusBar.swift in Sources */,
 				1C5ECDDF1CCED4D5005839EF /* DamageEnums.swift in Sources */,
 				1C5ECDEF1CD01F58005839EF /* LinkedList.swift in Sources */,
 				1C5F3E541CCC3AC600FFBB70 /* TheWorld.swift in Sources */,
 				1C5F3E581CCC402300FFBB70 /* KObject.swift in Sources */,
+				1C161E551DE90BB0005D4254 /* KGaoCunZhang.swift in Sources */,
 				1CCDE45F1D4213E300F85A28 /* UIPlayerView.swift in Sources */,
 				1C55EEAF1CD4869C0014D471 /* KCorpse.swift in Sources */,
 			);
@@ -1177,6 +1333,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 494C8D8B8A2537E3EFC19ED0 /* Pods-Adventure.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_OBJC_UNUSED_IVARS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
@@ -1185,6 +1342,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Eric.Yuan.Adventure;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -1193,6 +1351,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DD8FB848274893DE4ED9D2C1 /* Pods-Adventure.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_OBJC_UNUSED_IVARS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
@@ -1201,6 +1360,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Eric.Yuan.Adventure;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
